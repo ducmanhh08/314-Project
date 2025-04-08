@@ -1,32 +1,32 @@
-function loadContactList(contacts) {
-  const contactListDiv = document.getElementById("contact-list");
-  contactListDiv.innerHTML = `
-      <h2>Attendee</h2>
+function loadUserList(users) {
+  const userListDiv = document.getElementById("contact-list");
+  userListDiv.innerHTML = `
+      <h2>Users</h2>
       <table>
           <thead>
               <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>Name</th>
                   <th>Email</th>
+                  <th>Role</th>
                   <th>Actions</th>
               </tr>
           </thead>
-          <tbody id="contact-table-body"></tbody>
+          <tbody id="user-table-body"></tbody>
       </table>
   `;
 
-  const tableBody = document.getElementById("contact-table-body");
+  const tableBody = document.getElementById("user-table-body");
 
-  contacts.forEach(contact => {
+  users.forEach(user => {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-          <td>${contact.firstName}</td>
-          <td>${contact.lastName}</td>
-          <td>${contact.email}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>${user.role}</td>
           <td>
-              <button onclick='editContact(${JSON.stringify(contact)})'>Update</button>
-              <button onclick='deleteContact(${contact.id})'>Delete</button>
+              <button onclick='editUser(${JSON.stringify(user)})'>Update</button>
+              <button onclick='deleteUser(${user.id})'>Delete</button>
           </td>
       `;
 
@@ -34,25 +34,25 @@ function loadContactList(contacts) {
   });
 }
 
-function fetchContacts() {
-  fetch("http://127.0.0.1:5000/contacts")
+function fetchUsers() {
+  fetch("http://127.0.0.1:5000/users")
     .then(response => response.json())
     .then(data => {
-      loadContactList(data.contacts);
+      loadUserList(data.users); 
     })
-    .catch(error => console.error("Error fetching contacts:", error));
+    .catch(error => console.error("Error fetching users:", error));
 }
 
-function deleteContact(id) {
-  fetch(`http://127.0.0.1:5000/delete_contact/${id}`, { method: "DELETE" })
+function deleteUser(id) {
+  fetch(`http://127.0.0.1:5000/delete_user/${id}`, { method: "DELETE" })
     .then(response => {
       if (response.status === 200) {
-        fetchContacts();
+        fetchUsers(); 
       } else {
-        console.error("Failed to delete contact");
+        console.error("Failed to delete user");
       }
     })
     .catch(error => alert("Error: " + error));
 }
 
-document.addEventListener("DOMContentLoaded", fetchContacts);
+document.addEventListener("DOMContentLoaded", fetchUsers);
