@@ -1,41 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const contactList = document.getElementById("contact-list");
+  const userList = document.getElementById("contact-list");
   const modal = document.getElementById("modal");
   const closeModalBtn = document.getElementById("close-modal");
   const createContactBtn = document.getElementById("create-contact-btn");
-  const contactFormContainer = document.getElementById("contact-form-container");
+  const userFormContainer = document.getElementById("contact-form-container");
 
-  function fetchContacts() {
-    fetch("http://127.0.0.1:5000/contacts")
+  function fetchUsers() {
+    fetch("http://127.0.0.1:5000/users")
       .then(response => response.json())
       .then(data => {
-        contactList.innerHTML = "";
-        data.contacts.forEach(contact => {
-          const contactDiv = document.createElement("div");
-          contactDiv.innerHTML = `<p>${contact.firstName} ${contact.lastName} - ${contact.email}</p>
-                      <button onclick='editContact(${JSON.stringify(contact)})'>Edit</button>`;
-          contactList.appendChild(contactDiv);
+        userList.innerHTML = "";
+        data.users.forEach(user => {
+          const userDiv = document.createElement("div");
+          contactDiv.innerHTML = `<p>${user.name} ${user.role} - ${user.email}</p>
+                      <button onclick='editUser(${JSON.stringify(user)})'>Edit</button>`;
+          userList.appendChild(userDiv);
         });
       });
   }
 
-  function openModal(contact = {}) {
-    contactFormContainer.innerHTML = "";
-    loadContactForm(contact);
+  function openModal(user = {}) {
+    userFormContainer.innerHTML = "";
+    loadContactForm(user);
     modal.style.display = "block";
   }
 
   function closeModal() {
     modal.style.display = "none";
-    contactFormContainer.innerHTML = "";
+    userFormContainer.innerHTML = "";
   }
 
-  window.editContact = (contact) => {
-    openModal(contact);
+  window.editUser = (user) => {
+    openModal(user);
   };
 
   closeModalBtn.addEventListener("click", closeModal);
   createContactBtn.addEventListener("click", () => openModal());
 
-  fetchContacts();
+  fetchUsers();
 });
