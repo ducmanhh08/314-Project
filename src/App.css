@@ -8,7 +8,7 @@
   /* Reset default styles */
   * {
     margin: 0;
-    padding: 0;
+    padding: 0 40px;
     box-sizing: border-box;
 }
 
