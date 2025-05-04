@@ -1,16 +1,16 @@
 import React from 'react';
-import './App.css';
-import Navbar from './components/Navbar/Navbar.jsx';
-import EventSlider from './components/EventSlider/EventSlider.jsx';
-import PopularEvents from './components/PopularEvents/PopularEvents.jsx';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+
+
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <EventSlider />
-      <PopularEvents />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
 
