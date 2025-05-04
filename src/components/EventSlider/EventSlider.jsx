@@ -24,7 +24,7 @@ const EventSlider = () => {
             <div className="events-container">
                 {events.slice(currentIndex, currentIndex + 3).map((event) => (
                     <div key={event.id} className="event-card">
-                        <img src={`images/${event.image}`} alt={event.title} />
+                        <img src={`/images/events/${event.image}`} alt={event.title} />
                     </div>
                 ))}
             </div>
