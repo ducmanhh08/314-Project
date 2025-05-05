@@ -20,3 +20,4 @@ instance/
 Lib/
 Include/
 Scripts/
+node_modules
