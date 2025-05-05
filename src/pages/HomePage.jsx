@@ -1,18 +1,16 @@
 import React from 'react';
-import Navbar from '../components/Navbar/NavbarUser'; // or NavbarUser if preferred
-import EventSlider from '../components/EventSlider/EventSlider';
-import PopularEvents from '../components/PopularEvents/PopularEvents';
+import NavbarUser from '../components/Navbar/NavbarUser';
 
 const HomePage = () => {
     return (
-        <>
-            <Navbar />
-            <div className="container">
-                <EventSlider />
-                <PopularEvents />
+        <div className="homepage">
+            <NavbarUser />
+            <div style={{padding: '2rem'}}>
+                <h1>Welcome to Ticket Please!</h1>
+                    <p>This is your home after login</p>
             </div>
-        </>
-    )
+        </div>
+    );
 };
 
 export default HomePage;
