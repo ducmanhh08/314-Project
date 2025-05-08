@@ -75,6 +75,8 @@ def delete_user(user_id):
 
     return jsonify({"message": "User deleted!"}), 200
 
+# @app.route("event", methods = "GET")
+
 
 if __name__ == "__main__":
     with app.app_context():
