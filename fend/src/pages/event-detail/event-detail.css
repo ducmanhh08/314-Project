@@ -1,0 +1,96 @@
+.event-detail-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.poster-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.event-poster {
+    max-width: 100%;
+    height: auto;
+}
+
+.event-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.event-info th,
+.event-info td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.find-ticket-btn {
+    background-color: #0771D5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.event-details {
+    margin: 20px 0;
+    line-height: 1.8;
+}
+
+.event-details p {
+    margin-bottom: 16px;
+    white-space: pre-line;
+}
+
+.ticket-section {
+    margin: 20px 0;
+}
+
+.pricing-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.pricing-list {
+    flex: 1;
+}
+
+.category-price {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.tier{
+    font-weight: 500;
+}
+.price{
+    font-weight: 600;
+    white-space: nonwrap;
+}
+.seat-plan {
+    flex: 1;
+}
+
+.seat-plan-image {
+    max-width: 100%;
+    height: auto;
+}
+
+  /* Responsive design */
+@media (max-width: 768px) {
+    .pricing-container {
+    flex-direction: column;
+    }
+    
+    .seat-plan {
+    margin-top: 20px;
+    }
+}
