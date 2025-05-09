@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CreateEvents from './pages/CreateEvents'; 
+import CreateEvents from './pages/CreateEvents/CreateEvents'; 
 import HomePage from './pages/HomePage';
-import EventDetail from './pages/CreateEvents/event-detail';
+import EventDetail from './pages/event-detail/event-detail';
 
 
 

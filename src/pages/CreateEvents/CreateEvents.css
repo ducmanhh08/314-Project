@@ -154,5 +154,11 @@ textarea {
     font-size: 14px;
     color: black;
 }
+.online-link-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
 
 
