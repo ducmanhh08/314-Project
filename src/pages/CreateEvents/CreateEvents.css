@@ -160,5 +160,10 @@ textarea {
     gap: 8px;
     margin-top: 16px;
 }
+.time-select-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
 
 

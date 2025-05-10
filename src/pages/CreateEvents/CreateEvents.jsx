@@ -28,8 +28,16 @@ const CreateEvents = () => {
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
 
+    const [startHour, setStartHour] = useState('');
+    const [startMinute, setStartMinute] = useState('');
+    const [endHour, setEndHour] = useState('');
+    const [endMinute, setEndMinute] = useState('');
+
     const states = selectedCountry ? Object.keys(locationOptions[selectedCountry]) : [];
     const cities = selectedState ? locationOptions[selectedCountry]?.[selectedState] || [] : [];
+
+    const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
+    const minutes = Array.from({ length: 12 }, (_, i) => (i * 5).toString().padStart(2, '0'));
 
     const handleCountryChange = (e) => {
         const country = e.target.value;
@@ -65,11 +73,11 @@ const CreateEvents = () => {
                     <input type="text" placeholder="Be clear and descriptive with a title that tells people what your event is about." />
                     <label><strong>Summary</strong></label>
                     <textarea
-                        placeholder="Give attendees a quick peek at what your event is all about—this will show at the top of your event page. (150 character max)"
-                        maxLength={150}
+                        placeholder="Give attendees a quick peek at what your event is all about—this will show at the top of your event page. (300 character max)"
+                        maxLength={300}
                         rows={3}
                     ></textarea>
-                    <div className="char-count">0/150</div>
+                    <div className="char-count">0/300</div>
                 </div>
 
                 {/* DATE AND TIME */}
@@ -82,12 +90,33 @@ const CreateEvents = () => {
                         </div>
                     <div>
                         <label><strong>Start Time</strong></label>
-                        <input type="time" />
+                        <div className='time-select-row'>
+                            <select value={startHour} onChange={(e) => setStartHour(e.target.value)}>
+                                    <option value="">HH</option>
+                                    {hours.map(h => <option key={h} value={h}>{h}</option>)}
+                            </select>
+                            :
+                            <select value={startMinute} onChange={(e) => setStartMinute(e.target.value)}>
+                                    <option value="">MM</option>
+                                    {minutes.map(m => <option key={m} value={m}>{m}</option>)}
+                            </select>
+                        </div>
                     </div>
+
                     <div>
-                        <label><strong>End Time</strong></label>
-                        <input type="time" />
-                    </div>
+                            <label><strong>End Time</strong></label>
+                            <div className="time-select-row">
+                                <select value={endHour} onChange={(e) => setEndHour(e.target.value)}>
+                                    <option value="">HH</option>
+                                    {hours.map(h => <option key={h} value={h}>{h}</option>)}
+                                </select>
+                                :
+                                <select value={endMinute} onChange={(e) => setEndMinute(e.target.value)}>
+                                    <option value="">MM</option>
+                                    {minutes.map(m => <option key={m} value={m}>{m}</option>)}
+                                </select>
+                            </div>
+                        </div>
                 </div>
 
                 {/* Toggle */}
