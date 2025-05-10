@@ -8,6 +8,7 @@ __pycache__/
 
 # Ignore system files
 .DS_Store
+.cache/
 
 # Ignore environment/config folders (if applicable)
 instance/
