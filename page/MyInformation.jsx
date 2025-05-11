@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarUser from './NavbarUser.jsx';
+import NavbarUser from './page/NavbarUser.jsx';
 import './MyInformation.css';
 
 const MyTickets = () => {
