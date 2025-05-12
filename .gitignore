@@ -1,1 +1,32 @@
-node_modules
+# Ignore virtual environments
+venv/
+ENV/
+env/
+.venv/
+*.pyc
+__pycache__/
+
+# Ignore system files
+.DS_Store
+
+# Ignore environment/config folders (if applicable)
+instance/
+
+# Ignore IDE-specific folders
+.vscode/
+.idea/
+
+# Ignore package folders (if accidentally added)
+Lib/
+Include/
+Scripts/
+node_modules/
+
+# IDE settings
+.idea/
+.vscode/
+
+# Build output
+dist/
+fend/dist/
+build/
