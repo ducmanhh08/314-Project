@@ -1,4 +1,4 @@
-import NavbarUser from '../components/Navbar/NavbarUser';
+import NavbarUser from '../components/Navbar/Navbar';
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
 
