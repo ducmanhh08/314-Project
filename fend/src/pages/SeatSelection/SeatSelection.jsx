@@ -78,13 +78,13 @@ const SeatSelection = () => {
                             <h3>Ticket Pricing</h3>
                             {ticketTypes.map(({ label, price, key }) => (
                                 <div key={key} className="ticket-row">
-                                <span>{label}</span>
-                                <span>${price.toLocaleString()}</span>
-                                <button onClick={() => handleQuantityChange(key, -1)}>-</button>
-                                <span>{ticketQuantities[key]}</span>
-                                <button onClick={() => handleQuantityChange(key, 1)}>+</button>
-                            </div>
-                        ))}
+                                    <span>{label}</span>
+                                    <span>${price.toLocaleString()}</span>
+                                    <button onClick={() => handleQuantityChange(key, -1)}>-</button>
+                                    <span>{ticketQuantities[key]}</span>
+                                    <button onClick={() => handleQuantityChange(key, 1)}>+</button> 
+                                </div>
+                            ))}
                         </div>
 
                         <div className="delivery-section">
