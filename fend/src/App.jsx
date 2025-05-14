@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import EventDetail from './pages/event-detail/event-detail';
 import SeatSelection from './pages/SeatSelection/SeatSelection';
 import Confirmation from './pages/Confirmation/Confirmation';
+import Payment from './pages/Payment/Payment';
 
 
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/event/:id" element={<EventDetail />} />
         <Route path="/seat-selection" element={<SeatSelection />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/payment" element={<Payment />} />
     </Routes>
   );
 }

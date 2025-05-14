@@ -37,56 +37,62 @@ const Confirmation = () => {
 
     return (
         <div className="confirmation-container">
-        <NavbarUser />
+            <NavbarUser />
 
-        <div className="progress-bar">
-            <div className="step completed">Seat Selection</div>
-            <div className="step active">Confirmation</div>
-            <div className="step">Payment</div>
-            <div className="step">Finish</div>
-        </div>
+            <div className="progress-bar">
+                <div className="step completed">Seat Selection</div>
+                <div className="step active">Confirmation</div>
+                <div className="step">Payment</div>
+                <div className="step">Finish</div>
+            </div>
 
-        <h2 className="section-title">Order Summary</h2>
+            <h2 className="section-title">Order Summary</h2>
 
-        <img src="/images/adele.jpg" alt="Event Poster" className="event-poster" />
+            <div className="summary-wrapper">
+                <div className="summary-left">
+                    <img src="/images/adele.jpg" alt="Event Poster" className="event-image" />
+                    <h3 className="event-title">Weekend with ADELE</h3>
+                    <p className="event-date">26 March 2025 (Sat), 18:00</p>
+                </div>
 
-        <div className="summary-box">
-            <h3>Weekend with ADELE</h3>
-            <p>26 March 2025 (Sat), 18:00</p>
-            <table>
-            <thead>
-                <tr>
-                <th>TYPE</th>
-                <th>QTY</th>
-                <th>PRICE</th>
-                </tr>
-            </thead>
-            <tbody>
-                {selectedTickets.map(([key, qty]) => (
-                <tr key={key}>
-                    <td>{ticketTypes[key]}</td>
-                    <td>{qty}</td>
-                    <td>${(prices[key] * qty).toLocaleString()}</td>
-                </tr>
-                ))}
-                {deliveryMethod && (
-                <tr>
-                    <td colSpan="2">Delivery: {deliveryMethod}</td>
-                    <td>${deliveryCost.toFixed(2)}</td>
-                </tr>
-                )}
-                <tr className="total-row">
-                <td colSpan="2"><strong>Total</strong></td>
-                <td><strong>${total.toLocaleString()}</strong></td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
+                <div className="summary-right">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>TYPE</th>
+                                <th>QTY</th>
+                                <th>PRICE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {selectedTickets.map(([key, qty]) => (
+                                <tr key={key}>
+                                    <td>{ticketTypes[key]}</td>
+                                    <td>{qty}</td>
+                                    <td>${(prices[key] * qty).toLocaleString()}</td>
+                                </tr>
+                            ))}
+                            {deliveryMethod && (
+                                <tr>
+                                    <td colSpan="2">Delivery: {deliveryMethod}</td>
+                                    <td>${deliveryCost.toFixed(2)}</td>
+                                </tr>
+                            )}
+                            <tr className="total-row">
+                                <td colSpan="2"><strong>Total</strong></td>
+                                <td><strong>${total.toLocaleString()}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <div className="button-group">
-            <button onClick={() => navigate(-1)}>Back</button>
-            <button onClick={() => navigate('/payment')}>Next</button>
-        </div>
+            <div className="button-group">
+                <button onClick={() => navigate(-1)}>Back</button>
+                <button onClick={() => navigate('/payment', {
+                state: { ticketQuantities, deliveryMethod, subTotal, deliveryCost, total }
+                })}>Next</button>
+            </div>
         </div>
     );
 };
