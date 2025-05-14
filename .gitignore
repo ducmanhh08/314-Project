@@ -20,4 +20,9 @@ instance/
 Lib/
 Include/
 Scripts/
-node_modules
+node_modules/
+
+# Build output
+dist/
+fend/dist/
+build/
