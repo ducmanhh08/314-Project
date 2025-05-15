@@ -1,0 +1,60 @@
+.finish-page {
+    background-color: #fcf8f5;
+    min-height: 100vh;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.finish-box {
+    background: white;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.finish-icon {
+    width: 120px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #222;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #555;
+    font-size: 16px;
+}
+.success-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.success-check {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.explore-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #74c0fc;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.explore-btn:hover {
+    background-color: #4dabf7;
+}

@@ -6,6 +6,7 @@ import EventDetail from './pages/event-detail/event-detail';
 import SeatSelection from './pages/SeatSelection/SeatSelection';
 import Confirmation from './pages/Confirmation/Confirmation';
 import Payment from './pages/Payment/Payment';
+import Finish from './pages/Finish/Finish';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/seat-selection" element={<SeatSelection />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/finish" element={<Finish />} />
     </Routes>
   );
 }

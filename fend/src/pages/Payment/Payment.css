@@ -7,7 +7,7 @@
 .progress-bar {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 40px;
     margin-bottom: 20px;
 }
 
@@ -126,12 +126,12 @@
 }
 
 .credit-button {
-    border: 1px solid #999;
-    border-radius: 20px;
-    padding: 10px 20px;
-    background-color: white;
-    font-weight: bold;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 15px;
 }
 
 .payment-logo {
@@ -190,4 +190,49 @@
     border: 2px solid #ccc;
     border-radius: 20px;
     padding: 5px;
+}
+
+.card-form-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.card-form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card-form-container input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.card-form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.payment-options img {
+    width: 120px;      
+    height: auto;
+    margin: 0 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.payment-options img:hover {
+    transform: scale(1.05);
 }
