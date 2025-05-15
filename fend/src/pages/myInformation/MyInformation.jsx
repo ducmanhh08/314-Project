@@ -2,43 +2,69 @@ import React from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import './MyInformation.css';
 
-const MyTickets = () => {
+function AccountInfo() {
   return (
-    <div className="my-tickets-page">
+    <div className="account-info-container">
       <NavbarUser />
-      <div className="content">
-        <a href="#" className="back-link">← Homepage</a>
-        <h2>My Tickets</h2>
+      <header>
+        <button className="back-button">←Homepage</button>
+        <h1>Account Information</h1>
+      </header>
 
-        <div className="ticket-card">
-          <img src="adele.jpg" alt="Weekend with Adele" />
-          <div className="ticket-details">
-            <h3>Weekend with ADELE</h3>
-            <p>26 March 2025 (Sat.) 18.00</p>
-            <p>The Colosseum Theater at Caesars Palace</p>
-            <p>x1 VIP Diamond Package</p>
-            <div className="buttons">
-              <button>View Event Detail</button>
-              <button>Request a Refund</button>
-            </div>
-          </div>
+      <section className="profile-photo-section">
+        <div className="profile-photo-box">
+          <div className="photo-placeholder">Profile Photo</div>
+          <button className="upload-button">Add a photo</button>
         </div>
+      </section>
 
-        <div className="ticket-card">
-          <img src="pottery.jpg" alt="Pottery Workshop" />
-          <div className="ticket-details">
-            <h3>POTTERY WORKSHOP</h3>
-            <p>Sunday, 10 September 2024</p>
-            <p>10 am - 12pm</p>
-            <p>x1 General Admission</p>
-            <div className="buttons">
-              <button>Waiting List</button>
-            </div>
-          </div>
+      <section className="form-section">
+        <h2>Contact Information</h2>
+        <div className="two-column">
+          <input placeholder="First Name" />
+          <input placeholder="Surname" />
+          <input placeholder="Mobile Phone" />
+          <input placeholder="Home Phone" />
+          <input placeholder="Job Title" />
+          <input placeholder="Company / Organization" />
+          <input placeholder="Website" />
+          <input placeholder="Blog" />
         </div>
-      </div>
+      </section>
+
+      {['Home', 'Billing', 'Shipping', 'Work'].map((type) => (
+        <section className="form-section" key={type}>
+          <h2>{type} Address</h2>
+          <div className="two-column">
+            <input placeholder="Address" className='a' />
+            <input placeholder="City" className='a' />
+            <input placeholder="Country"className='a'  />
+            <input placeholder="Postcode" className='a' />
+            <input placeholder="Territory" className='a' />
+          </div>
+        </section>
+      ))}
+
+      <section className="form-section">
+        <h2>Account Email Address</h2>
+        <div className="inline-group">
+          <input placeholder='abc@gmail.com' className='b' />
+          <button className="change-button">Change</button>
+        </div>
+      </section>
+
+      <section className="form-section">
+        <h2>Your password</h2>
+        <div className="last">
+          <input placeholder="Current password" type="password" className='c'/>
+          <input placeholder="New password" type="password" className='c'/>
+          <input placeholder="Re-enter new password" type="password" className='c'/>
+        </div>
+      </section>
+
+      <button className="save-button">Save</button>
     </div>
   );
-};
+}
 
-export default MyTickets;
+export default AccountInfo;
