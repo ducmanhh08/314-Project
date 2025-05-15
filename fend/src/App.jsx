@@ -1,17 +1,19 @@
 import React from 'react';
-import './App.css';
-import Navbar from './components/Navbar/Navbar.jsx';
-import EventSlider from './components/EventSlider/EventSlider.jsx';
-import PopularEvents from './components/PopularEvents/PopularEvents.jsx';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './page/HomePage';
+import SignUp from "./page/signUp/SignUp";
+
+
 
 function App() {
-  return (
-    <div className="app">
-      <Navbar />
-      <EventSlider />
-      <PopularEvents />
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/sign-up" element={<SignUp />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

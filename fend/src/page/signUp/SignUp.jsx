@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
+import './SignUp.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+function SignUp() {
+  // const [count, setCount] = useState(0)
 
   return (
     <div className="signup-container">
@@ -37,4 +37,4 @@ function App() {
 }
 
 
-export default App
+export default SignUp;
