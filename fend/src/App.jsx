@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateEvents from './pages/CreateEvents/CreateEvents'; 
 import HomePage from './pages/HomePage';
 import EventDetail from './pages/event-detail/event-detail';
-
+import CancelEvents from './pages/cancel-events/CancelEvents';
 
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/create-event" element={<CreateEvents/>} />
         <Route path="/event/:id" element={<EventDetail />} />
+        {<Route path="/cancel-events" element={<CancelEvents />} />}
       </Routes>
     </Router>
   );
