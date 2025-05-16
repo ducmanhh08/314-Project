@@ -45,6 +45,7 @@ const CancelEvents = () => {
           <option value="low_tickets">Low ticket sales</option>
           <option value="unforeseen">Unforeseen circumstances</option>
           <option value="venue_issues">Venue issues</option>
+          <option value="other">Other</option>
         </select>
       </div>
 
