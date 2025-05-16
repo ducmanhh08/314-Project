@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Payment.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
+import { useEffect } from 'react';
 
 const ticketTypes = {
     vip: 'Front Orchestra',
@@ -29,6 +30,18 @@ const Payment = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+        const handleSubmit = () => {
+        if (isRefundable) {
+        const refundData = {
+            originalPayment: total,
+            refundAmount: subtotal,
+            purchasedTickets: selectedTickets.map(([key, qty]) => `x${qty} ${ticketTypes[key]}`).join(', ')
+        };
+        localStorage.setItem('refundInfo', JSON.stringify(refundData));
+        }
+        navigate('/finish');
+    };
+    
     const {
         ticketQuantities = {},
         deliveryMethod = '',
@@ -47,6 +60,21 @@ const Payment = () => {
     const refundableFee = isRefundable ? 6.72 : 0;
     const total = subtotal + deliveryCost + refundableFee;
     const isSubmitEnabled = agreeTerms && agreeConditions;
+
+    useEffect(() => {
+        if (isRefundable) {
+            const refundData = {
+                subtotal,
+                selectedTickets,
+                refundAmount: subtotal,
+                eventTitle,
+                eventDate
+            };
+            localStorage.setItem('refundableTicket', JSON.stringify(refundData));
+        } else {
+            localStorage.removeItem('refundableTicket');
+        }
+    }, [isRefundable, subtotal, selectedTickets, eventTitle, eventDate]);
 
     return (
         <div className="payment-container">
@@ -174,10 +202,10 @@ const Payment = () => {
             <div className="button-group">
                 <button onClick={() => navigate(-1)}>Back</button>
                 <button
-                    disabled={!isSubmitEnabled}
-                    onClick={() => navigate('/finish')}
-                    >
-                    Submit Payment
+                disabled={!isSubmitEnabled}
+                onClick={handleSubmit}
+                >
+                Submit Payment
                 </button>
             </div>
         </div>

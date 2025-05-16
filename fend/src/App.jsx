@@ -7,6 +7,8 @@ import SeatSelection from './pages/SeatSelection/SeatSelection';
 import Confirmation from './pages/Confirmation/Confirmation';
 import Payment from './pages/Payment/Payment';
 import Finish from './pages/Finish/Finish';
+import MyTickets from './pages/MyTicket/MyTicket';
+import RefundRequest from './pages/RefundRequest/RefundRequest';
 
 
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/finish" element={<Finish />} />
+        <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/refund-request" element={<RefundRequest />} />
     </Routes>
   );
 }
