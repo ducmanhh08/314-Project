@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import './WaitingList.css';
 //run: npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
@@ -9,6 +9,7 @@ import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 const WaitingList = () => {
     return (
         <div>
+        <div className="page-wrapper"></div>
             <NavbarUser/>
 
             <div className="event-detail-container">
@@ -29,14 +30,16 @@ const WaitingList = () => {
                     <p className="event-date">Sunday, 10 September 2024</p>
                     <h2 className="event-title">POTTERY WORKSHOP</h2>
                     <p className="event-description">
-                        Get your hands dirty and your creativity flowing in our relaxing pottery class — perfect for beginners and curious souls alike. All materials included, and you'll leave with a handmade piece of your own.
+                        Get your hands dirty and your creativity flowing in our relaxing pottery class — perfect for beginners and curious souls alike. 
+                        <br></br>
+                        All materials included, and you'll leave with a handmade piece of your own.
                     </p>
 
                     <div className="date-time-section">
                         <h3>Date and Time</h3>
                         <div className="date-time-details">
                             <FontAwesomeIcon icon={faCalendar} />
-                            <p>Sunday, 10 September 2024 10 am - 12pm</p>
+                            <p>Sunday, 10 September 2024 10am - 12pm</p>
                         </div>
                     </div>
 
