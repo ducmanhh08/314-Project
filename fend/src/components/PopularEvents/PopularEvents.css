@@ -45,7 +45,7 @@
 }
 
 .popular-event-card p {
-    margin-top: auto; /* push it to the bottom */
+    margin-top: auto; 
     font-size: 0.9rem;
     color: #333;
 }
