@@ -17,6 +17,12 @@ import MyTickets from './pages/my-ticket/MyTicket';
 import RefundPolicy from './pages/refund-policy/RefundPolicy';
 import EventPage from './pages/search-option/Research'
 
+import SeatSelection from './pages/seat-selection/SeatSelection';
+import Confirmation from './pages/confirmation/Confirmation';
+import Payment from './pages/payment/Payment';
+import Finish from './pages/finish/Finish';
+import RefundRequest from './pages/refund-request/RefundRequest';
+
 
 
 function App() {
@@ -37,10 +43,21 @@ function App() {
         <Route path="/my-tickets" element={<MyTickets />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/result" element={<EventPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-up" element={<SignUp />} />
+
+
+        {/* Ticket Selection option: */}
+        <Route path="/seat-selection" element={<SeatSelection />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/finish" element={<Finish />} />
+        <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/refund-request" element={<RefundRequest />} />
 
       </Routes>
     </Router>
+
+
   );
 }
 

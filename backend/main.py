@@ -343,14 +343,14 @@ def process_payment():
     # Simulate payment success
     success = True  # Replace with real gateway logic later
     if not success:
-        return jsonify({"message": "Payment failed"}), 402
+        return jsonify({"message": "payment failed"}), 402
 
     # Register user to event
     registration = EventRegistration(user_id=user_id, event_id=event_id)
     db.session.add(registration)
     db.session.commit()
 
-    return jsonify({"message": "Payment successful. User registered for event."}), 200
+    return jsonify({"message": "payment successful. User registered for event."}), 200
 
 @app.route("/send_notification", methods=["POST"])
 def send_notification_route():

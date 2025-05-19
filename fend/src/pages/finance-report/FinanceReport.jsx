@@ -98,9 +98,9 @@ const FinanceReport = () => {
                   "Phone Number",
                   "Registration Date",
                   "Ticket Type",
-                  "Payment Status",
+                  "payment Status",
                   "Amount",
-                  "Payment Method",
+                  "payment Method",
                   "Transaction ID",
                 ].map((header) => (
                   <th key={header}>{header}</th>
