@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import SignUp from "./page/signUp/SignUp";
+import SignUp from "./pages/signUp/SignUp";
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import UserHomePage from './pages/UserHomePage';
 import CreateEvents from './pages/create-event/CreateEvents';
 import LoginPage from './pages/login/LoginPage';
-import AccountInfo from './pages/myInformation/MyInformation';
+import AccountInfo from './pages/my-information/MyInformation';
 import HomePage from './pages/HomePage';
 import CancelEvents from './pages/cancel-events/CancelEvents';
 import EventDetail from './pages/event-detail/EventDetail';
 import Attendee from './pages/attendee/Attendee';
 import FinanceReport from './pages/finance-report/FinanceReport'
-import MyEvents from './pages/MyEvents/MyEvents';
+import MyEvents from './pages/my-events/MyEvents';
 import MyTickets from './pages/my-ticket/MyTicket';
 import RefundPolicy from './pages/refund-policy/RefundPolicy';
 import EventPage from './pages/search-option/Research'
@@ -30,7 +30,7 @@ import WaitingList3 from './pages/waitinglist-3/WaitingList3';
 
 function App() {
   return (
-    <Router>
+    // <Router>
       <Routes>
         <Route path="/" element={<UserHomePage />} />
         <Route path="/login" element={<LoginPage/>} />
@@ -63,7 +63,7 @@ function App() {
         <Route path="/waiting-list3" element={<WaitingList3 />} />
 
       </Routes>
-    </Router>
+    // </Router>
 
 
   );
