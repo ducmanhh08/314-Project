@@ -22,13 +22,10 @@ Include/
 Scripts/
 node_modules/
 
-<<<<<<< HEAD
-=======
 # IDE settings
 .idea/
 .vscode/
 
->>>>>>> origin/p/HomepageUser
 # Build output
 dist/
 fend/dist/
