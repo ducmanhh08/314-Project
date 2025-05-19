@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-node_modules/
-=======
-../node_modules
->>>>>>> origin/p/HomepageUser
-=======
-node_modules/
-
-=======
 # Node modules (never commit this)
 node_modules/
 
@@ -18,7 +7,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
->>>>>>> origin/p/ForgotPassword
 # Cache directories
 .cache/
 .vite/
@@ -26,14 +14,12 @@ dist/
 build/
 coverage/
 
-<<<<<<< HEAD
 # IDEs
 .vscode/
 .idea/
 *.sublime-workspace
 *.sublime-project
 public/
-=======
 # Optional OS-specific
 .DS_Store
 Thumbs.db
@@ -43,7 +29,6 @@ Thumbs.db
 ../.idea/
 *.sublime-workspace
 *.sublime-project
->>>>>>> origin/p/ForgotPassword
 
 # Environment variables
 .env
@@ -55,9 +40,3 @@ Thumbs.db
 # Lock file backups
 package-lock.json.*
 yarn.lock.*
-<<<<<<< HEAD
->>>>>>> origin/p/LoginPage
-=======
-
-
->>>>>>> origin/p/ForgotPassword
