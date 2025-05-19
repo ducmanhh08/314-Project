@@ -91,7 +91,7 @@ class Event(db.Model):
     category = db.Column(db.Enum(Category), nullable=False)
     ticket_price = db.Column(db.Float, nullable=False)
     tickets_available = db.Column(db.Integer, nullable=False)
-    organizer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     tickets = db.relationship('Ticket', backref='event', lazy=True)
     payments = db.relationship('Payment', backref='event', lazy=True)
@@ -113,7 +113,7 @@ class Event(db.Model):
 class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     type = db.Column(db.Enum(TicketType), nullable=False)
     price = db.Column(db.Float, nullable=False)
     benefits = db.Column(db.String(255))
@@ -130,7 +130,7 @@ class Ticket(db.Model):
 
 class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING, nullable=False)

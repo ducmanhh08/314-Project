@@ -48,7 +48,7 @@ function LoginPage() {
       <div className="login-right">
         <h2>Login</h2>
         <p>Welcome! Login to get amazing discounts and offers only for you.</p>
-        <form>
+        <form onSubmit={handleLogin}>
           <label className="a">User Name</label>
           <input type="text" placeholder="Enter your username" 
           value={email}
@@ -71,6 +71,7 @@ function LoginPage() {
             <a href="#" className="forgot-password" onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
           </div>
         </form>
+        {message && <p>{message}</p>} {/* Display login message */}
       </div>
     </div>
   );
