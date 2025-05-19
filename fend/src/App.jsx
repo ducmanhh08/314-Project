@@ -1,11 +1,10 @@
 import React from 'react';
-import './App.css';
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import UserHomePage from './pages/UserHomePage';
-
 import CreateEvents from './pages/create-event/CreateEvents';
+import LoginPage from './pages/login/LoginPage';
 import HomePage from './pages/HomePage';
 import CancelEvents from './pages/cancel-events/CancelEvents';
 import EventDetail from './pages/event-detail/EventDetail';
@@ -26,7 +25,7 @@ function App() {
         <Route path="/cancel-events" element={<CancelEvents />} />
         <Route path="/fin" element={<FinanceReport />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-
+        <Route path="/login" element={<LoginPage/>} />
       </Routes>
     </Router>
   );
