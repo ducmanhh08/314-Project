@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import UserHomePage from './pages/UserHomePage';
 import EventDetail from './pages/event-detail/event-detail';
 import MyTickets from './pages/MyTicket/MyTicket';
+import LoginPage from './pages/login/LoginPage';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/create-event" element={<CreateEvents/>} />
         <Route path="/event/:id" element={<EventDetail />} />
         <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/login" element={<LoginPage/>} />
       </Routes>
     </Router>
   );

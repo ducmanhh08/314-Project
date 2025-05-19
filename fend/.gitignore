@@ -1,5 +1,34 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 node_modules/
 =======
 ../node_modules
 >>>>>>> origin/p/HomepageUser
+=======
+node_modules/
+
+# Cache directories
+.cache/
+.vite/
+dist/
+build/
+coverage/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+public/
+
+# Environment variables
+.env
+.env.*  # e.g., .env.local, .env.production
+
+# Output of npm pack
+*.tgz
+
+# Lock file backups
+package-lock.json.*
+yarn.lock.*
+>>>>>>> origin/p/LoginPage
