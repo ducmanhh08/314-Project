@@ -1,6 +1,6 @@
 import React from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser'; // Make sure path matches your structure
-import './event-detail.css';
+import './EventDetail.css';
 
 const EventDetail = () => {
     return (

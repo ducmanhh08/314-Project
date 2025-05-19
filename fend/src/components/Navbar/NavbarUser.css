@@ -5,27 +5,87 @@
     background-color: #add8e6;
     padding: 10px 20px;
     position: relative;
+    padding: 0.75rem 1.5rem;
+    background-color: #A8D8EE;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    border-radius: 0 0 10px 10px;
 }
 
 .logo img {
-    height: 50px;
+    height:50px;
+    width: 80px;
+}
+
+.search-bar {
+    flex: 0.5;
+    margin: 0 1rem;
 }
 
 .search-bar input {
     padding: 6px 10px;
+    width: 100%;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
     border: 2px solid #ccc;
     width: 550px;
+    border: none;
 }
 
 .nav-links {
     position: relative;
     display: flex;
+    gap: 5rem;
+    font-weight: 500;
+}
+
+.nav-links span {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.ticket-info {
+    font-weight: 500;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user-section {
+    display: flex;
     gap: 100px;
     align-items: center;
+    gap: 10px;
 }
 
 .dropdown-trigger {
+.avatar-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     cursor: pointer;
     font-weight: bold;
 }
@@ -35,6 +95,9 @@
     top: 100%;
     right: 0;
     background: white;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
@@ -42,12 +105,27 @@
     display: flex;
     flex-direction: column;
     min-width: 160px;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; /* Prevent hover when hidden */
 }
 
+.avatar-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
 .dropdown-menu a {
     padding: 8px 16px;
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
     color: #000;
     text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
 }
 
 .dropdown-menu a:hover {
@@ -64,4 +142,5 @@
     width: 36px;
     border-radius: 50%;
     cursor: pointer;
+    background-color: #f0f0f0;
 }
