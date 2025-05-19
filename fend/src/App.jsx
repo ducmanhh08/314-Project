@@ -6,6 +6,7 @@ import UserHomePage from './pages/UserHomePage';
 import EventDetail from './pages/event-detail/event-detail';
 import MyTickets from './pages/MyTicket/MyTicket';
 import LoginPage from './pages/login/LoginPage';
+import SignUp from "./page/signUp/SignUp";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<UserHomePage />} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/userhomepage" element={<HomePage />} />
+        <Route path="/sign-up" element={<SignUp />} />
 
         <Route path="/create-event" element={<CreateEvents/>} />
         <Route path="/event/:id" element={<EventDetail />} />
@@ -23,5 +25,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
