@@ -317,21 +317,21 @@ def update_event(event_id):
     event.date = data.get("date", event.date)
     event.location = data.get("location", event.location)
     event.description = data.get("description", event.description)
-    
+
     db.session.commit()
 
     # Notify attendees about the update
     registrations = EventRegistration.query.filter_by(event_id=event_id).all()
     for reg in registrations:
         send_notification(
-            reg.user.email, 
+            reg.user.email,
             f"Event '{event.name}' has been updated.",
             f"Check your event schedule for the latest info."
         )
 
     return jsonify({"message": "Event updated and attendees notified."}), 200
 
-# Ticket Routes:    
+# Ticket Routes:
 
 @app.route("/process_payment", methods=["POST"])
 def process_payment():

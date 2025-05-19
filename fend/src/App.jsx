@@ -10,6 +10,7 @@ import CancelEvents from './pages/cancel-events/CancelEvents';
 import EventDetail from './pages/event-detail/EventDetail';
 import Attendee from './pages/attendee/Attendee';
 import FinanceReport from './pages/finance-report/FinanceReport'
+import MyEvents from './pages/MyEvents/MyEvents';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/fin" element={<FinanceReport />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/my-events" element={<MyEvents />} />
       </Routes>
     </Router>
   );
