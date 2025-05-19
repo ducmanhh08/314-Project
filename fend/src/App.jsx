@@ -6,7 +6,7 @@ import UserHomePage from './pages/UserHomePage';
 import EventDetail from './pages/event-detail/event-detail';
 import MyTickets from './pages/MyTicket/MyTicket';
 import LoginPage from './pages/login/LoginPage';
-import SignUp from "./page/signUp/SignUp";
+import SignUp from "./pages/signUp/SignUp";
 
 
 function App() {
