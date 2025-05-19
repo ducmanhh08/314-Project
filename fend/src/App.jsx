@@ -13,6 +13,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/create-event" element={<CreateEvents/>} />
         <Route path="/event/:id" element={<EventDetail />} />
+
+        {/* // CHANGES */}
       </Routes>
     </Router>
   );
