@@ -14,12 +14,6 @@ dist/
 build/
 coverage/
 
-# IDEs
-.vscode/
-.idea/
-*.sublime-workspace
-*.sublime-project
-public/
 # Optional OS-specific
 .DS_Store
 Thumbs.db
@@ -29,6 +23,7 @@ Thumbs.db
 ../.idea/
 *.sublime-workspace
 *.sublime-project
+public/
 
 # Environment variables
 .env
@@ -37,6 +32,6 @@ Thumbs.db
 # Output of npm pack
 *.tgz
 
-# Lock file backups
+# Lock file backups (npm install)
 package-lock.json.*
 yarn.lock.*

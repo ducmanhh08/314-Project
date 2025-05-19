@@ -1,0 +1,82 @@
+import React, { useState, useEffect } from 'react';
+import NavbarUser from '../../components/Navbar/NavbarUser';
+import './RefundRequest.css';
+
+const RefundRequest = () => {
+    const [refundInfo, setRefundInfo] = useState(null);
+    const [email, setEmail] = useState('');
+    const [comment, setComment] = useState('');
+    const [agreed, setAgreed] = useState(false);
+
+    useEffect(() => {
+        const stored = localStorage.getItem('refundableTicket');
+        if (stored) {
+        setRefundInfo(JSON.parse(stored));
+        }
+    }, []);
+
+    const handleSubmit = () => {
+        if (!agreed) return;
+        alert('Your refund request has been sent!');
+    };
+
+    return (
+        <div className="refund-request-page">
+            <NavbarUser />
+            <div className="content">
+                <a href="#" className="back-link">← Homepage</a>
+                <h2 className="refund-title">Refund Request</h2>
+
+                <div className="refund-table">
+                    <div><strong>Email</strong></div>
+                    <div><input type="email" value={email} onChange={e => setEmail(e.target.value)} /></div>
+
+                    <div><strong>Event</strong></div>
+                    <div>{refundInfo?.eventTitle}</div>
+
+                    <div><strong>Date</strong></div>
+                    <div>{refundInfo?.eventDate}</div>
+
+                    <div><strong>Original Payment</strong></div>
+                    <div>${(refundInfo?.subtotal || 0).toLocaleString()}</div>
+
+                    <div><strong>Purchased Tickets</strong></div>
+                    <div>
+                        {refundInfo?.selectedTickets?.map(([key, qty]) => (
+                        <div key={key}>x{qty} {key.replace(/^\w/, c => c.toUpperCase())} Package</div>
+                        ))}
+                    </div>
+
+                    <div><strong>Refund Amount</strong></div>
+                    <div>${(refundInfo?.refundAmount || 0).toLocaleString()}</div>
+                </div>
+
+                <div className="comment-section">
+                <label>Refund Reason</label>
+                <textarea
+                    placeholder="Optional comment"
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}
+                />
+                <input type="file" />
+                </div>
+
+                <p className="refund-policy">
+                Refunds can take up to several days to process. All tickets in this order will be cancelled. 
+                We cannot issue partial refunds or refund to a different account. You must agree to proceed.
+                </p>
+
+                <label className="agree-checkbox">
+                <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)} />
+                I have read and agree to refund policy.
+                </label>
+
+                <button className="send-request-btn" onClick={handleSubmit} disabled={!agreed}>
+                Send request
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default RefundRequest;

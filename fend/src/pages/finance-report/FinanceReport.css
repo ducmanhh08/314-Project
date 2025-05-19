@@ -1,0 +1,103 @@
+
+.page-wrapper {
+  max-width: 100%px;
+  margin: 0px auto;
+  padding: 0px;
+  font-family: 'Dai Banna SIL Regular';
+  background-color:  #FCF8F5;}
+
+body, html {
+  background-color: #FCF8F5;
+  margin: 0; 
+  padding: 0;  
+  width: 100%;
+  height: 100%;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #4a4a48;
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: 700;
+
+}
+
+.main-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 45px;
+  margin-left: 50px;
+  font-weight: 700;
+  font-family: 'Dai Banna SIL-Bold';
+  
+}
+h3, h2, h4 {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 36px;
+  margin-left: 25px;
+}
+
+.event-details p {
+  margin: 5px 0;
+  font-size: 20px;
+  margin-left: 25px;
+}
+
+.search-section {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 18px;
+}
+
+.overview {  
+  font-size: 20px;
+  margin-left: 25px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.participants-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+}
+
+.participants-table thead {
+  background-color: #f1f5f9;
+}
+
+.participants-table th,
+.participants-table td {
+  text-align: left;
+  padding: 10px 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.participants-table tr:hover {
+  background-color: #f9fafb;
+}
+
+.footer-info {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 25px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-right: 50px;
+}
