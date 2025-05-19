@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import "./LoginPage.css";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="login-container">
       <div className="login-left">
@@ -30,8 +33,8 @@ function LoginPage() {
           <button type="submit">Login</button>
 
           <div className="signup-link">
-            <span>New User? <a href="#">Signup</a></span>
-            <a href="#" className="forgot-password">Forgot your password?</a>
+            <span>New User? <a href="#" onClick={e => { e.preventDefault(); navigate('/sign-up'); }}>Signup</a></span>
+            <a href="#" className="forgot-password" onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
           </div>
         </form>
       </div>
