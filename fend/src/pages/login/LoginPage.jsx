@@ -1,9 +1,39 @@
 import React from "react";
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./LoginPage.css";
 
 function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message); // Display success message
+        console.log('User:', data.user); // Log user details
+        navigate('/signed-in');
+      } else {
+        setMessage(data.message); // Display error message
+      }
+    } catch (error) {
+      setMessage('An error occurred. Please try again.');
+    }
+  };
 
   return (
     <div className="login-container">
@@ -20,10 +50,14 @@ function LoginPage() {
         <p>Welcome! Login to get amazing discounts and offers only for you.</p>
         <form>
           <label className="a">User Name</label>
-          <input type="text" placeholder="Enter your username" />
+          <input type="text" placeholder="Enter your username" 
+          value={email}
+          onChange={e => setEmail(e.target.value)}/>
 
           <label className="a">Password</label>
-          <input type="password" placeholder="Enter your password" />
+          <input type="password" placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}/>
 
           <div className="checkbox-container">
             <input type="checkbox" />
