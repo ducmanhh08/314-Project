@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateEvents from './pages/CreateEvents/CreateEvents'; 
 import HomePage from './pages/HomePage';
 import EventDetail from './pages/event-detail/event-detail';
-
+import MyTickets from './pages/MyTicket/MyTicket';
 
 
 function App() {
@@ -13,8 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/create-event" element={<CreateEvents/>} />
         <Route path="/event/:id" element={<EventDetail />} />
-
-        {/* // CHANGES */}
+        <Route path="/my-tickets" element={<MyTickets />} />
       </Routes>
     </Router>
   );
