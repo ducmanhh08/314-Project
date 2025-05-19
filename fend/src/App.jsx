@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import SignUp from "./page/signUp/SignUp";
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 import UserHomePage from './pages/UserHomePage';
 import CreateEvents from './pages/create-event/CreateEvents';
@@ -36,6 +37,7 @@ function App() {
         <Route path="/my-tickets" element={<MyTickets />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/result" element={<EventPage />} />
+          <Route path="/sign-up" element={<SignUp />} />
 
       </Routes>
     </Router>
