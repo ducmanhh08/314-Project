@@ -1,10 +1,12 @@
 import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+import { useNavigate } from 'react-router-dom';
 import './SignUp.css'
 
 function SignUp() {
   // const [count, setCount] = useState(0)
+  const navigate = useNavigate();
 
   return (
     <div className="signup-container">
@@ -29,7 +31,7 @@ function SignUp() {
           
           <h2>Welcome back</h2>
           <p>Sign in to stay connected and make the most of your exclusive offers.</p>
-          <button className="login-button">Login</button>
+          <button className="login-button" onClick={() => navigate('/login')}>Login</button>
         </div>
       </div>
     </div>
