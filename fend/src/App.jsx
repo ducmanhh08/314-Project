@@ -24,6 +24,9 @@ import Finish from './pages/finish/Finish';
 import RefundRequest from './pages/refund-request/RefundRequest';
 
 
+import WaitingList from './pages/waitinglist-1/WaitingList';
+import WaitingList2 from './pages/waitinglist-2/WaitingList2';
+import WaitingList3 from './pages/waitinglist-3/WaitingList3';
 
 function App() {
   return (
@@ -53,6 +56,10 @@ function App() {
         <Route path="/finish" element={<Finish />} />
         <Route path="/my-tickets" element={<MyTickets />} />
         <Route path="/refund-request" element={<RefundRequest />} />
+
+        <Route path="/waiting-list" element={<WaitingList />} />
+        <Route path="/waiting-list2" element={<WaitingList2 />} />
+        <Route path="/waiting-list3" element={<WaitingList3 />} />
 
       </Routes>
     </Router>

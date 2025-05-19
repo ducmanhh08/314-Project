@@ -1,0 +1,79 @@
+import React, { useState } from 'react';
+import NavbarUser from '../../components/Navbar/NavbarUser';
+import './WaitingList2.css';
+import { useNavigate } from 'react-router-dom';
+//run: npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+
+const WaitingList2 = () => {
+    const navigate = useNavigate();
+    const handleBack = () => {
+    navigate(-1);
+  };
+    
+    // State to manage the count of tickets
+    const [count, setCount] = useState(0);
+
+    const handleDecrement = () => {
+        if (count > 0) setCount(count - 1);
+    };
+
+    const handleIncrement = () => {
+        setCount(count + 1);
+    };
+    return (
+        <div>
+            <NavbarUser/>
+
+            <div className="event-detail-container-2">
+            <button className="back-button-2"onClick={handleBack}>
+                <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+
+            {/* LEFT COLUMN: TEXT */}
+            <div className="text-section-2">
+                <h1 className="title-2">POTTERY WORKSHOP</h1>
+                <p className="date-2">
+                    <FontAwesomeIcon icon={faCalendar} className="icon-spacing"/>
+                    Sunday, 10 September 2024 10am – 12pm
+                </p>
+
+                <div className="ticket-row">
+                    <span>General Admission</span>
+                    <div className="ticket-controls">
+                        <button onClick={handleDecrement}>-</button>
+                        <span>{count}</span>
+                        <button onClick={handleIncrement}>+</button>
+                    </div>
+                </div>
+
+
+                <div className="status-row">
+                <span>Free</span>
+                <span className="sold-out">SOLD OUT</span>
+                </div>
+            </div>
+
+            {/* RIGHT COLUMN: IMAGE */}
+            <div className="poster-container-2">
+                <img
+                src="/images/pottery.jpg"
+                alt="Event Poster"
+                className="event-poster-2"
+                width="400"
+                height="600"
+                />
+            </div>
+            </div>
+
+            {/* Sticky Button at Bottom */}
+            <div className="button-container">
+            <button className="join-button">JOIN WAITING LIST</button>
+            </div>
+        </div>
+        );
+    };
+
+export default WaitingList2;
