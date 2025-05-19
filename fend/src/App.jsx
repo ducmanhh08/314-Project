@@ -12,7 +12,7 @@ import EventDetail from './pages/event-detail/EventDetail';
 import Attendee from './pages/attendee/Attendee';
 import FinanceReport from './pages/finance-report/FinanceReport'
 import MyEvents from './pages/MyEvents/MyEvents';
-
+import MyTickets from './pages/MyTicket/MyTicket';
 
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/my-events" element={<MyEvents />} />
         <Route path="/my-info" element={<AccountInfo />} />
+        <Route path="/my-tickets" element={<MyTickets />} />
 
       </Routes>
     </Router>
