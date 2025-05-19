@@ -13,7 +13,7 @@ import Attendee from './pages/attendee/Attendee';
 import FinanceReport from './pages/finance-report/FinanceReport'
 import MyEvents from './pages/MyEvents/MyEvents';
 import MyTickets from './pages/my-ticket/MyTicket';
-
+import RefundPolicy from './pages/refund-policy/RefundPolicy';
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
         <Route path="/my-events" element={<MyEvents />} />
         <Route path="/my-info" element={<AccountInfo />} />
         <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
 
       </Routes>
     </Router>
