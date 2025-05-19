@@ -1,5 +1,6 @@
 import React from 'react';
 import './PopularEvents.css';
+import { events } from '../../pages/DataEvent'
 
 const PopularEvents = () => {
 
@@ -13,7 +14,7 @@ const PopularEvents = () => {
       <div className="popular-events-grid">
         {popularEvents.slice(0, 4).map((event) => (
           <div key={event.id} className="popular-event-card">
-          <img src={`images/${event.image}`} alt={event.title} />
+          <img src={event.image} alt={event.title} />
             <h3>{event.title}</h3>
             <p>{new Date(event.date).toLocaleDateString()}</p>
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import NavbarUser from "../../components/Navbar/NavbarUser";
-import { events } from "./DataEvent";
+import { events } from "../DataEvent";
 import "./Research.css";
 
 const EventPage = () => {

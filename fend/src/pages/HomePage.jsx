@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar/NavbarUser'; // or NavbarUser if preferred
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
+import { events } from "./DataEvent";
+
+
 
 const HomePage = () => {
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredEvents = events.filter((event) =>
