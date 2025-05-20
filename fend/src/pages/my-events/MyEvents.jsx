@@ -43,7 +43,7 @@ const MyEvents = () => {
         //         </div>
         //     </div>
         // </div>
-                <div>
+        <div>
             <NavbarUser />
             <div className={styles.myEventsContainer}>
                 <div className={styles.backButton}>
