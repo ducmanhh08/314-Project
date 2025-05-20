@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "./LoginPage.css";
+import styles from './LoginPage.module.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -36,39 +36,77 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-left">
-        <h2 className="logo">Ticket<br />Please?</h2>
+    // <div className="login-container">
+    //   <div className="login-left">
+    //     <h2 className="logo">Ticket<br />Please?</h2>
+    //     <h1>Welcome to...</h1>
+    //     <p>
+    //       Your gateway to unforgettable live experiences. From concerts and theater shows 
+    //       to sports events and festivals, we bring the best seats right to your screen.
+    //     </p>
+    //   </div>
+    //   <div className="login-right">
+    //     <h2>Login</h2>
+    //     <p>Welcome! Login to get amazing discounts and offers only for you.</p>
+    //     <form onSubmit={handleLogin}>
+    //       <label className="a">User Name</label>
+    //       <input type="text" placeholder="Enter your username" 
+    //       value={email}
+    //       onChange={e => setEmail(e.target.value)}/>
+
+    //       <label className="a">Password</label>
+    //       <input type="password" placeholder="Enter your password"
+    //       value={password}
+    //       onChange={(e) => setPassword(e.target.value)}/>
+
+    //       <div className="checkbox-container">
+    //         <input type="checkbox" />
+    //         <span>Remember me</span>
+    //       </div>
+
+    //       <button type="submit">Login</button>
+
+    //       <div className="signup-link">
+    //         <span>New User? <a href="#" onClick={e => { e.preventDefault(); navigate('/sign-up'); }}>Signup</a></span>
+    //         <a href="#" className="forgot-password" onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
+    //       </div>
+    //     </form>
+    //     {message && <p>{message}</p>} {/* Display login message */}
+    //   </div>
+    // </div>
+    <div className={styles['login-container']}>
+      <div className={styles['login-left']}>
+        <h2 className={styles.logo}>Ticket<br />Please?</h2>
         <h1>Welcome to...</h1>
         <p>
-          Your gateway to unforgettable live experiences. From concerts and theater shows 
+          Your gateway to unforgettable live experiences. From concerts and theater shows
           to sports events and festivals, we bring the best seats right to your screen.
         </p>
       </div>
-      <div className="login-right">
+      <div className={styles['login-right']}>
         <h2>Login</h2>
         <p>Welcome! Login to get amazing discounts and offers only for you.</p>
         <form onSubmit={handleLogin}>
-          <label className="a">User Name</label>
-          <input type="text" placeholder="Enter your username" 
+          <label className={styles.a}>User Name</label> {/* Apply styles.a */}
+          <input type="text" placeholder="Enter your username"
           value={email}
           onChange={e => setEmail(e.target.value)}/>
 
-          <label className="a">Password</label>
+          <label className={styles.a}>Password</label> {/* Apply styles.a */}
           <input type="password" placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}/>
 
-          <div className="checkbox-container">
+          <div className={styles['checkbox-container']}>
             <input type="checkbox" />
             <span>Remember me</span>
           </div>
 
           <button type="submit">Login</button>
 
-          <div className="signup-link">
+          <div className={styles['signup-link']}>
             <span>New User? <a href="#" onClick={e => { e.preventDefault(); navigate('/sign-up'); }}>Signup</a></span>
-            <a href="#" className="forgot-password" onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
+            <a href="#" className={styles['forgot-password']} onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
           </div>
         </form>
         {message && <p>{message}</p>} {/* Display login message */}
