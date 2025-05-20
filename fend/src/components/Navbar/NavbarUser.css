@@ -15,6 +15,7 @@
 .logo img {
     height:50px;
     width: 80px;
+    cursor: pointer;
 }
 
 .search-bar {

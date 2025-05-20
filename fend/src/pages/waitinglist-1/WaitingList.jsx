@@ -5,8 +5,10 @@ import './WaitingList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const WaitingList = () => {
+    const navigate = useNavigate();
     return (
         <div>
         <div className="page-wrapper"></div>
@@ -45,7 +47,7 @@ const WaitingList = () => {
 
                     <div className="event-actions">
                         <div className="price-tag">FREE</div>
-                        <button className="join-waiting-list-button">JOIN WAITING LIST</button>
+                        <button className="join-waiting-list-button" onClick={() => navigate('/homepage/my-tickets/waiting-list2')}>JOIN WAITING LIST</button>
                     </div>
 
                 </div>

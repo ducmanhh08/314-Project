@@ -1,8 +1,10 @@
 import React from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser'; // Make sure path matches your structure
 import './EventDetail.css';
+import { useNavigate } from 'react-router-dom';
 
 const EventDetail = () => {
+    const navigate = useNavigate();
     return (
         <div>
             <NavbarUser/>
@@ -34,7 +36,7 @@ const EventDetail = () => {
                                 <td>Weekend with ADELE</td>
                                 <td>The Colosseum Theater at Caesars Palace</td>
                                 <td>
-                                    <button className="find-ticket-btn">Find Tickets</button>
+                                    <button className="find-ticket-btn" onClick={() => navigate('/homepage/event/:id/seat-selection')}>Find Tickets</button>
                                 </td>
                             </tr>
                             <tr>
@@ -42,7 +44,7 @@ const EventDetail = () => {
                                 <td>Weekend with ADELE</td>
                                 <td>The Colosseum Theater at Caesars Palace</td>
                                 <td>
-                                    <button className="find-ticket-btn">Find Tickets</button>
+                                    <button className="find-ticket-btn" onClick={() => navigate('/homepage/event/:id/seat-selection')}>Find Tickets</button>
                                 </td>
                             </tr>
                         </tbody>

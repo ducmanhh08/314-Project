@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RefundPolicy.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
 const RefundPolicy = () => {
+    const navigate = useNavigate();
     const [showMore, setShowMore] = useState(false);
     
     const handleToggle = () => {
@@ -149,7 +151,7 @@ const RefundPolicy = () => {
             A Refundable Booking is an optional extension to <strong>Our</strong> standard Terms & Conditions of sale and trade, in terms of which <strong>You</strong> are eligible to receive a refund for certain, defined circumstances as outlined in this document.
         </p>
 
-        <button className="accept-button">
+        <button className="accept-button" onClick={() => navigate('/homepage/event/:id/seat-selection/confirmation/payment')}>
             Accept the Refund Policy
         </button>       
         </div>

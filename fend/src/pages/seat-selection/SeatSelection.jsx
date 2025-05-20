@@ -21,7 +21,7 @@ const SeatSelection = () => {
             ticketQuantities,
             deliveryMethod,
         };
-        navigate('/confirmation', { state: selectedData });
+        navigate('./confirmation', { state: selectedData });
     };
 
     const deliveryFees = {

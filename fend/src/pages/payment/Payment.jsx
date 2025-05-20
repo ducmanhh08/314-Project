@@ -39,7 +39,7 @@ const Payment = () => {
         };
         localStorage.setItem('refundInfo', JSON.stringify(refundData));
         }
-        navigate('/finish');
+        navigate('./finish');
     };
     
     const {
@@ -120,7 +120,7 @@ const Payment = () => {
                 <h3 className="section-title-center">Refundable Ticket</h3>
                 <p>
                     Upgrade your booking for just <strong>$6.72</strong> and receive a 100% refund
-                    if you cannot attend for one of the many reasons in our <a href="#">Terms & Conditions</a>.
+                    if you cannot attend for one of the many reasons in our <a href="#" onClick={e => { e.preventDefault(); navigate('./refund-policy'); }}>Terms & Conditions</a>.
                 </p>
                 <div className="radio-group">
                     <label>
@@ -202,9 +202,11 @@ const Payment = () => {
             <div className="button-group">
                 <button onClick={() => navigate(-1)}>Back</button>
                 <button
-                disabled={!isSubmitEnabled}
-                onClick={handleSubmit}
-                >
+                    disabled={!isSubmitEnabled}
+                    onClick={() => {
+                        handleSubmit(); // Call the first function
+                        navigate(`./finish`); // Then navigate
+                }}>
                 Submit Payment
                 </button>
             </div>

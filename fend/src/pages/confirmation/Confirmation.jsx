@@ -89,7 +89,7 @@ const Confirmation = () => {
 
             <div className="button-group">
                 <button onClick={() => navigate(-1)}>Back</button>
-                <button onClick={() => navigate('/payment', {
+                <button onClick={() => navigate('./payment', {
                 state: { ticketQuantities, deliveryMethod, subTotal, deliveryCost, total }
                 })}>Next</button>
             </div>

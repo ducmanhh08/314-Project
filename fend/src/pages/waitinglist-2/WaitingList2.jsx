@@ -70,7 +70,7 @@ const WaitingList2 = () => {
 
             {/* Sticky Button at Bottom */}
             <div className="button-container">
-            <button className="join-button">JOIN WAITING LIST</button>
+            <button className="join-button" onClick={() => navigate('/homepage/my-tickets/waiting-list3')}>JOIN WAITING LIST</button>
             </div>
         </div>
         );

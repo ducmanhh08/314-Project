@@ -31,7 +31,7 @@ const HomePage = () => {
               <ul>
                 {filteredEvents.map((event) => (
                   <li key={event.id}>
-                    <img src={`/images/events/${event.image}`} alt={event.title} width="100" />
+                    <img src={`${event.image}`} alt={event.title} width="100" />
                     <div>
                       <strong>{event.title}</strong><br />
                       {new Date(event.date).toLocaleDateString()}

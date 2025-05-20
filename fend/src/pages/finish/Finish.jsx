@@ -22,7 +22,7 @@ const Finish = () => {
                 <h2>Payment Succeeded</h2>
                 <p>Thanks for your purchase! A payment from Ticket Please will appear on your statement.</p>
 
-                <button className="explore-btn" onClick={() => navigate('/')}>
+                <button className="explore-btn" onClick={() => navigate('/homepage')}>
                     Explore More
                 </button>
             </div>

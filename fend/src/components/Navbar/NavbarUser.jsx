@@ -20,7 +20,7 @@ const NavbarUser = () => {
     return (
         <nav className="navbar-user">
             <div className="logo">
-                <img src="/images/events/logo.jpg" alt="Ticket Please?" />
+                <img src="/images/events/logo.jpg" alt="Ticket Please?" onClick={e => { e.preventDefault(); navigate('/homepage'); }}/>
             </div>
 
             <div className="search-bar">
