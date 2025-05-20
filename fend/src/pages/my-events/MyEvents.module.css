@@ -1,4 +1,4 @@
-.my-events-container {
+/* .my-events-container {
     padding: 20px 40px;
     background-color: #fdfaf8;
     font-family: sans-serif;
@@ -81,5 +81,82 @@ h2 {
 }
 .back-button:hover {
     text-decoration: underline;
+} */
+
+.myEventsContainer {
+    padding: 20px 40px;
+    background-color: #fdfaf8;
+    font-family: sans-serif;
 }
 
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #6e6e6e;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+.backButton:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.heading {
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.eventCard {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    gap: 200px;
+    justify-content: space-between;
+}
+
+.eventImages img {
+    height: 200px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.eventDetails {
+    flex-grow: 3;
+}
+
+.eventDetails h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.eventDetails p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.eventActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 40px;
+}
+
+.eventActions button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cancel {
+    background-color: #f8f8f8;
+    color: #d00;
+}
