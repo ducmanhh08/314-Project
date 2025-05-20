@@ -62,7 +62,7 @@ function SignUp() {
             <input className="box" name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
             <label className="fn"> Confirm Password</label>
             <input  className="box" name="confirmPassword" type="password" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} required/>
-
+            {error && <div style={{ color: 'red' }}>{error}</div>}
           <center><button className="signup-button">Sign up</button></center></form>
         </div>
         <div className="signup-right">
