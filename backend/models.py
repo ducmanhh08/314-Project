@@ -94,7 +94,7 @@ class Event(db.Model):
     organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     tickets = db.relationship('Ticket', backref='event', lazy=True)
-    payments = db.relationship('payment', backref='event', lazy=True)
+    payments = db.relationship('Payment', backref='event', lazy=True)
 
     def to_json(self):
         return {

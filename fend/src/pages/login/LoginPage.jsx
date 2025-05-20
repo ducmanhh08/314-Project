@@ -26,7 +26,7 @@ function LoginPage() {
       if (response.ok) {
         setMessage(data.message); // Display success message
         console.log('User:', data.user); // Log user details
-        navigate('/signed-in');
+        navigate('/homepage');
       } else {
         setMessage(data.message); // Display error message
       }

@@ -19,7 +19,7 @@ const MyEvents = () => {
             <NavbarUser />
             <div className="my-events-container">
                 <div className="back-button">
-                    <Link to="/" className="back-button">
+                    <Link to="/homepage" className="back-button">
                         <FaArrowLeft /> <span>Homepage</span>
                     </Link>
                 </div>
@@ -36,9 +36,9 @@ const MyEvents = () => {
                     </div>
 
                     <div className="event-actions">
-                        <button>View Participants</button>
-                        <button>View Finance</button>
-                        <button className="cancel">Cancel Events</button>
+                        <button onClick={() => navigate('/homepage/my-events/attendee')}>View Participants</button>
+                        <button onClick={() => navigate('/homepage/my-events/finnace-report')}>View Finance</button>
+                        <button className="cancel" onClick={() => navigate('/homepage/my-events/cancel-events')}>Cancel Events</button>
                     </div>
                 </div>
             </div>

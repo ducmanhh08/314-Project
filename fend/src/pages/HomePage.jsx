@@ -1,7 +1,9 @@
-import React from 'react';
+// import React from 'react';
 import Navbar from '../components/Navbar/NavbarUser'; // or NavbarUser if preferred
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
+import React, { useState } from 'react';
+import { events } from './search-option/DataEvent';
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");

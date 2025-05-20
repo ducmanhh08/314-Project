@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import './RefundRequest.css';
 
 const RefundRequest = () => {
+    const navigate = useNavigate();
     const [refundInfo, setRefundInfo] = useState(null);
     const [email, setEmail] = useState('');
     const [comment, setComment] = useState('');
@@ -24,7 +26,7 @@ const RefundRequest = () => {
         <div className="refund-request-page">
             <NavbarUser />
             <div className="content">
-                <a href="#" className="back-link">← Homepage</a>
+                <a href="#" className="back-link" onClick={e => { e.preventDefault(); navigate('/homepage'); }}>← Homepage</a>
                 <h2 className="refund-title">Refund Request</h2>
 
                 <div className="refund-table">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./FinanceReport.css";
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
@@ -43,7 +44,7 @@ const participantsData = [
 
 const FinanceReport = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const navigate = useNavigate();
   const filteredParticipants = participantsData.filter(
     (p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -54,7 +55,7 @@ const FinanceReport = () => {
     <div className="page-wrapper">
       <NavbarUser />  
       <div className="card">
-        <button className="back-button">&larr; Back</button>
+        <button className="back-button" onClick={() => navigate('/homepage')}>&larr; Back</button>
         <h1 className="main-title">FINANCE MANAGEMENT - PAYMENT DATA</h1>
         <div className="event-details">
           <p>Event Name: Annual Tech Conference 2025</p>

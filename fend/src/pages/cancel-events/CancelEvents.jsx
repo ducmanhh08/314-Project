@@ -21,7 +21,7 @@ const CancelEvents = () => {
     <div className="container"> {/* Main container */}
 
       {/* Back to homepage link */}
-      <a href="/" className="back-link">← Homepage</a>
+      <a href="/homepage" className="back-link">← Homepage</a>
 
       {/* Section Title */}
       <h2 className="title">Event Overview</h2>

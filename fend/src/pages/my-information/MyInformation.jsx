@@ -1,13 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import './MyInformation.css';
 
 function AccountInfo() {
+  const navigate = useNavigate();
   return (
     <div className="account-info-container">
       <NavbarUser />
       <header>
-        <button className="back-button">←Homepage</button>
+        <button className="back-button" onClick={() => navigate('/homepage')}>←Homepage</button>
         <h1>Account Information</h1>
       </header>
 

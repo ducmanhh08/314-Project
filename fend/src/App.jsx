@@ -34,20 +34,24 @@ function App() {
       <Routes>
         <Route path="/" element={<UserHomePage />} />
         <Route path="/login" element={<LoginPage/>} />
-        <Route path="/signed-in" element={<HomePage />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
 
-        <Route path="/create-event" element={<CreateEvents/>} />
-        <Route path="/event/:id" element={<EventDetail />} />
-        <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/homepage/my-tickets" element={<MyTickets />} />
+        <Route path="/homepage/my-tickets/event/:id" element={<EventDetail />} />
+        <Route path="/homepage/my-tickets/refund-request" element={<RefundRequest />} />
+        <Route path="/homepage/my-tickets/waiting-list" element={<WaitingList />} />
+        <Route path="/homepage/my-info" element={<AccountInfo />} />
+        <Route path="/homepage/my-events" element={<MyEvents />} />
+        <Route path="/homepage/my-events/attendee" element={<Attendee />} />
+        <Route path="/homepage/my-events/finnace-report" element={<FinanceReport />} />
+        <Route path="/homepage/my-events/cancel-events" element={<CancelEvents />} />
+        <Route path="/homepage/create-event" element={<CreateEvents/>} />
+
+        
 
        
-        <Route path="/attendee" element={<Attendee />} />
-        <Route path="/cancel-events" element={<CancelEvents />} />
-        <Route path="/finnace-report" element={<FinanceReport />} />
-        <Route path="/my-events" element={<MyEvents />} />
-        <Route path="/my-info" element={<AccountInfo />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/result" element={<EventPage />} />
 
@@ -56,9 +60,7 @@ function App() {
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/finish" element={<Finish />} />
-        <Route path="/refund-request" element={<RefundRequest />} />
-
-        <Route path="/waiting-list" element={<WaitingList />} />
+        
         <Route path="/waiting-list2" element={<WaitingList2 />} />
         <Route path="/waiting-list3" element={<WaitingList3 />} />
 

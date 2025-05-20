@@ -3,8 +3,7 @@ from flask_cors import CORS
 from config import app, db
 from models import User, Attendee, Organizer, UserRole
 
-CORS(app)  
-
+# CORS(app)  
 
 # User Routes:
 
@@ -142,7 +141,7 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
 
 # # Event Routes:
 # @app.route("/events", methods=["GET"])

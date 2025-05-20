@@ -1,13 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavbarUser from '../../components/Navbar/NavbarUser.jsx';
 import './MyTicket.css';
 
 const MyTickets = () => {
+  const navigate = useNavigate();
   return (
     <div className="my-tickets-page">
       <NavbarUser />
       <div className="content">
-        <a href="#" className="back-link">← Homepage</a>
+        <a href="#" className="back-link" onClick={e => { e.preventDefault(); navigate('/homepage'); }}>← Homepage</a>
         <h2>My Tickets</h2>
 
         <div className="ticket-card">
@@ -19,8 +21,8 @@ const MyTickets = () => {
             <p>x1 VIP Diamond Package</p>
           </div>  
           <div className="buttons">
-              <button>View Event Detail</button>
-              <button>Request a Refund</button> 
+              <button onClick={() => navigate('/homepage/my-tickets/event/:id')}>View Event Detail</button>
+              <button onClick={() => navigate('/homepage/my-tickets/refund-request')}>Request a Refund</button>
           </div>
         </div>
 
@@ -33,7 +35,7 @@ const MyTickets = () => {
             <p>x1 General Admission</p>
           </div>  
             <div className="buttons">
-              <button>Waiting List</button>
+              <button onClick={() => navigate('/homepage/my-tickets/waiting-list')}>Waiting List</button>
           </div>
         </div>
       </div>
