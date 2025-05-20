@@ -88,20 +88,21 @@ def register_user():
     name = data.get("name")
     email = data.get("email")
     password = data.get("password")
-    role = data.get("role")  # "attendee" or "organizer"
+    # role = data.get("role")  # "attendee" or "organizer"
 
-    if not all([name, email, password, role]):
+    if not all([name, email, password]):
         return jsonify({"message": "All fields are required."}), 400
 
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "Email already registered."}), 409
 
-    if role == UserRole.ATTENDEE.value:
-        new_user = Attendee(name=name, email=email, password=password, role=UserRole.ATTENDEE)
-    elif role == UserRole.ORGANIZER.value:
-        new_user = Organizer(name=name, email=email, password=password, role=UserRole.ORGANIZER)
-    else:
-        return jsonify({"message": "Invalid role."}), 400
+    # if role == UserRole.ATTENDEE.value:
+    #     new_user = Attendee(name=name, email=email, password=password, role=UserRole.ATTENDEE)
+    # elif role == UserRole.ORGANIZER.value:
+    #     new_user = Organizer(name=name, email=email, password=password, role=UserRole.ORGANIZER)
+    # else:
+    #     return jsonify({"message": "Invalid role."}), 400
+    new_user = User(name=name, email=email, password=password)
 
     db.session.add(new_user)
     db.session.commit()

@@ -37,12 +37,12 @@ class User(db.Model):
     name  = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    role = db.Column(db.Enum(UserRole), nullable=False)
+    # role = db.Column(db.Enum(UserRole), nullable=False)
 
     # (optional)
     __mapper_args__ = {
         "polymorphic_identity": "user",
-        "polymorphic_on": role,
+        # "polymorphic_on": role,
     }
 
     def to_json(self):
@@ -50,7 +50,7 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "email": self.email,
-            "role": self.role.value,
+            # "role": self.role.value,
         }
 
 class Attendee(User):
