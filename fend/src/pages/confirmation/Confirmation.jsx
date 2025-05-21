@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './Confirmation.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
+import styles from './Confirmation.module.css';
 
 const ticketTypes = {
     vip: 'Front Orchestra',
@@ -97,29 +97,29 @@ const Confirmation = () => {
         <div className={styles['confirmation-container']}>
             <NavbarUser />
 
-            <h2 className={styles['section-title']}>Confirm Your Order</h2>
-
             <div className={styles['progress-bar']}>
-                <span className={styles.step}>1. Seat Selection</span>
-                <span className={`${styles.step} ${styles.active}`}>2. Confirmation</span>
-                <span className={styles.step}>3. Payment</span>
+                <div className={`${styles.step} ${styles.completed}`}>Seat Selection</div>
+                <div className={`${styles.step} ${styles.active}`}>Confirmation</div>
+                <div className={styles.step}>Payment</div>
+                <div className={styles.step}>Finish</div>
             </div>
+
+            <h2 className={styles['section-title']}>Order Summary</h2>
 
             <div className={styles['summary-wrapper']}>
                 <div className={styles['summary-left']}>
                     <img src="/images/adele.jpg" alt="Event Poster" className={styles['event-image']} />
-                    <p className={styles['event-title']}>The Grand Symphony Orchestra</p>
-                    <p className={styles['event-date']}>Friday, 15th March 2025, 7:30 PM</p>
+                    <h3 className={styles['event-title']}>Weekend with ADELE</h3>
+                    <p className={styles['event-date']}>26 March 2025 (Sat), 18:00</p>
                 </div>
 
                 <div className={styles['summary-right']}>
-                    <h3>Order Summary</h3>
-                    <table className={styles['order-summary-table']}>
+                    <table>
                         <thead>
                             <tr>
-                                <th>Ticket Type</th>
-                                <th>Qty</th>
-                                <th>Price</th>
+                                <th>TYPE</th>
+                                <th>QTY</th>
+                                <th>PRICE</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,7 +148,7 @@ const Confirmation = () => {
             <div className={styles['button-group']}>
                 <button onClick={() => navigate(-1)}>Back</button>
                 <button onClick={() => navigate('./payment', {
-                state: { ticketQuantities, deliveryMethod, subTotal, deliveryCost, total }
+                    state: { ticketQuantities, deliveryMethod, subTotal, deliveryCost, total }
                 })}>Next</button>
             </div>
         </div>

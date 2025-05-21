@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './MyEvents.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,8 +11,8 @@ const MyEvents = () => {
     const navigate = useNavigate();
 
     const handeBackClick = () => {
-    navigate('/');
-};
+        navigate('/');
+    };
 
     return (
         // <div>
@@ -45,28 +45,28 @@ const MyEvents = () => {
         // </div>
         <div>
             <NavbarUser />
-            <div className={styles.myEventsContainer}>
-                <div className={styles.backButton}>
-                    <Link to="/homepage" className={styles.backButton}>
+            <div className={styles['my-events-container']}>
+                <div className={styles['back-button']}>
+                    <Link to="/homepage" className={styles['back-button']}>
                         <FaArrowLeft /> <span>Homepage</span>
                     </Link>
                 </div>
-                <h2 className={styles.heading}>My Events</h2>
-                <div className={styles.eventCard}>
-                    <div className={styles.eventImages}>
+                <h2>My Events</h2>
+                <div className={styles['event-card']}>
+                    <div className={styles['event-images']}>
                         <img src="/images/techspo.jpg" alt="Techspo" />
                     </div>
 
-                    <div className={styles.eventDetails}>
+                    <div className={styles['event-details']}>
                         <h3>Annual Tech Conference</h3>
                         <p>20 November 2025</p>
                         <p>Sydney Convention Center</p>
                     </div>
 
-                    <div className={styles.eventActions}>
+                    <div className={styles['event-actions']}>
                         <button onClick={() => navigate('/homepage/my-events/attendee')}>View Participants</button>
                         <button onClick={() => navigate('/homepage/my-events/finnace-report')}>View Finance</button>
-                        <button className={styles.cancel} onClick={() => navigate('/homepage/my-events/cancel-events')}>Cancel Events</button>
+                        <button className={styles['cancel']} onClick={() => navigate('/homepage/my-events/cancel-events')}>Cancel Events</button>
                     </div>
                 </div>
             </div>

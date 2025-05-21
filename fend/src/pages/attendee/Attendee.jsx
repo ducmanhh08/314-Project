@@ -27,7 +27,7 @@ const Attendee = () => {
 
   return (
     // <div className="container">
-    //   <NavbarUser />  
+    //   <NavbarUser />  c
     //   <h1>REGISTERED ATTENDEES</h1>
     //   <div className="event-info">
     //     <p><strong>Event Name:</strong> Annual Tech Conference 2025</p>
@@ -86,15 +86,15 @@ const Attendee = () => {
     // </div>
     <div className={styles.container}>
       <NavbarUser />
-      <h1>Event Attendees</h1>
-
+      <h1>REGISTERED ATTENDEES</h1>
       <div className={styles['event-info']}>
         <p><strong>Event Name:</strong> Annual Tech Conference 2025</p>
-        <p><strong>Date:</strong> May 10-12, 2025</p>
-        <p><strong>Location:</strong> Convention Center, Cityville</p>
+        <p><strong>Date:</strong> 20 November 2025</p>
+        <p><strong>Location:</strong> Sydney Convention Center</p>
       </div>
 
-      <div className={styles['search-bar']}> 
+      <h2>Search Attendees</h2>
+      <div className={styles['search-bar']}>
         <input
           type="text"
           placeholder="🔍 Search by Name or Email"

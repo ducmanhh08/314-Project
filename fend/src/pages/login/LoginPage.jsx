@@ -8,7 +8,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -76,7 +76,7 @@ function LoginPage() {
     // </div>
     <div className={styles['login-container']}>
       <div className={styles['login-left']}>
-        <h2 className={styles.logo}>Ticket<br />Please?</h2>
+        <h2 className={styles['logo']}>Ticket<br />Please?</h2>
         <h1>Welcome to...</h1>
         <p>
           Your gateway to unforgettable live experiences. From concerts and theater shows
@@ -87,15 +87,15 @@ function LoginPage() {
         <h2>Login</h2>
         <p>Welcome! Login to get amazing discounts and offers only for you.</p>
         <form onSubmit={handleLogin}>
-          <label className={styles.a}>User Name</label> {/* Apply styles.a */}
+          <label className={styles['a']}>User Name</label>
           <input type="text" placeholder="Enter your username"
-          value={email}
-          onChange={e => setEmail(e.target.value)}/>
+            value={email}
+            onChange={e => setEmail(e.target.value)} />
 
-          <label className={styles.a}>Password</label> {/* Apply styles.a */}
+          <label className={styles['a']}>Password</label>
           <input type="password" placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}/>
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} />
 
           <div className={styles['checkbox-container']}>
             <input type="checkbox" />
