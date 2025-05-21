@@ -1,5 +1,6 @@
 //import react & useState hook from react library
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ForgotPassword.css'; 
 
 
@@ -19,6 +20,7 @@ function ForgotPassword() {
         'If the email is registered, a reset link has been sent.'
      );
     };
+    const navigate = useNavigate();
 
     //return the JSX layout for the password 
     return (
@@ -52,7 +54,7 @@ function ForgotPassword() {
         />
 
         {/*Continue button*/}
-        <button type = "submit">Continue</button>
+        <button type = "submit" onClick={() => navigate('/new-password')}>Continue</button>
       </form>
 
     {/* Conditionally show the message if it exists */}

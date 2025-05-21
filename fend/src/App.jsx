@@ -16,7 +16,7 @@ import LoginPage from './pages/login/LoginPage';
 import MyEvents from './pages/my-events/MyEvents';
 import AccountInfo from './pages/my-information/MyInformation';
 import MyTickets from './pages/my-ticket/MyTicket';
-import NewPassword from './pages/new-password/NewPassword'; //!!
+import NewPassword from './pages/new-password/NewPassword';
 import Payment from './pages/payment/Payment';
 import RefundPolicy from './pages/refund-policy/RefundPolicy';
 import RefundRequest from './pages/refund-request/RefundRequest';
@@ -30,14 +30,12 @@ function App() {
   return (
     // <Router>
       <Routes>
-        <Route path="/new-password" element={<NewPassword />} />
-
-
         <Route path="/" element={<UserHomePage />} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/new-password" element={<NewPassword />} />
         
         <Route path="/result" element={<EventPage />} />
         {/* <Route path="/homepage/event/:id" element={<EventDetail />} /> */}

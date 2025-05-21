@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CreateEvents.css';
+import styles from './CreateEvents.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import { FaUpload } from 'react-icons/fa';
 import ReactQuill from 'react-quill';
@@ -53,121 +53,305 @@ const CreateEvents = () => {
     };
 
     return (
-        <div>
+        // <div>
+        //     <NavbarUser />
+        //     <div className="create-events-container">
+        //         <h1 className="main-title">START YOUR EVENT</h1>
+
+        //         <div className="upload-section">
+        //             <img src="/images/concert.jpg" alt="Concert" className="background-image" />
+        //             <div className="upload-overlay">
+        //                 <FaUpload className="upload-icon" />
+        //                 <p>Upload Photos and Videos</p>
+        //             </div>
+        //         </div>
+
+        //         {/* EVENT OVERVIEW */}
+        //         <div className="section-box">
+        //             <h2>EVENT OVERVIEW</h2>
+        //             <label><strong>Event Title</strong></label>
+        //             <input type="text" placeholder="Be clear and descriptive with a title that tells people what your event is about." />
+        //             <label><strong>Summary</strong></label>
+        //             <textarea
+        //                 placeholder="Give attendees a quick peek at what your event is all about—this will show at the top of your event page. (300 character max)"
+        //                 maxLength={300}
+        //                 rows={3}
+        //             ></textarea>
+        //             <div className="char-count">0/300</div>
+        //         </div>
+
+        //         {/* DATE AND TIME */}
+        //         <div className="section-box">
+        //             <h2>DATE AND TIME</h2>
+        //             <div className="datetime-row">
+        //                 <div>
+        //                     <label><strong>Date</strong></label>
+        //                     <input type="date" />
+        //                 </div>
+        //             <div>
+        //                 <label><strong>Start Time</strong></label>
+        //                 <div className='time-select-row'>
+        //                     <select value={startHour} onChange={(e) => setStartHour(e.target.value)}>
+        //                             <option value="">HH</option>
+        //                             {hours.map(h => <option key={h} value={h}>{h}</option>)}
+        //                     </select>
+        //                     :
+        //                     <select value={startMinute} onChange={(e) => setStartMinute(e.target.value)}>
+        //                             <option value="">MM</option>
+        //                             {minutes.map(m => <option key={m} value={m}>{m}</option>)}
+        //                     </select>
+        //                 </div>
+        //             </div>
+
+        //             <div>
+        //                     <label><strong>End Time</strong></label>
+        //                     <div className="time-select-row">
+        //                         <select value={endHour} onChange={(e) => setEndHour(e.target.value)}>
+        //                             <option value="">HH</option>
+        //                             {hours.map(h => <option key={h} value={h}>{h}</option>)}
+        //                         </select>
+        //                         :
+        //                         <select value={endMinute} onChange={(e) => setEndMinute(e.target.value)}>
+        //                             <option value="">MM</option>
+        //                             {minutes.map(m => <option key={m} value={m}>{m}</option>)}
+        //                         </select>
+        //                     </div>
+        //                 </div>
+        //         </div>
+
+        //         {/* Toggle */}
+        //         <div className="location-toggle">
+        //             <label>
+        //                 <input
+        //                     type="radio"
+        //                     name="location"
+        //                     value="venue"
+        //                     checked={eventType === 'venue'}
+        //                     onChange={() => setEventType('venue')}
+        //                 />
+        //                 Venue
+        //             </label>
+        //             <label>
+        //                 <input
+        //                     type="radio"
+        //                     name="location"
+        //                     value="online"
+        //                     checked={eventType === 'online'}
+        //                     onChange={() => setEventType('online')}
+        //                 />
+        //                 Online Event
+        //             </label>
+        //         </div>
+
+        //         {/* Conditional Section */}
+        //         {eventType === 'venue' ? (
+        //             <>
+        //                 <div className="location-section">
+        //                     <label>Venue Name</label>
+        //                     <input type="text" placeholder="Venue Name" className="full-width" />
+        //                 </div>
+
+        //                 <div className="address-row">
+        //                     <input type="text" placeholder="Address 1" />
+        //                     <input type="text" placeholder="Address 2" />
+        //                     <select value={selectedCountry} onChange={handleCountryChange}>
+        //                     <option value="">Country</option>
+        //                     {Object.keys(locationOptions).map((country) => (
+        //                         <option key={country} value={country}>{country}</option>
+        //                     ))}
+        //                     </select>
+        //                 </div>
+
+        //                 <div className="address-row">
+        //                     <select value={selectedState} onChange={handleStateChange} disabled={!selectedCountry}>
+        //                     <option value="">State/Province</option>
+        //                     {states.map((state) => (
+        //                         <option key={state} value={state}>{state}</option>
+        //                     ))}
+        //                     </select>
+
+        //                     <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} disabled={!selectedState}>
+        //                         <option value="">City</option>
+        //                         {cities.map((city) => (
+        //                             <option key={city} value={city}>{city}</option>
+        //                         ))}
+        //                     </select>
+        //                 </div>
+        //             </>
+        //         ) : (
+        //         <div className="online-link-section">
+        //             <label>Event Link</label>
+        //             <input type="url" placeholder="Paste your Zoom/Google Meet/etc. link here" className="full-width" />
+        //         </div>
+        //     )}
+        // </div>
+
+        // {/* OVERVIEW SECTION */}
+        // <div className="section-box">
+        //     <h2>OVERVIEW</h2>
+        //     <p>
+        //         Paint a fuller picture of your event—give people a sense of the vibe, the activities,
+        //         and the value they’ll walk away with.
+        //     </p>
+        //     <ReactQuill
+        //         value={overview}
+        //         onChange={setOverview}
+        //         placeholder="Start Typing..."
+        //         theme="snow"
+        //     />
+        //     </div>
+        // </div>
+        // </div>
+        <div className={styles['create-events-container']}>
             <NavbarUser />
-            <div className="create-events-container">
-                <h1 className="main-title">START YOUR EVENT</h1>
+            <h1 className={styles['main-title']}>Create Events</h1>
 
-                <div className="upload-section">
-                    <img src="/images/concert.jpg" alt="Concert" className="background-image" />
-                    <div className="upload-overlay">
-                        <FaUpload className="upload-icon" />
-                        <p>Upload Photos and Videos</p>
+            {/* UPLOAD SECTION */}
+            <div className={styles['upload-section']}>
+                <img src="/images/concert.jpg" alt="Concert" className={styles['background-image']} />
+                <div className={styles['upload-overlay']}>
+                    <FaUpload className={styles['upload-icon']} />
+                    <p>Click here to upload Image/Video</p>
+                </div>
+            </div>
+
+            {/* BASIC INFO SECTION */}
+            <div className={styles['section-box']}>
+                <h2>BASIC INFO</h2>
+                <label>Event Title</label>
+                <input type="text" placeholder="Make it short and clear." className={styles['full-width']} />
+
+                <div className={styles['form-row']}>
+                    <div>
+                        <label>Event Type</label>
+                        <select className={styles['full-width']}>
+                            <option value="">Select Event Type</option>
+                            <option value="conference">Conference</option>
+                            <option value="concert">Concert</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="meetup">Meetup</option>
+                            <option value="webinar">Webinar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Category</label>
+                        <select className={styles['full-width']}>
+                            <option value="">Select Category</option>
+                            <option value="tech">Technology</option>
+                            <option value="music">Music</option>
+                            <option value="education">Education</option>
+                            <option value="business">Business</option>
+                            <option value="health">Health</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            {/* DATE AND TIME SECTION */}
+            <div className={styles['section-box']}>
+                <h2>DATE & TIME</h2>
+                <div className={styles['form-row']}>
+                    <div>
+                        <label>Start Date</label>
+                        <input type="date" className={styles['full-width']} />
+                    </div>
+                    <div>
+                        <label>End Date</label>
+                        <input type="date" className={styles['full-width']} />
                     </div>
                 </div>
 
-                {/* EVENT OVERVIEW */}
-                <div className="section-box">
-                    <h2>EVENT OVERVIEW</h2>
-                    <label><strong>Event Title</strong></label>
-                    <input type="text" placeholder="Be clear and descriptive with a title that tells people what your event is about." />
-                    <label><strong>Summary</strong></label>
-                    <textarea
-                        placeholder="Give attendees a quick peek at what your event is all about—this will show at the top of your event page. (300 character max)"
-                        maxLength={300}
-                        rows={3}
-                    ></textarea>
-                    <div className="char-count">0/300</div>
-                </div>
-
-                {/* DATE AND TIME */}
-                <div className="section-box">
-                    <h2>DATE AND TIME</h2>
-                    <div className="datetime-row">
-                        <div>
-                            <label><strong>Date</strong></label>
-                            <input type="date" />
-                        </div>
+                <div className={styles['datetime-row']}>
                     <div>
-                        <label><strong>Start Time</strong></label>
-                        <div className='time-select-row'>
-                            <select value={startHour} onChange={(e) => setStartHour(e.target.value)}>
-                                    <option value="">HH</option>
-                                    {hours.map(h => <option key={h} value={h}>{h}</option>)}
-                            </select>
-                            :
-                            <select value={startMinute} onChange={(e) => setStartMinute(e.target.value)}>
-                                    <option value="">MM</option>
-                                    {minutes.map(m => <option key={m} value={m}>{m}</option>)}
-                            </select>
+                        <label>Start Time</label>
+                        <div className={styles['time-inputs']}>
+                            <input
+                                type="number"
+                                placeholder="HH"
+                                min="0"
+                                max="23"
+                                value={startHour}
+                                onChange={(e) => setStartHour(e.target.value)}
+                            />
+                            <span>:</span>
+                            <input
+                                type="number"
+                                placeholder="MM"
+                                min="0"
+                                max="59"
+                                value={startMinute}
+                                onChange={(e) => setStartMinute(e.target.value)}
+                            />
                         </div>
                     </div>
-
                     <div>
-                            <label><strong>End Time</strong></label>
-                            <div className="time-select-row">
-                                <select value={endHour} onChange={(e) => setEndHour(e.target.value)}>
-                                    <option value="">HH</option>
-                                    {hours.map(h => <option key={h} value={h}>{h}</option>)}
-                                </select>
-                                :
-                                <select value={endMinute} onChange={(e) => setEndMinute(e.target.value)}>
-                                    <option value="">MM</option>
-                                    {minutes.map(m => <option key={m} value={m}>{m}</option>)}
-                                </select>
-                            </div>
+                        <label>End Time</label>
+                        <div className={styles['time-inputs']}>
+                            <input
+                                type="number"
+                                placeholder="HH"
+                                min="0"
+                                max="23"
+                                value={endHour}
+                                onChange={(e) => setEndHour(e.target.value)}
+                            />
+                            <span>:</span>
+                            <input
+                                type="number"
+                                placeholder="MM"
+                                min="0"
+                                max="59"
+                                value={endMinute}
+                                onChange={(e) => setEndMinute(e.target.value)}
+                            />
                         </div>
+                    </div>
                 </div>
+            </div>
 
-                {/* Toggle */}
-                <div className="location-toggle">
+            {/* LOCATION SECTION */}
+            <div className={styles['section-box']}>
+                <h2>LOCATION</h2>
+                <div className={styles['location-toggle']}>
                     <label>
                         <input
                             type="radio"
-                            name="location"
                             value="venue"
                             checked={eventType === 'venue'}
-                            onChange={() => setEventType('venue')}
+                            onChange={(e) => setEventType(e.target.value)}
                         />
                         Venue
                     </label>
                     <label>
                         <input
                             type="radio"
-                            name="location"
                             value="online"
                             checked={eventType === 'online'}
-                            onChange={() => setEventType('online')}
+                            onChange={(e) => setEventType(e.target.value)}
                         />
                         Online Event
                     </label>
                 </div>
 
-                {/* Conditional Section */}
                 {eventType === 'venue' ? (
                     <>
-                        <div className="location-section">
-                            <label>Venue Name</label>
-                            <input type="text" placeholder="Venue Name" className="full-width" />
+                        <div className={styles['location-section']}>
+                            <label>Venue Address</label>
+                            <input type="text" placeholder="Enter venue name or address" className={styles['full-width']} />
                         </div>
-
-                        <div className="address-row">
-                            <input type="text" placeholder="Address 1" />
-                            <input type="text" placeholder="Address 2" />
-                            <select value={selectedCountry} onChange={handleCountryChange}>
-                            <option value="">Country</option>
-                            {Object.keys(locationOptions).map((country) => (
-                                <option key={country} value={country}>{country}</option>
-                            ))}
+                        <div className={styles['address-row']}>
+                            <select value={selectedCountry} onChange={(e) => { setSelectedCountry(e.target.value); setSelectedState(''); setSelectedCity(''); }}>
+                                <option value="">Country</option>
+                                {Object.keys(locationOptions).map((country) => (
+                                    <option key={country} value={country}>{country}</option>
+                                ))}
                             </select>
-                        </div>
 
-                        <div className="address-row">
-                            <select value={selectedState} onChange={handleStateChange} disabled={!selectedCountry}>
-                            <option value="">State/Province</option>
-                            {states.map((state) => (
-                                <option key={state} value={state}>{state}</option>
-                            ))}
+                            <select value={selectedState} onChange={(e) => { setSelectedState(e.target.value); setSelectedCity(''); }} disabled={!selectedCountry}>
+                                <option value="">State</option>
+                                {states.map((state) => (
+                                    <option key={state} value={state}>{state}</option>
+                                ))}
                             </select>
 
                             <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} disabled={!selectedState}>
@@ -179,15 +363,15 @@ const CreateEvents = () => {
                         </div>
                     </>
                 ) : (
-                <div className="online-link-section">
+                <div className={styles['online-link-section']}>
                     <label>Event Link</label>
-                    <input type="url" placeholder="Paste your Zoom/Google Meet/etc. link here" className="full-width" />
+                    <input type="url" placeholder="Paste your Zoom/Google Meet/etc. link here" className={styles['full-width']} />
                 </div>
             )}
         </div>
 
         {/* OVERVIEW SECTION */}
-        <div className="section-box">
+        <div className={styles['section-box']}>
             <h2>OVERVIEW</h2>
             <p>
                 Paint a fuller picture of your event—give people a sense of the vibe, the activities,
@@ -201,8 +385,6 @@ const CreateEvents = () => {
             />
             </div>
         </div>
-        </div>
-        
     );
 };
 
