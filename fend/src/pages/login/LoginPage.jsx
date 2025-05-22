@@ -7,6 +7,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -15,20 +16,22 @@ function LoginPage() {
     try {
       const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(data.message); // Display success message
-        console.log('User:', data.user); // Log user details
+        if (rememberMe) {
+          localStorage.setItem('token', data.token);
+        } else {
+          sessionStorage.setItem('token', data.token);
+        }
+        setMessage(data.message);
         navigate('/homepage');
       } else {
-        setMessage(data.message); // Display error message
+        setMessage(data.message);
       }
     } catch (error) {
       setMessage('An error occurred. Please try again.');
@@ -36,6 +39,7 @@ function LoginPage() {
   };
 
   return (
+    // #region Code before CSS Module
     // <div className="login-container">
     //   <div className="login-left">
     //     <h2 className="logo">Ticket<br />Please?</h2>
@@ -74,6 +78,7 @@ function LoginPage() {
     //     {message && <p>{message}</p>} {/* Display login message */}
     //   </div>
     // </div>
+    // #endregion
     <div className={styles['login-container']}>
       <div className={styles['login-left']}>
         <h2 className={styles['logo']}>Ticket<br />Please?</h2>
@@ -98,7 +103,8 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)} />
 
           <div className={styles['checkbox-container']}>
-            <input type="checkbox" />
+            <input type="checkbox"
+              checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />
             <span>Remember me</span>
           </div>
 

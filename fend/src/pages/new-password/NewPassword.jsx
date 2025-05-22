@@ -1,55 +1,62 @@
-// Import necessary React hooks and navigation tools
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For redirection after success
-import styles from './NewPassword.module.css'; // Adjust path if needed
+import { useNavigate, useLocation } from 'react-router-dom';
+import styles from './NewPassword.module.css';
 
 
 function NewPassword() {
-  // State for password fields
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  // State for feedback messages
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [variant, setVariant] = useState('');
 
-  // React Router hook to navigate to login page
   const navigate = useNavigate();
-
-  // Form submission handler
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page refresh
-
-    // Clear previous messages
+  const location = useLocation();
+  const email = location.state?.email;
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setMessage('');
     setError('');
     setVariant('');
 
-    // Validate password length
     if (password.length < 6) {
       setError('Password must be at least 6 characters.');
       return;
     }
-
-    // Validate matching passwords
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
+    if (!email) {
+      setError('No email found. Please restart the password reset process.');
+      return;
+    }
 
-    // Simulate success
-    setMessage('Password created successfully! Redirecting to login...');
-    setVariant('success');
+    try {
+      const response = await fetch('http://localhost:5000/reset_password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, new_password: password }),
+      });
+      const data = await response.json();
 
-    // Redirect to login after 2 seconds
-    setTimeout(() => {
-      // Adjust this path if your login page has a different route
-      navigate('/login');
-    }, 2000);
+      if (response.ok) {
+        setMessage('Password updated successfully! Redirecting to login...');
+        setVariant('success');
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      } else {
+        setError(data.message || 'Failed to update password.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
+    }
   };
 
   return (
+    // #region Code before CSS Module
     // <>
     //   <div className="page-title">New Password Page</div>
     //     <div className="new-password-wrapper">
@@ -94,22 +101,17 @@ function NewPassword() {
     //     </div>
     //   </div>
     // </>
+    // #endregion
     <>
       <div className={styles['page-title']}>New Password Page</div>
       <div className={styles['new-password-wrapper']}>
-        {/* Form container */}
         <div className={styles['form-container']}>
-          {/* App branding */}
           <div className={styles['branding']}>Ticket<br />Please?</div>
-
-          {/* Inner box that contains the form */}
-          {/* The original code had a form-box div without content or styling from the CSS, so it's removed for cleaner code unless it has a specific purpose that's not immediately obvious */}
           <h2 className={styles['form-title']}>New Password</h2>
           <p className={styles['form-subtext']}>
             Please create a new password. For security, we recommend a unique password you haven't used before.
           </p>
 
-          {/* Password creation form */}
           <form onSubmit={handleSubmit}>
             <input
               type="password"
@@ -132,14 +134,12 @@ function NewPassword() {
             <button type="submit" className={styles['btn-primary']}>Save</button>
           </form>
 
-          {/* Feedback messages */}
           {error && <div className={`${styles['alert']} ${styles['alert-danger']}`}>{error}</div>}
           {message && <div className={`${styles['alert']} ${styles[`alert-${variant}`]}`}>{message}</div>}
         </div>
       </div>
     </>
   );
-};
+}
 
-// Export for use in App.js
 export default NewPassword;
