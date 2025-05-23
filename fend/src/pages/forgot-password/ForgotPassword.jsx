@@ -23,11 +23,10 @@ function ForgotPassword() {
     //return the JSX layout for the password 
     return (
         <div className="forgot-password-page-wrapper">
-          <div className="page-title">Forgot Password Page</div>
             {/* Outer container to center and style the content*/} 
             <div className="forgot-container">
               {/* App branding */}
-              <div className="branding">Ticket<br />Please?</div>
+              <div className="branding"><strong>Ticket<br /></strong><strong>Please?</strong></div>
               {/* Inner box that contains the form */}
                 <div className="forgot-box">
                 {/* Title of the page */}
