@@ -15,7 +15,16 @@ const initialAttendees = [
   { id: '991411', name: 'Ethan J.', email: 'ethan@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Pending' },
   { id: '991244', name: 'Olivia C.', email: 'olivia@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
   { id: '991473', name: 'Isla R.', email: 'isla@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Pending' },
+  { id: '991599', name: 'Mason T.', email: 'mason@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Approve' },
+  { id: '991600', name: 'Sophia L.', email: 'sophia@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991601', name: 'James P.', email: 'james@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Pending' },
+  { id: '991602', name: 'Amelia R.', email: 'amelia@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Approve' },
+  { id: '991603', name: 'Lucas K.', email: 'lucas@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991604', name: 'Mia V.', email: 'mia@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Pending' },
+  { id: '991605', name: 'Benjamin F.', email: 'benjamin@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991606', name: 'Charlotte G.', email: 'charlotte@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' }
 ];
+
 
 const Attendee = () => {
   const [attendeeList, setAttendeeList] = useState(initialAttendees);
