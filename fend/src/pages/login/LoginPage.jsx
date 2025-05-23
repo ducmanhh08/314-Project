@@ -1,39 +1,121 @@
 import React from "react";
-import "./LoginPage.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './LoginPage.module.css';
 
 function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (rememberMe) {
+          localStorage.setItem('token', data.token);
+        } else {
+          sessionStorage.setItem('token', data.token);
+        }
+        setMessage(data.message);
+        navigate('/homepage');
+      } else {
+        setMessage(data.message);
+      }
+    } catch (error) {
+      setMessage('An error occurred. Please try again.');
+    }
+  };
+
   return (
-    <div className="login-container">
-      <div className="login-left">
-        <h2 className="logo">Ticket<br />Please?</h2>
+    // #region Code before CSS Module
+    // <div className="login-container">
+    //   <div className="login-left">
+    //     <h2 className="logo">Ticket<br />Please?</h2>
+    //     <h1>Welcome to...</h1>
+    //     <p>
+    //       Your gateway to unforgettable live experiences. From concerts and theater shows 
+    //       to sports events and festivals, we bring the best seats right to your screen.
+    //     </p>
+    //   </div>
+    //   <div className="login-right">
+    //     <h2>Login</h2>
+    //     <p>Welcome! Login to get amazing discounts and offers only for you.</p>
+    //     <form onSubmit={handleLogin}>
+    //       <label className="a">User Name</label>
+    //       <input type="text" placeholder="Enter your username" 
+    //       value={email}
+    //       onChange={e => setEmail(e.target.value)}/>
+
+    //       <label className="a">Password</label>
+    //       <input type="password" placeholder="Enter your password"
+    //       value={password}
+    //       onChange={(e) => setPassword(e.target.value)}/>
+
+    //       <div className="checkbox-container">
+    //         <input type="checkbox" />
+    //         <span>Remember me</span>
+    //       </div>
+
+    //       <button type="submit">Login</button>
+
+    //       <div className="signup-link">
+    //         <span>New User? <a href="#" onClick={e => { e.preventDefault(); navigate('/sign-up'); }}>Signup</a></span>
+    //         <a href="#" className="forgot-password" onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
+    //       </div>
+    //     </form>
+    //     {message && <p>{message}</p>} {/* Display login message */}
+    //   </div>
+    // </div>
+    // #endregion
+    <div className={styles['login-container']}>
+      <div className={styles['login-left']}>
+        <h2 className={styles['logo']}>Ticket<br />Please?</h2>
         <h1>Welcome to...</h1>
         <p>
-          Your gateway to unforgettable live experiences. From concerts and theater shows 
+          Your gateway to unforgettable live experiences. From concerts and theater shows
           to sports events and festivals, we bring the best seats right to your screen.
         </p>
       </div>
-      <div className="login-right">
+      <div className={styles['login-right']}>
         <h2>Login</h2>
         <p>Welcome! Login to get amazing discounts and offers only for you.</p>
-        <form>
-          <label className="a">User Name</label>
-          <input type="text" placeholder="Enter your username" />
+        <form onSubmit={handleLogin}>
+          <label className={styles['a']}>User Name</label>
+          <input type="text" placeholder="Enter your username"
+            value={email}
+            onChange={e => setEmail(e.target.value)} />
 
-          <label className="a">Password</label>
-          <input type="password" placeholder="Enter your password" />
+          <label className={styles['a']}>Password</label>
+          <input type="password" placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} />
 
-          <div className="checkbox-container">
-            <input type="checkbox" />
+          <div className={styles['checkbox-container']}>
+            <input type="checkbox"
+              checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />
             <span>Remember me</span>
           </div>
 
           <button type="submit">Login</button>
 
-          <div className="signup-link">
-            <span>New User? <a href="#">Signup</a></span>
-            <a href="#" className="forgot-password">Forgot your password?</a>
+          <div className={styles['signup-link']}>
+            <span>New User? <a href="#" onClick={e => { e.preventDefault(); navigate('/sign-up'); }}>Signup</a></span>
+            <a href="#" className={styles['forgot-password']} onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
           </div>
         </form>
+        {message && <p>{message}</p>} {/* Display login message */}
       </div>
     </div>
   );

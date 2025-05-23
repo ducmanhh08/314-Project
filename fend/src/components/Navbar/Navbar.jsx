@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
     const [showCategories, setShowCategories] = useState(false);
+    const navigate = useNavigate();
     
     const categories = [
         'Concert',
@@ -43,7 +45,8 @@ const Navbar = () => {
             </div>
 
             <div className="auth-buttons">
-                <button className="login-register-btn">Login / Register</button>
+                <button className="login-register-btn"
+                onClick={() => navigate('/login')}>Login / Register</button>
             </div>
         </nav>
     );

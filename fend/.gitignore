@@ -35,4 +35,3 @@ public/
 # Lock file backups (npm install)
 package-lock.json.*
 yarn.lock.*
-

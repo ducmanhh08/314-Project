@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './NavbarUser.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ const NavbarUser = () => {
     return (
         <nav className="navbar-user">
             <div className="logo">
-                <img src="/images/events/logo.jpg" alt="Ticket Please?" />
+                <img src="/images/events/logo.jpg" alt="Ticket Please?" onClick={e => { e.preventDefault(); navigate('/homepage'); }}/>
             </div>
 
             <div className="search-bar">
@@ -34,7 +34,7 @@ const NavbarUser = () => {
             </div>
 
             <div className="nav-links">
-                <span>Create Event</span>
+                <span onClick={e => { e.preventDefault(); navigate('/homepage/create-event'); }}>Create Event</span>
                 <span>Categories</span>
             </div>
 
@@ -43,9 +43,9 @@ const NavbarUser = () => {
                     <img src="/images/events/user-icon.jpg" alt="User Avatar" className="user-avatar" />
                     {showDropdown && (
                         <div className="dropdown-menu">
-                            <a href="#">My Ticket (0)</a>
-                            <a href="#">My Profile</a>
-                            <a href="#">My Event (0)</a>
+                            <a href="#" onClick={e => { e.preventDefault(); navigate('/homepage/my-tickets'); }}>My Ticket (0)</a>
+                            <a href="#" onClick={e => { e.preventDefault(); navigate('/homepage/my-info'); }}>My Profile</a>
+                            <a href="#" onClick={e => { e.preventDefault(); navigate('/homepage/my-events'); }}>My Event (0)</a>
                         </div>
                     )}
                 </div>

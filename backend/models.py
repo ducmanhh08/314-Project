@@ -37,12 +37,12 @@ class User(db.Model):
     name  = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    role = db.Column(db.Enum(UserRole), nullable=False)
+    # role = db.Column(db.Enum(UserRole), nullable=False)
 
     # (optional)
     __mapper_args__ = {
         "polymorphic_identity": "user",
-        "polymorphic_on": role,
+        # "polymorphic_on": role,
     }
 
     def to_json(self):
@@ -50,7 +50,7 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "email": self.email,
-            "role": self.role.value,
+            # "role": self.role.value,
         }
 
 class Attendee(User):
@@ -88,13 +88,14 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(150), nullable=False)
-    category = db.Column(db.Enum(Category), nullable=False)
-    ticket_price = db.Column(db.Float, nullable=False)
-    tickets_available = db.Column(db.Integer, nullable=False)
-    organizer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category = db.Column(db.Enum(Category), nullable=True)
+    image_url = db.Column(db.String(255), nullable=False)
+    ticket_price = db.Column(db.Float, nullable=True)
+    tickets_available = db.Column(db.Integer, nullable=True)
+    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
 
     tickets = db.relationship('Ticket', backref='event', lazy=True)
-    payments = db.relationship('payment', backref='event', lazy=True)
+    payments = db.relationship('Payment', backref='event', lazy=True)
 
     def to_json(self):
         return {
@@ -104,6 +105,7 @@ class Event(db.Model):
             "date": self.date.isoformat() if self.date else None,
             "category": self.category.value,
             "location": self.role.value,
+            "image_url": self.image_url,
             "ticket_price": self.ticket_price,
             "tickets_available": self.tickets_available,
             "organizer_id": self.organizer_id,
@@ -113,7 +115,7 @@ class Event(db.Model):
 class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     type = db.Column(db.Enum(TicketType), nullable=False)
     price = db.Column(db.Float, nullable=False)
     benefits = db.Column(db.String(255))
@@ -130,7 +132,7 @@ class Ticket(db.Model):
 
 class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING, nullable=False)

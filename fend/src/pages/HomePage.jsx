@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+// import React from 'react';
 import Navbar from '../components/Navbar/NavbarUser'; // or NavbarUser if preferred
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
-import { events } from "./DataEvent";
-
-
+import React, { useState } from 'react';
+import { events } from './search-option/DataEvent';
 
 const HomePage = () => {
-
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredEvents = events.filter((event) =>
@@ -33,7 +31,7 @@ const HomePage = () => {
               <ul>
                 {filteredEvents.map((event) => (
                   <li key={event.id}>
-                    <img src={`/images/events/${event.image}`} alt={event.title} width="100" />
+                    <img src={`${event.image}`} alt={event.title} width="100" />
                     <div>
                       <strong>{event.title}</strong><br />
                       {new Date(event.date).toLocaleDateString()}

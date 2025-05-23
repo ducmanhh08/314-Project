@@ -15,6 +15,7 @@
 .logo img {
     height:50px;
     width: 80px;
+    cursor: pointer;
 }
 
 .search-bar {
@@ -78,6 +79,7 @@
     gap: 10px;
 }
 
+.dropdown-trigger,
 .avatar-dropdown {
     position: relative;
     display: inline-block;

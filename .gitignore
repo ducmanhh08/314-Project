@@ -23,7 +23,12 @@ Include/
 Scripts/
 node_modules/
 
+# IDE settings
+.idea/
+.vscode/
+
 # Build output
 dist/
 fend/dist/
 build/
+#
