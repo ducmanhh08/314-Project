@@ -64,8 +64,8 @@ function App() {
         <Route path="my-tickets/waiting-list3" element={<WaitingList3 />} />
         <Route path="my-info" element={<AccountInfo />} />
         <Route path="my-events" element={<MyEvents />} />
-        <Route path="my-events/attendee" element={<Attendee />} />
-        <Route path="my-events/finnace-report" element={<FinanceReport />} />
+        <Route path="my-events/attendee/:id" element={<Attendee />} />
+        <Route path="my-events/finnace-report/:id" element={<FinanceReport />} />
         <Route path="my-events/cancel-events" element={<CancelEvents />} />
         <Route path="create-event" element={<CreateEvents />} />
       </Route>

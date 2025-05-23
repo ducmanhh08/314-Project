@@ -101,8 +101,8 @@ const MyEvents = () => {
                                     {/* <button onClick={() => navigate(`/homepage/my-events/attendee?id=${event.id}`)}>View Participants</button>
                                     <button onClick={() => navigate(`/homepage/my-events/finnace-report?id=${event.id}`)}>View Finance</button>
                                     <button className={styles['cancel']} onClick={() => navigate(`/homepage/my-events/cancel-events?id=${event.id}`)}>Cancel Events</button> */}
-                                    <button onClick={() => navigate('/homepage/my-events/attendee')}>View Participants</button>
-                                    <button onClick={() => navigate('/homepage/my-events/finnace-report')}>View Finance</button>
+                                    <button onClick={() => navigate(`/homepage/my-events/attendee/${event.id}`)}>View Participants</button>
+                                    <button onClick={() => navigate(`/homepage/my-events/finnace-report/${event.id}`)}>View Finance</button>
                                     <button className={styles['cancel']} onClick={() => navigate(`/homepage/my-events/cancel-events?id=${event.id}`)}>Cancel Events</button>
                                 </div>
                             </div>

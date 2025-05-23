@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './EventSlider.css';
 import { events } from '../../pages/DataEvent';
 
@@ -19,6 +19,13 @@ const EventSlider = () => {
     const goToSlide = (index) => {
         setCurrentIndex(index);
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            nextSlide();
+        }, 15000); // 20000 ms = 20 seconds
+        return () => clearInterval(interval);
+    }, [maxIndex])
 
     return (
         <div className="event-slider-wrapper">
