@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Finance.css";
 import NavbarUser from '../components/Navbar/NavbarUser';
 
@@ -27,13 +27,13 @@ const participantsData = [
     method: "PayPal",
     txn: "TXN10002",
   },
-    {
+  {
     id: "01102002",
     name: "Katie Beo",
     email: "beotron@example.com",
     phone: "+61 400 111 222",
     date: "March 15, 2025",
-    type: "Vip",
+    type: "VIP",
     status: "Paid",
     amount: "$150",
     method: "PayPal",
@@ -42,14 +42,6 @@ const participantsData = [
 ];
 
 const Finance = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredParticipants = participantsData.filter(
-    (p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <div className="page-wrapper">
       <NavbarUser />  
@@ -60,18 +52,6 @@ const Finance = () => {
           <p>Event Name: Annual Tech Conference 2025</p>
           <p>Date: 20 November 2025</p>
           <p>Location: Sydney Convention Center</p>
-        </div>
-        <hr style={{ margin: "20px 0",marginLeft: "auto", marginRight: "auto" ,
-             width: "95%", borderTop: "2px solid #272725" }} />
-        <h2>Search Participants</h2>    
-        <div className="search-section">
-          <input
-            type="text"
-            placeholder="Search by Name or Email"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
         </div>
         <hr style={{ margin: "20px 0",marginLeft: "auto", marginRight: "auto" ,
              width: "95%", borderTop: "2px solid #272725" }} />
@@ -91,24 +71,13 @@ const Finance = () => {
           <table className="participants-table">
             <thead>
               <tr>
-                {[
-                  "ID",
-                  "Name",
-                  "Email",
-                  "Phone Number",
-                  "Registration Date",
-                  "Ticket Type",
-                  "Payment Status",
-                  "Amount",
-                  "Payment Method",
-                  "Transaction ID",
-                ].map((header) => (
+                {[ "ID", "Name", "Email", "Phone Number", "Registration Date", "Ticket Type", "Payment Status", "Amount", "Payment Method", "Transaction ID", ].map((header) => (
                   <th key={header}>{header}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {filteredParticipants.map((p) => (
+              {participantsData.map((p) => (
                 <tr key={p.id}>
                   <td>{p.id}</td>
                   <td>{p.name}</td>
@@ -125,9 +94,10 @@ const Finance = () => {
             </tbody>
           </table>
         </div>
-
+        <hr style={{ margin: "20px 0",marginLeft: "auto", marginRight: "auto" ,
+             width: "95%", borderTop: "2px solid #272725" }} />      
         <div className="footer-info">
-          Total Participants: {filteredParticipants.length}
+          Total Participants: {participantsData.length}
         </div>
       </div>
     </div>
