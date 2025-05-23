@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/my-info" element={<AccountInfo />} />
+        <Route path="/info" element={<AccountInfo />} />
         {/* other routes */}
       </Routes>
     </Router>
