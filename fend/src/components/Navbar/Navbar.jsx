@@ -28,18 +28,16 @@ const Navbar = () => {
             <div className="create-events">Create Events</div>
 
             <div 
-                className="categories"
+                className="categories-container"
                 onMouseEnter={() => setShowCategories(true)}
                 onMouseLeave={() => setShowCategories(false)}
-            >
-                Categoreies 
+                >
+                <div className="categories">Categories</div>
                 {showCategories && (
                     <div className="categories-dropdown">
-                        {categories.map((category, index) =>(
-                            <div key={index} className="category-item">
-                                {category}
-                            </div>
-                        ))}
+                    {categories.map((category, index) => (
+                        <div key={index} className="category-item">{category}</div>
+                    ))}
                     </div>
                 )}
             </div>

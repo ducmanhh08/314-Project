@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './EventSlider.css';
-import { events } from '../../pages/DataEvent';
+import { events } from '../../pages/search-option/DataEvent';
 
 const EventSlider = () => {
     const sliderEvents = events.filter(event => event.category === 'slider');

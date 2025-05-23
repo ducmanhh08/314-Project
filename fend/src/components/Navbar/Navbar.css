@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Dai+Banna+SIL&display=swap');
+
 .navbar {
     background-color: #A8D8EE;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* allows wrapping on small screens */
+    flex-wrap: wrap;
     gap: 1rem;
+    font-family: 'Dai Banna SIL', serif;
 }
 
 .logo img {
@@ -13,21 +16,64 @@
     object-fit: contain;
 }
 
+.navbar-center {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-grow: 1;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.search-bar {
+    flex-grow: 1;
+}
+
 .search-bar input {
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    border: 1px solid #ddd;
-    width: 250px;
+    border: 1px solid #ccc;
+    width: 80%;
+    font-family: 'Dai Banna SIL', serif;
 }
 
 .create-events,
 .categories {
-    margin: 0 1rem;
     font-weight: bold;
     cursor: pointer;
+    white-space: nowrap;
 }
 
-.auth-button {
+.categories-container {
+    position: relative;
+}
+
+.categories-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    margin-top: 8px;
+    z-index: 100;
+    font-family: 'Dai Banna SIL', serif;
+    min-width: 160px;
+    overflow: hidden;
+}
+
+.category-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 15px;
+}
+
+.category-item:hover {
+    background-color: #f0f0f0;
+}
+
+.auth-buttons {
     margin-left: auto;
 }
 
@@ -38,11 +84,11 @@
     border: 1px solid #ccc;
     cursor: pointer;
     font-weight: bold;
+    font-family: 'Dai Banna SIL', serif;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .login-register-btn:hover {
     background-color: #e0e0e0;
 }
-
