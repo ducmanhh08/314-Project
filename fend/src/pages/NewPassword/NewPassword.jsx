@@ -50,7 +50,6 @@ function NewPassword() {
 
   return (
     <>
-      <div className="page-title">New Password Page</div>
         <div className="new-password-wrapper">
         {/* Form container */}
           <div className="form-container">
