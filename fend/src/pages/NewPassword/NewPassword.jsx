@@ -54,7 +54,7 @@ function NewPassword() {
         {/* Form container */}
           <div className="form-container">
           {/* App branding */}
-            <div className="branding">Ticket<br />Please?</div>
+            <div className="branding"><strong>Ticket<br /></strong><strong>Please?</strong></div>
   
           {/* Inner box that contains the form */}
             <div className="form-box"> </div>
