@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './MyEvents.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-
-
 
 const MyEvents = () => {
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true); 
     const navigate = useNavigate();
 
-    const handeBackClick = () => {
-        navigate('/');
-    };
+    useEffect(() => {
+        const fetchEvents = async () => {
+            const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/my_events', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setEvents(data);
+            setLoading(false);
+        };
+        fetchEvents();
+    }, []);
 
     return (
+        // #region Code before CSS Module
         // <div>
         //     <NavbarUser />
         //     <div className="my-events-container">
@@ -43,6 +54,7 @@ const MyEvents = () => {
         //         </div>
         //     </div>
         // </div>
+        // #endregion
         <div>
             <NavbarUser />
             <div className={styles['my-events-container']}>
@@ -52,7 +64,7 @@ const MyEvents = () => {
                     </Link>
                 </div>
                 <h2>My Events</h2>
-                <div className={styles['event-card']}>
+                {/* <div className={styles['event-card']}>
                     <div className={styles['event-images']}>
                         <img src="/images/techspo.jpg" alt="Techspo" />
                     </div>
@@ -68,7 +80,35 @@ const MyEvents = () => {
                         <button onClick={() => navigate('/homepage/my-events/finnace-report')}>View Finance</button>
                         <button className={styles['cancel']} onClick={() => navigate('/homepage/my-events/cancel-events')}>Cancel Events</button>
                     </div>
-                </div>
+                </div> */}
+                {loading ? (
+                    <p>Loading...</p>
+                ) : events.length === 0 ? (
+                    <p>No events found.</p>
+                ) : (
+                    events.map(event => (
+                        event && event.image_url ? (
+                            <div className={styles['event-card']} key={event.id}>
+                                <div className={styles['event-images']}>
+                                    <img src={`http://localhost:5000${event.image_url}`} alt={event.title} />
+                                </div>
+                                <div className={styles['event-details']}>
+                                    <h3>{event.title}</h3>
+                                    <p>{new Date(event.date).toLocaleDateString()}</p>
+                                    <p>{event.location}</p>
+                                </div>
+                                <div className={styles['event-actions']}>
+                                    {/* <button onClick={() => navigate(`/homepage/my-events/attendee?id=${event.id}`)}>View Participants</button>
+                                    <button onClick={() => navigate(`/homepage/my-events/finnace-report?id=${event.id}`)}>View Finance</button>
+                                    <button className={styles['cancel']} onClick={() => navigate(`/homepage/my-events/cancel-events?id=${event.id}`)}>Cancel Events</button> */}
+                                    <button onClick={() => navigate('/homepage/my-events/attendee')}>View Participants</button>
+                                    <button onClick={() => navigate('/homepage/my-events/finnace-report')}>View Finance</button>
+                                    <button className={styles['cancel']} onClick={() => navigate(`/homepage/my-events/cancel-events?id=${event.id}`)}>Cancel Events</button>
+                                </div>
+                            </div>
+                        ) : null
+                    ))
+                )}
             </div>
         </div>
     );

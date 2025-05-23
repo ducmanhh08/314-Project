@@ -1,20 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styles from './CancelEvents.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
 const CancelEvents = () => {
   const [reason, setReason] = useState('');
   const [explanation, setExplanation] = useState('');
+  const [event, setEvent] = useState(null);
+  const [searchParams] = useSearchParams();
+  const eventId = searchParams.get('id');
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     if (!reason || !explanation.trim()) {
       alert('Please provide both a reason and an explanation.');
       return;
     }
-    alert('Event cancelled.');
+    if (!window.confirm("Are you sure you want to cancel this event? This action cannot be undone.")) {
+      return;
+    }
+    const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:5000/event/${eventId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        alert('Event cancelled and deleted.');
+        window.location.href = '/homepage/my-events'; // or use navigate if using react-router
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Failed to cancel event.');
+      }
+    } catch (err) {
+      alert('Error cancelling event.');
+    }
   };
 
+  useEffect(() => {
+    const fetchEvent = async () => {
+      const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+      const response = await fetch(`http://localhost:5000/event/${eventId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      setEvent(data);
+    };
+    if (eventId) fetchEvent();
+  }, [eventId]);
+
   return (
+    // #region Code before CSS Module
     //   <>
     //   <NavbarUser /> {/* Navbar component */}
 
@@ -80,22 +117,18 @@ const CancelEvents = () => {
     //     </div>
     //   </div>
     // </>
+    // #endregion
     <>
-      <NavbarUser /> {/* Navbar component */}
+      <NavbarUser />
 
-      <div className={styles.container}> {/* Main container */}
-
-        {/* Back to homepage link */}
-        <a href="/homepage" className={styles['back-link']}>← Homepage</a>
-
-        {/* Section Title */}
+      <div className={styles.container}>
+        <a href="/homepage/my-events" className={styles['back-link']}>←</a>
         <h2 className={styles.title}>Event Overview</h2>
 
-        {/* Static Event Information */}
         <div className={styles['event-info']}>
-          <p><strong>Event Name:</strong> Annual Tech Conference 2025</p>
-          <p><strong>Date & Time:</strong> 20 November 2025, 9:00 AM</p>
-          <p><strong>Location:</strong> Sydney Convention Center</p>
+          <p><strong>Event Name:</strong> {event ? event.title : 'Loading...'}</p>
+          <p><strong>Date & Time:</strong> {event ? new Date(event.date).toLocaleString() : 'Loading...'}</p>
+          <p><strong>Location:</strong> {event ? event.location : 'Loading...'}</p>
         </div>
 
         {/* Dropdown for cancellation reason */}

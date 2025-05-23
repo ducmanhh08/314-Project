@@ -4,6 +4,7 @@ import NavbarUser from '../../components/Navbar/NavbarUser';
 import { FaUpload } from 'react-icons/fa';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
 
 const locationOptions = {
     Indonesia: {
@@ -47,6 +48,7 @@ const CreateEvents = () => {
     const cities = selectedState ? locationOptions[selectedCountry]?.[selectedState] || [] : [];
     const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
     const minutes = Array.from({ length: 12 }, (_, i) => (i * 5).toString().padStart(2, '0'));
+    const navigate = useNavigate();
 
     const handleCountryChange = (e) => {
         const country = e.target.value;
@@ -90,7 +92,9 @@ const CreateEvents = () => {
         });
 
         const data = await response.json();
-        // handle response (success/failure)
+        if (response.ok) {
+            navigate('/homepage/my-events');
+        }
     };
 
     return (
@@ -295,7 +299,6 @@ const CreateEvents = () => {
                         placeholder="Give attendees a quick peek at what your event is all about—this will show at the top of your event page. (300 character max)"
                         maxLength={300}
                         rows={3}
-                        value={description} onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                     <div className={styles['char-count']}>0/300</div>
                 </div>
@@ -415,10 +418,9 @@ const CreateEvents = () => {
                         and the value they’ll walk away with.
                     </p>
                     <ReactQuill
-                        value={overview}
-                        onChange={setOverview}
                         placeholder="Start Typing..."
                         theme="snow"
+                        value={description} onChange={setDescription}
                     />
                 </div>
                 <button type="submit" className={styles['submit-button']}>Create Event</button>

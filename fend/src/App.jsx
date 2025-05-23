@@ -36,6 +36,7 @@ function App() {
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/new-password" element={<NewPassword />} />
+      
 
       {/* Protect all /homepage routes */}
       <Route
