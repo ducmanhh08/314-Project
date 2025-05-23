@@ -1,6 +1,6 @@
 .event-slider-wrapper {
     position: relative;
-    max-width: 1000px;
+    max-width: 1150px;
     margin: 40px auto;
     padding: 0 60px;
 }
@@ -81,6 +81,7 @@
     background-color: #ccc;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin: 2px
 }
 
 .dot.active {
