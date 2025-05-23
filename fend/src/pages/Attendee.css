@@ -1,44 +1,47 @@
-.container {
-  max-width: 100%px;
-  margin: 0px auto;
-  padding: 0px;
-  font-family: 'Dai Banna SIL Regular';
-  background-color:  #FCF8F5;
-}
+
 body, html {
   background-color: #FCF8F5;
+  font-family: 'Dai Banna SIL Regular';
   margin: 0; 
   padding: 0;  
   width: 100%;
   height: 100%;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 550;
 
 }
 h1 {
-  text-align: left;
+  text-align: center;
   margin-bottom: 20px;
-  font-size: 50px;
-  margin-left: 50px;
+  font-size: 45px;
   font-weight: 700;
   font-family: 'Dai Banna SIL-Bold';
   
 }
-h2 {
-  text-align: center;
+h2, h3 {
   margin-bottom: 20px;
   font-size: 36px;
-  
+  margin-left: 10px;
 }
 
 .event-info p {
   margin: 10px 0;
-  font-size: 25px;
-  margin-left: 50px;
+  font-size: 20px;
+  margin-left: 10px;
 }
 
 .search-bar {
   margin: 20px 0;
   display: flex;
-  justify-content: center;
+  margin-left: 10px;
 }
 
 .search-bar input {
@@ -47,7 +50,7 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .table-container {
@@ -64,28 +67,37 @@ th, td {
   padding: 20px;
   text-align: left;
   font-size: 20px;
-  border-bottom: 1px solid #eee;
+
 }
 
 th {
-  background-color: #f7f7f7;
+  background-color: #fff;
 }
 
-td.paid {
+.approve {
   color: green;
   font-weight: bold;
 }
-
-td.pending {
+.reject {
+  color: red;
+  font-weight: bold;
+}
+.pending {
   color: orange;
   font-weight: bold;
+  
+}
+
+.table-container {
+  background-color: #fff;
+  text-align: left;
+  padding: 10px 16px;
 }
 
 .total {
   margin-top: 20px;
   text-align: right;
-  font-size: 40px;
-  border-top: 1px solid #ccc;
+  font-size: 36px;
   padding-top: 10px;
   margin-right: 50px;
 }
