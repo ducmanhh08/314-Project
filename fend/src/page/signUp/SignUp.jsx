@@ -16,6 +16,10 @@ function SignUp() {
           <form>
             <label className="fn">User Name</label>
             <input className="box" type="text" placeholder="User Name" />
+            <label className="fn">Full Name</label>
+            <input className="box" type="text" placeholder="Full Name" />
+            <label className="fn">Phone Number</label>
+            <input className="box" type="text" placeholder="Phone Number" />
             <label className="fn">Email</label>
             <input className="box"  type="text" placeholder="Email Name" />
             <label className="fn">Password</label>
@@ -26,7 +30,7 @@ function SignUp() {
           <center><button className="signup-button">Sign up</button></center></form>
         </div>
         <div className="signup-right">
-          
+          <img src="/logo.jpg" alt="logo" className="logo-img" />
           <h2>Welcome back</h2>
           <p>Sign in to stay connected and make the most of your exclusive offers.</p>
           <button className="login-button">Login</button>
