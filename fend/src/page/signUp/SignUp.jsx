@@ -14,10 +14,10 @@ function SignUp() {
         <center><h1 className="signup">Sign up</h1></center>
           <center><h2 className="PROMO">Unlock your personalized journey by entering personal details below.</h2></center>
           <form>
-            <label className="fn">First Name</label>
-            <input className="box" type="text" placeholder="First Name" />
-            <label className="fn">Last Name</label>
-            <input className="box"  type="text" placeholder="Last Name" />
+            <label className="fn">User Name</label>
+            <input className="box" type="text" placeholder="User Name" />
+            <label className="fn">Email</label>
+            <input className="box"  type="text" placeholder="Email Name" />
             <label className="fn">Password</label>
             <input className="box"  type="password" placeholder="Password" />
             <label className="fn"> Confirm Password</label>
