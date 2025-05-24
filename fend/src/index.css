@@ -1,6 +1,10 @@
 body {
   margin: 0;
+<<<<<<< HEAD
   padding: 0 40px;
+=======
+  padding: 0;
+>>>>>>> 5ee82073f07db9ea0cb8d23469e9366e5c816566
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
 }
