@@ -19,7 +19,6 @@ const MyTickets = () => {
             <p>x1 VIP Diamond Package</p>
           </div>  
           <div className="buttons">
-              <button>View Event Detail</button>
               <button>Request a Refund</button> 
           </div>
         </div>
