@@ -99,25 +99,32 @@ input {
 }
 
 
-/* Checkbox Label */
-.checkbox-label {
-  align-items: center;
-  margin-top: 15px;
-  font-size: 18px;
 
-}
 .address-and-checkboxes {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+
+
 .checkbox-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-left: 10px;
 }
 
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #9FD5ED; 
+}
 
