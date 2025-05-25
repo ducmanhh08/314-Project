@@ -16,6 +16,7 @@ const CancelEvents = () => {
 
   return (
     <>
+    
     <NavbarUser /> {/* Navbar component */}
 
     <div className="container"> {/* Main container */}
@@ -33,6 +34,14 @@ const CancelEvents = () => {
         <p><strong>Location:</strong> Sydney Convention Center</p>
       </div>
 
+      {/* Informational text about notifications and refunds */}
+      <div className="info-text">
+        <h4>Notify Attendees</h4>
+        <p className="notification-text">
+        <p>By canceling this event, attendees will receive notification via email.</p>
+        </p>
+      </div>
+      
       {/* Dropdown for cancellation reason */}
       <div className="section">
         <label><strong>Cancellation Reason</strong></label><br />
@@ -61,10 +70,10 @@ const CancelEvents = () => {
 
       {/* Informational text about notifications and refunds */}
       <div className="info-text">
-        <h4>Notify Attendees</h4>
-        <p>By canceling this event, attendees will receive notification via email.</p>
         <h4>Refund Handling</h4>
+        <p className="refund-text">
         <p>Refunds will be initiated automatically via payment gateway.</p>
+        </p>
       </div>
 
       {/* Warning block with icon and message */}

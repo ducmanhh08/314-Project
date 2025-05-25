@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Dai Banna SIL';
+  src: url('./fonts/DaiBannaSIL-Regular.ttf') format('truetype');
+}
+
 .container {
   /*rem stands for "root em" — it's a relative unit of measurement used in CSS to size things like fonts, padding, margins, etc*/
   padding: 2rem;
@@ -7,34 +12,39 @@
   border: 3px solid #b6e0f4;
   border-radius: 8px;
   background-color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: 'Dai Banna SIL', serif;
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .back-link {
   text-decoration: none;
   color: #555;
+  font-family: 'Dai Banna SIL', serif;
   font-weight: bold;
   display: block;
   margin-bottom: 1rem;
 }
 
 .title {
+  font-family: 'Dai Banna SIL', serif;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
 .event-info {
+  font-family: 'Dai Banna SIL', serif;
   margin-bottom: 1.5rem;
 }
 
 .section {
+  font-family: 'Dai Banna SIL', serif;
   margin-bottom: 1.5rem;
 }
 
 .select {
   width: 300px;
   padding: 0.5rem;
+  font-family: 'Dai Banna SIL', serif;
   font-size: 1rem;
 }
 
@@ -42,6 +52,7 @@
   width: 100%;
   min-height: 80px;
   padding: 1rem;
+  font-family: 'Dai Banna SIL', serif;
   font-size: 1rem;
   background-color: #e4e4e4;
   border: none;
@@ -51,9 +62,20 @@
 }
 
 .info-text {
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  font-family: 'Dai Banna SIL', serif;
+  font-size: 1rem;
   color: #333;
+}
+
+.notification-text {
+  font-family: 'Dai Banna SIL', serif;
+  margin-bottom: 1.5rem;
+}
+
+.refund-text {
+  font-family: 'Dai Banna SIL', serif;
+  margin-bottom: 1.5rem;
 }
 
 .warning {
@@ -67,8 +89,11 @@
 }
 
 .warning-icon {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-right: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 .button-row {
@@ -81,6 +106,7 @@
   background-color: #ccc;
   border: none;
   border-radius: 6px;
+  font-family: 'Dai Banna SIL', serif;
   font-weight: bold;
   cursor: pointer;
 }
@@ -91,6 +117,9 @@
   color: white;
   border: none;
   border-radius: 6px;
+  font-family: 'Dai Banna SIL', serif;
   font-weight: bold;
   cursor: pointer;
 }
+
+
