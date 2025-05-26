@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 import './WaitingList.css';
+import { useNavigate } from 'react-router-dom';
 //run: npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 const WaitingList = () => {
+    const navigate = useNavigate();
+    const handleBack = () => {
+    navigate(-1);
+    }
     return (
         <div>
         <div className="page-wrapper"></div>
             <NavbarUser/>
 
             <div className="event-detail-container">
-                <button className="back-button">
+                <button className="back-button" onClick = {handleBack}>
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
 
