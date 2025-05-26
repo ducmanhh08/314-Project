@@ -11,12 +11,13 @@ const MyEvents = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/my_events', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            // const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/my_events');
+            //     , {
+            //     headers: {
+            //         'Authorization': `Bearer ${token}`
+            //     }
+            // });
             const data = await response.json();
             setEvents(data);
             setLoading(false);

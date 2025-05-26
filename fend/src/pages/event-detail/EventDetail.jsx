@@ -10,11 +10,12 @@ const EventDetail = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-        fetch(`http://localhost:5000/event/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        fetch(`http://localhost:5000/event/${id}`)
+        //     , {
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }
+        // })
             .then(res => res.json())
             .then(data => setEvent(data));
     }, [id]);
