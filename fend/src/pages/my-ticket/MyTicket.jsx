@@ -6,6 +6,7 @@ import styles from './MyTicket.module.css';
 const MyTickets = () => {
   const navigate = useNavigate();
   return (
+    // #region Code before CSS Module
     // <div className="my-tickets-page">
     //   <NavbarUser />
     //   <div className="content">
@@ -40,6 +41,7 @@ const MyTickets = () => {
     //     </div>
     //   </div>
     // </div>
+    // #endregion
     <div className={styles['my-tickets-page']}>
       <NavbarUser />
       <div className={styles['content']}>

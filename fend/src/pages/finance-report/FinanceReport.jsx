@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from "./FinanceReport.module.css";
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
@@ -44,7 +44,30 @@ const participantsData = [
 
 const FinanceReport = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    setLoading(true);
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    fetch(`http://localhost:5000/event/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setEvent(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setEvent(null);
+        setLoading(false);
+      });
+  }, [id]);
+
   const filteredParticipants = participantsData.filter(
     (p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -52,6 +75,7 @@ const FinanceReport = () => {
   );
 
   return (
+    // #region Code before CSS Module
     // <div className="page-wrapper">
     //   <NavbarUser />  
     //   <div className="card">
@@ -132,15 +156,16 @@ const FinanceReport = () => {
     //     </div>
     //   </div>
     // </div>
+    // #endregion
     <div className={styles['page-wrapper']}>
       <NavbarUser />
       <div className="card"> {/* Assuming .card is a global or parent style not in module */}
-        <button className={styles['back-button']} onClick={() => navigate('/homepage')}>&larr; Back</button>
+        <button className={styles['back-button']} onClick={() => navigate('/homepage/my-events')}>&larr; Back</button>
         <h1 className={styles['main-title']}>FINANCE MANAGEMENT - PAYMENT DATA</h1>
         <div className={styles['event-details']}>
-          <p>Event Name: Annual Tech Conference 2025</p>
-          <p>Date: 20 November 2025</p>
-          <p>Location: Sydney Convention Center</p>
+          <p>Event Name: {loading ? 'Loading...' : event ? event.title : 'Not found'}</p>
+          <p>Date: {loading ? 'Loading...' : event ? event.date : 'Not found'}</p>
+          <p>Location: {loading ? 'Loading...' : event ? (event.location || 'TBA') : 'Not found'}</p>
         </div>
         <hr style={{
           margin: "20px 0", marginLeft: "auto", marginRight: "auto",

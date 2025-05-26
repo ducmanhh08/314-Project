@@ -1,6 +1,6 @@
 import os
 import jwt
-from flask import request, jsonify, send_from_directory
+from flask import request, jsonify, send_from_directory, current_app
 from flask_cors import CORS
 from config import app, db
 from models import User, Attendee, Organizer, UserRole, Event
@@ -187,13 +187,16 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/create_event", methods=["POST"])
-def create_event():
-    # data = request.json
-    # # Organizer should be authenticated in a real system
-    # new_event = Event(**data)
-    # db.session.add(new_event)
-    # db.session.commit()
-    # return jsonify({"message": "Event created!"}), 201
+@token_required
+def create_event(current_user):
+    """
+    data = request.json
+    # Organizer should be authenticated in a real system
+    new_event = Event(**data)
+    db.session.add(new_event)
+    db.session.commit()
+    return jsonify({"message": "Event created!"}), 201
+    """
     title = request.form.get('title')
     description = request.form.get('description')
     location = request.form.get('location')
@@ -232,6 +235,7 @@ def create_event():
         date=date,
         location=location,
         image_url=image_url,
+        organizer_id=current_user.id
         # category=category,
         # ticket_price=ticket_price,
         # tickets_available=tickets_available,
@@ -243,7 +247,34 @@ def create_event():
 
 @app.route('/images/events/<filename>')
 def serve_event_image(filename):
-    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER']), filename)
+    print("Serving from:", current_app.config['UPLOAD_FOLDER'])
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+
+@app.route("/my_events", methods=["GET"])
+@token_required
+def my_events(current_user):
+    events = Event.query.filter_by(organizer_id=current_user.id).all()
+    return jsonify([event.to_json() for event in events])
+
+@app.route("/event/<int:event_id>", methods=["GET"])
+@token_required
+def get_event(current_user, event_id):
+    event = Event.query.get_or_404(event_id)
+    return jsonify(event.to_json())
+
+@app.route("/event/<int:event_id>", methods=["DELETE"])
+@token_required
+def delete_event(current_user, event_id):
+    event = Event.query.get_or_404(event_id)
+    db.session.delete(event)
+    db.session.commit()
+    return jsonify({"message": "Event deleted successfully"}), 200
+
+@app.route("/search", methods=["GET"])
+def search_events():
+    query = request.args.get("query", "")
+    events = Event.query.filter(Event.title.ilike(f"%{query}%")).all()
+    return jsonify([event.to_json() for event in events])
 
 
 if __name__ == "__main__":

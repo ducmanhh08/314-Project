@@ -13,7 +13,7 @@ const NavbarUser = () => {
 
     const handleSearch = (e) => {
         if (e.key === 'Enter') {
-            navigate(`/result?query=${encodeURIComponent(query)}`);
+            navigate(`/homepage/result?query=${encodeURIComponent(query)}`);
         }
     };
 

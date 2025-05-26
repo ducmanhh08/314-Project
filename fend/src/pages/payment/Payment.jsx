@@ -45,6 +45,7 @@ const Payment = () => {
     const {
         ticketQuantities = {},
         deliveryMethod = '',
+        eventImage = '/images/adele.jpg', 
         eventTitle = 'Weekend with ADELE',
         eventDate = '26 March 2025 (Sat), 18:00',
     } = location.state || {};
@@ -77,6 +78,7 @@ const Payment = () => {
     }, [isRefundable, subtotal, selectedTickets, eventTitle, eventDate]);
 
     return (
+        // #region Code before CSS Module
         // <div className="payment-container">
         //     <NavbarUser />
 
@@ -211,6 +213,7 @@ const Payment = () => {
         //         </button>
         //     </div>
         // </div>
+        // #endregion
         <div className={styles['payment-container']}>
             <NavbarUser />
 
@@ -223,7 +226,7 @@ const Payment = () => {
 
             <div className={styles['order-summary-box']}>
                 <div className={styles['summary-inner']}>
-                    <img src="/images/adele.jpg" alt="Event Poster" className={styles['payment-event-img']} />
+                    <img src={eventImage} alt="Event Poster" className={styles['payment-event-img']} />
                     <div className={styles['summary-details']}>
                         <h2 className={styles['section-title-center']}>Order Summary</h2>
                         {selectedTickets.map(([key, qty]) => (

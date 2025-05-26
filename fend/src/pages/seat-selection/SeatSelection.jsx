@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styles from './SeatSelection.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const SeatSelection = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const eventImage = location.state?.image || "/images/adele.jpg"; // fallback
 
     const [deliveryMethod, setDeliveryMethod] = useState('Mobile Ticket');
     const [ticketQuantities, setTicketQuantities] = useState({
@@ -20,6 +22,9 @@ const SeatSelection = () => {
         const selectedData = {
             ticketQuantities,
             deliveryMethod,
+            eventImage, // add this
+            eventTitle: location.state?.title || "Event Title", // add this if you have title
+            eventDate: location.state?.date || "", // add this if you have date
         };
         navigate('./confirmation', { state: selectedData });
     };
@@ -54,6 +59,7 @@ const SeatSelection = () => {
     const calculateTotal = () => ticketTotal + deliveryMethodPrice;
 
     return (
+        // #region Code before CSS Module
         // <div className="seat-selection-container">
         //     <NavbarUser />
         //     <h2>Seat Selection</h2>
@@ -134,6 +140,7 @@ const SeatSelection = () => {
         //         <button className="next-button" onClick={handleNext}>Next</button>
         //     </div>
         // </div>
+        // #endregion
         <div className={styles['seat-selection-container']}>
             <NavbarUser />
             <h2>Seat Selection</h2>
@@ -146,7 +153,7 @@ const SeatSelection = () => {
             </div>
 
             <div className={styles['content-wrapper']}>
-                <img src="/images/adele.jpg" alt="Event Poster" className={styles['event-poster']} />
+                <img src={eventImage} alt="Event Poster" className={styles['event-poster']} />
 
                 <div className={styles['seat-summary']}>
                     <div className={styles['seat-map']}>

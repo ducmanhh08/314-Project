@@ -92,7 +92,7 @@ class Event(db.Model):
     image_url = db.Column(db.String(255), nullable=False)
     ticket_price = db.Column(db.Float, nullable=True)
     tickets_available = db.Column(db.Integer, nullable=True)
-    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     tickets = db.relationship('Ticket', backref='event', lazy=True)
     payments = db.relationship('Payment', backref='event', lazy=True)
@@ -103,8 +103,8 @@ class Event(db.Model):
             "title": self.title,
             "description": self.description,
             "date": self.date.isoformat() if self.date else None,
-            "category": self.category.value,
-            "location": self.role.value,
+            "category": self.category.value if self.category else None,  
+            "location": self.location,
             "image_url": self.image_url,
             "ticket_price": self.ticket_price,
             "tickets_available": self.tickets_available,

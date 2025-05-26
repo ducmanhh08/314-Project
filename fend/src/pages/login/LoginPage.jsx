@@ -115,7 +115,7 @@ function LoginPage() {
             <a href="#" className={styles['forgot-password']} onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>Forgot your password?</a>
           </div>
         </form>
-        {message && <p>{message}</p>} {/* Display login message */}
+        {message && <p>{message}</p>}
       </div>
     </div>
   );

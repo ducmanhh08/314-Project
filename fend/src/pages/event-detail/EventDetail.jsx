@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser'; // Make sure path matches your structure
 import styles from './EventDetail.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EventDetail = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
+    const [event, setEvent] = useState(null);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+        fetch(`http://localhost:5000/event/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setEvent(data));
+    }, [id]);
+
+    if (!event) {
+        return (
+            <div>
+                <NavbarUser />
+                <div className={styles['event-detail-container']}>
+                    <p>Loading event details...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
+        // #region Code before CSS Module
         // <div>
         //     <NavbarUser/>
 
@@ -119,19 +145,20 @@ const EventDetail = () => {
         //         </div>
         //     </div>
         // </div>
+        // #endregion
         <div>
             <NavbarUser />
 
             <div className={styles['event-detail-container']}>
                 <div className={styles['poster-container']}>
                     <img
-                        src="/images/adele.jpg"
+                        src={event.image_url?.startsWith('http') ? event.image_url : `http://localhost:5000${event.image_url}`}
                         alt="Event Poster"
                         className={styles['event-poster']}
                     />
                 </div>
 
-                <h1>Events</h1>
+                <h1>{event.title}</h1>
 
                 <div className={styles['event-info']}>
                     <table>
@@ -145,19 +172,26 @@ const EventDetail = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>26 March 2025 (Sat.) 18.00</td>
-                                <td>Weekend with ADELE</td>
-                                <td>The Colosseum Theater at Caesars Palace</td>
+                                <td>{new Date(event.date).toLocaleString()}</td>
+                                <td>{event.title}</td>
+                                <td>{event.location}</td>
                                 <td>
-                                    <button className={styles['find-ticket-btn']} onClick={() => navigate('/homepage/event/:id/seat-selection')}>Find Tickets</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>27 March 2025 (Sun.) 18.00</td>
-                                <td>Weekend with ADELE</td>
-                                <td>The Colosseum Theater at Caesars Palace</td>
-                                <td>
-                                    <button className={styles['find-ticket-btn']} onClick={() => navigate('/homepage/event/:id/seat-selection')}>Find Tickets</button>
+                                    <button
+                                        className={styles['find-ticket-btn']}
+                                        onClick={() =>
+                                            navigate(`/homepage/event/${event.id}/seat-selection`, {
+                                                state: {
+                                                    image: event.image_url?.startsWith('http')
+                                                        ? event.image_url
+                                                        : `http://localhost:5000${event.image_url}`,
+                                                    title: event.title, 
+                                                    date: event.date, 
+                                                }
+                                            })
+                                        }
+                                    >
+                                        Find Tickets
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -166,26 +200,7 @@ const EventDetail = () => {
 
                 <div className={styles['event-details']}>
                     <h2>Event Details</h2>
-                    <p>
-                        Adele, One of the world's most iconic voices, return to Las Vegas with her exclusive concert series, Weekend with Adele, live ath the Colosseum Theater,
-                        Caesars Palace.
-
-                        This intimate residency offers fans a once-in-a-lifetime chance to experience Adele's powerful vocals and emotional storytelling in a luxurious, up-close
-                        setting. From chart-topping hits like "Hello" and "Easy On Me" to heartfelts fan favorites, Adele brings raw emotion and unforgettable energy to the stage.
-                        Don't miss thes extraordinary live experience -- Weekend with Adele is now lighting up Las Vegas weekends at Caesars Palace.
-
-                        Adele, one of the most celebrated voices of our generation, is bringing her signature blend of soul, emotion, and timeless hits to the stage with her highly
-                        anticipatedresidency, Weekend with Adele. Set in the heart of Las Vegas, this exclusive concert series will take place at The Colosseum Theater, Caesar Palace,
-                        beginning in March 2025.
-
-                        Following its grand opening weekend, the residency will continue every saturday and sunday through the season, offering fans an intimate and powerful live
-                        experience, From "Hello" to "When We Were Young", Adele's performances promise rom emotion, stunning covals and unforgattable storytelling -- all within one of
-                        Vegas's most iconic venues.
-
-                        Weekend with Adele in Las Vegas will take place at The Colosseum Theater at Caesars Palace on multiple weekends from March to June 2025, 8:00 PM (Sat - Sun).
-                        Fans can sign up for early access to tickets via Ticket Please? starting January 15th, 10:00 AM. General sales will begin January 22nd, 12:00 PM via ticketplease.co.
-                        Don't miss your chance to experience Adele live — only on Ticket Please?
-                    </p>
+                    <div dangerouslySetInnerHTML={{ __html: event.description }} />
                 </div>
 
                 <div className={styles['ticket-section']}>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styles from './Attendee.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
@@ -18,7 +19,32 @@ const attendees = [
 ];
 
 const Attendee = () => {
+  const { id } = useParams();
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    setLoading(true);
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    fetch(`http://localhost:5000/event/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Unauthorized');
+        return res.json();
+      })
+      .then(data => {
+        setEvent(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setEvent(null);
+        setLoading(false);
+      });
+  }, [id]);
 
   const filteredAttendees = attendees.filter((attendee) =>
     attendee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -26,6 +52,7 @@ const Attendee = () => {
   );
 
   return (
+    // #region Code before CSS Module
     // <div className="container">
     //   <NavbarUser />  c
     //   <h1>REGISTERED ATTENDEES</h1>
@@ -84,13 +111,14 @@ const Attendee = () => {
     //     <strong>Total Attendees:</strong> {filteredAttendees.length}
     //   </div>
     // </div>
+    // #endregion
     <div className={styles.container}>
       <NavbarUser />
       <h1>REGISTERED ATTENDEES</h1>
       <div className={styles['event-info']}>
-        <p><strong>Event Name:</strong> Annual Tech Conference 2025</p>
-        <p><strong>Date:</strong> 20 November 2025</p>
-        <p><strong>Location:</strong> Sydney Convention Center</p>
+        <p><strong>Event Name:</strong> {event ? event.title : 'Loading...'}</p>
+        <p><strong>Date:</strong> {event ? event.date : 'Loading...'}</p>
+        <p><strong>Location:</strong> {event ? event.location || 'TBA' : 'Loading...'}</p>
       </div>
 
       <h2>Search Attendees</h2>

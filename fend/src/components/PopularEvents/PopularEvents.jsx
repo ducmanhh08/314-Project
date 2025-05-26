@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './PopularEvents.css';
 
 const PopularEvents = () => {
@@ -25,7 +27,7 @@ const PopularEvents = () => {
     <div className="popular-events-container">
       <div className="popular-events-header">
         <h2>Popular Events</h2>
-        <a href="/all-events" className="see-all">See all events</a>
+        <a href="/homepage/result?query=" className="see-all">See all events</a>
       </div>
 
       <div className="popular-events-grid">
