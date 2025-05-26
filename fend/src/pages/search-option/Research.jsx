@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavbarUser from "../../components/Navbar/NavbarUser";
-import { events as staticEvents } from "../DataEvent";
+import { events as staticEvents } from "./DataEvent";
 import styles from "./Research.module.css";
 
 const EventPage = () => {
