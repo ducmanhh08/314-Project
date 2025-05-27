@@ -30,7 +30,7 @@ function ForgotPassword() {
       setMessage('An error occurred. Please try again later.');
     }
   };
- 
+
   //return the JSX layout for the password 
   return (
     // #region Code before CSS Module
@@ -74,7 +74,6 @@ function ForgotPassword() {
     // </div>
     // #endregion
     <div className={styles['forgot-password-wrapper']}>
-      <div className={styles['page-title']}>Forgot Password Page</div>
       <div className={styles['forgot-container']}>
         <div className={styles['branding']}>Ticket<br />Please?</div>
         <div className={styles['forgot-box']}>

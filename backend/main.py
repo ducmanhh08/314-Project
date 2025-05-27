@@ -176,8 +176,9 @@ def reset_password():
 
 # Event Routes:
 @app.route("/events", methods=["GET"])
-@token_required
-def get_events(current_user):
+# @token_required
+# def get_events(current_user):
+def get_events():
     events = Event.query.all()
     return jsonify([event.to_json() for event in events])
 
@@ -187,8 +188,9 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/create_event", methods=["POST"])
-@token_required
-def create_event(current_user):
+# @token_required
+# def create_event(current_user):
+def create_event():
     """
     data = request.json
     # Organizer should be authenticated in a real system
@@ -235,7 +237,7 @@ def create_event(current_user):
         date=date,
         location=location,
         image_url=image_url,
-        organizer_id=current_user.id
+        # organizer_id=current_user.id
         # category=category,
         # ticket_price=ticket_price,
         # tickets_available=tickets_available,
@@ -251,20 +253,24 @@ def serve_event_image(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/my_events", methods=["GET"])
-@token_required
-def my_events(current_user):
-    events = Event.query.filter_by(organizer_id=current_user.id).all()
+# @token_required
+# def my_events(current_user):
+def my_events():
+    # events = Event.query.filter_by(organizer_id=current_user.id).all()
+    events = Event.query.all()
     return jsonify([event.to_json() for event in events])
 
 @app.route("/event/<int:event_id>", methods=["GET"])
-@token_required
-def get_event(current_user, event_id):
+# @token_required
+# def get_event(current_user, event_id):
+def get_event(event_id):
     event = Event.query.get_or_404(event_id)
     return jsonify(event.to_json())
 
 @app.route("/event/<int:event_id>", methods=["DELETE"])
-@token_required
-def delete_event(current_user, event_id):
+# @token_required
+# def delete_event(current_user, event_id):
+def delete_event(event_id):
     event = Event.query.get_or_404(event_id)
     db.session.delete(event)
     db.session.commit()
