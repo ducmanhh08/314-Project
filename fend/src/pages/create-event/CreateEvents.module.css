@@ -218,3 +218,83 @@ textarea {
 .submit-button:hover {
     background-color: #3a6d97;
 }
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px 14px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #80A1C0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #F4F4F4;
+}
+
+.ticket-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.ticket-row input[type="text"] {
+    flex: 2;
+}
+
+.ticket-row input[type="number"] {
+    width: 120px;
+}
+
+.ticket-controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.ticket-controls button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #4C87B5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.ticket-controls button:hover {
+    background-color: #3a6d97;
+}
+
+.capacity-input {
+    width: 200px;
+}
+.remove-button {
+    padding: 2px 12px;
+    font-size: 13px;
+    background-color: #dc3545; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.remove-button:hover {
+    background-color: #b02a37;
+}
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #80A1C0;
+    background-color: #F4F4F4;
+}
+
+.category-note {
+    font-size: 13px;
+    color: #666;
+    margin: 4px 0 10px 0;
+}
+
+

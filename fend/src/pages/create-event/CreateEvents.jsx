@@ -33,6 +33,11 @@ const CreateEvents = () => {
     const [startMinute, setStartMinute] = useState('');
     const [endHour, setEndHour] = useState('');
     const [endMinute, setEndMinute] = useState('');
+    const [capacity, setCapacity] = useState('');
+    const [tickets, setTickets] = useState([{ type: '', price: '' }]);
+    const [category, setCategory] = useState('');
+    const [customCategory, setCustomCategory] = useState('');
+
 
     //db
     const [title, setTitle] = useState('');
@@ -76,6 +81,7 @@ const CreateEvents = () => {
         formData.append('description', description);
         formData.append('date', dateTime);
         formData.append('location', location);
+        formData.append('category', category === 'Other' ? customCategory : category);
         // formData.append('category', category);
         // formData.append('ticket_price', ticket_price);
         // formData.append('tickets_available', tickets_available);
@@ -410,6 +416,59 @@ const CreateEvents = () => {
                     )}
                 </div>
 
+                <div className={styles['section-box']}>
+                    <h2>TICKETS</h2>
+
+                    <label><strong>Maximum Attendees</strong></label>
+                    <input
+                        type="number"
+                        placeholder="Enter maximum number of attendees"
+                        value={capacity}
+                        onChange={(e) => setCapacity(e.target.value)}
+                        className={styles['capacity-input']}
+                    />
+                    {tickets.map((ticket, index) => (
+                    <div key={index} className={styles['ticket-row']}>
+                        <input
+                        type="text"
+                        placeholder="Ticket type (e.g., VIP, General)"
+                        value={ticket.type}
+                        onChange={(e) => {
+                            const newTickets = [...tickets];
+                            newTickets[index].type = e.target.value;
+                            setTickets(newTickets);
+                        }}
+                        />
+                        <input
+                        type="number"
+                        placeholder="Price"
+                        value={ticket.price}
+                        onChange={(e) => {
+                            const newTickets = [...tickets];
+                            newTickets[index].price = e.target.value;
+                            setTickets(newTickets);
+                        }}
+                        />
+                        {tickets.length > 1 && (
+                        <button
+                            type="button"
+                            onClick={() => setTickets(tickets.filter((_, i) => i !== index))}
+                            className={styles['remove-button']}
+                        >
+                            Remove
+                        </button>
+                        )}
+                    </div>
+                    ))}
+
+                    <div className={styles['ticket-controls']}>
+                    <button type="button" onClick={() => setTickets([...tickets, { type: '', price: '' }])}>
+                        Add Ticket Type
+                    </button>
+                    </div>
+                </div>
+
+
                 {/* OVERVIEW SECTION */}
                 <div className={styles['section-box']}>
                     <h2>OVERVIEW</h2>
@@ -422,6 +481,39 @@ const CreateEvents = () => {
                         theme="snow"
                         value={description} onChange={setDescription}
                     />
+                </div>
+
+                <div className={styles['section-box']}>
+                    <h2>CATEGORY</h2>
+                    <label htmlFor="category"><strong>Select Category</strong></label>
+                    
+                    <p className={styles['category-note']}>
+                        Your event will appear when users filter by this category.
+                    </p>
+                    
+                    <select
+                        id="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
+                    >
+                        <option value="">-- Choose a Category --</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Art">Art</option>
+                        <option value="Food & Drink">Food & Drink</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    {category === 'Other' && (
+                        <input
+                            type="text"
+                            placeholder="Enter custom category"
+                            value={customCategory}
+                            onChange={(e) => setCustomCategory(e.target.value)}
+                            className={styles['custom-input']}
+                        />
+                    )}
                 </div>
                 <button type="submit" className={styles['submit-button']}>Create Event</button>
             </form>
