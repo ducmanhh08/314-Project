@@ -45,21 +45,21 @@ export const events = [
   {
     id: 7,
     image: '/images/events/babymonster.jpg',
-    title: '2025 BABYMONSTER 1st WORLD TOUR «HELLO MONSTERS» IN SINGAPORE',
+    title: '2025 BabyMonster World Tour ',
     date: '2025-05-11',
     category: 'slider'
   },
   {
     id: 8,
     image: '/images/events/hope.jpg',
-    title: '2025 HOPE ON THE STAGE IN SINGAPORE',
+    title: '2025 Hope On The Stage ',
     date: '2025-05-31',
     category: 'slider'
   },
   {
     id: 9,
     image: '/images/events/taeyoon.jpg',
-    title: 'Taeyeon Concert 2025 Hong Kong',
+    title: 'Taeyeon Concert 2025',
     date: '2025-04-12',
     category: 'slider'
   }
@@ -67,7 +67,7 @@ export const events = [
 {
     id: 10,
     image: '/images/events/harrypotter.jpg',
-    title: 'Harry Potter: Visions of Magic Singapore',
+    title: 'Harry Potter: Visions of Magic ',
     date: '2025-05-11',
     category: 'slider'
 
@@ -112,7 +112,7 @@ export const events = [
 {
     id: 16,
     image: '/images/events/pottery.jpg',
-    title: 'POTTERY WORKSHOP',
+    title: 'Pottery Workshop',
     date: '2024-09-10',
     category: 'slider'
 },

@@ -30,6 +30,7 @@ const EventPage = () => {
                 alt={event.title}
                 className="event-image"
               />
+              <div className="event-details">{event.title}</div>
               <div className="event-date">
                 {new Date(event.date).toLocaleDateString(undefined, {
                   weekday: "long",
@@ -38,7 +39,6 @@ const EventPage = () => {
                   day: "numeric",
                 })}
               </div>
-              <div className="event-details">{event.title}</div>
             </div>
           ))
         ) : (
