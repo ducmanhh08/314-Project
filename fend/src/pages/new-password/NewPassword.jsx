@@ -103,7 +103,6 @@ function NewPassword() {
     // </>
     // #endregion
     <>
-      <div className={styles['page-title']}>New Password Page</div>
       <div className={styles['new-password-wrapper']}>
         <div className={styles['form-container']}>
           <div className={styles['branding']}>Ticket<br />Please?</div>
