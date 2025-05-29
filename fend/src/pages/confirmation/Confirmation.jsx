@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import NavbarUser from '../../components/Navbar/NavbarUser';
 import styles from './Confirmation.module.css';
 
 const ticketTypes = {
@@ -28,18 +27,26 @@ const deliveryFees = {
 const Confirmation = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
     const {
         ticketQuantities = {},
         deliveryMethod = '',
+        ticketTypes = [],
         eventImage = "/images/adele.jpg",
         eventTitle = "Event Title",
-        eventDate = ""
+        eventDate = "",
+        eventId = null,
+        isRefundable = false 
     } = location.state || {};
 
-    const selectedTickets = Object.entries(ticketQuantities).filter(([_, qty]) => qty > 0);
-    const subTotal = selectedTickets.reduce((sum, [key, qty]) => sum + prices[key] * qty, 0);
+    // const selectedTickets = Object.entries(ticketQuantities).filter(([_, qty]) => qty > 0);
+    // const subTotal = selectedTickets.reduce((sum, [key, qty]) => sum + prices[key] * qty, 0);
+    const selectedTickets = ticketTypes.filter(t => ticketQuantities[t.key] > 0);
+    const subTotal = selectedTickets.reduce((sum, t) => sum + t.price * ticketQuantities[t.key], 0);
     const deliveryCost = deliveryFees[deliveryMethod] || 0;
     const total = subTotal + deliveryCost;
+    
+
 
     return (
         // #region Code before CSS Module
@@ -103,7 +110,6 @@ const Confirmation = () => {
         // </div>
         // #endregion
         <div className={styles['confirmation-container']}>
-            <NavbarUser />
 
             <div className={styles['progress-bar']}>
                 <div className={`${styles.step} ${styles.completed}`}>Seat Selection</div>
@@ -116,7 +122,12 @@ const Confirmation = () => {
 
             <div className={styles['summary-wrapper']}>
                 <div className={styles['summary-left']}>
-                    <img src={eventImage} alt="Event Poster" className={styles['event-image']} />
+                    <img
+                        src={
+                            eventImage.startsWith('/')
+                                ? `http://localhost:5000${eventImage}`
+                                : eventImage
+                        } alt="Event Poster" className={styles['event-image']} />
                     <h3 className={styles['event-title']}>{eventTitle}</h3>
                     <p className={styles['event-date']}>
                         {eventDate ? new Date(eventDate).toLocaleString() : ""}
@@ -133,11 +144,11 @@ const Confirmation = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {selectedTickets.map(([key, qty]) => (
-                                <tr key={key}>
-                                    <td>{ticketTypes[key]}</td>
-                                    <td>{qty}</td>
-                                    <td>${(prices[key] * qty).toLocaleString()}</td>
+                            {selectedTickets.map(t => (
+                                <tr key={t.key}>
+                                    <td>{t.label}</td>
+                                    <td>{ticketQuantities[t.key]}</td>
+                                    <td>${(t.price * ticketQuantities[t.key]).toLocaleString()}</td>
                                 </tr>
                             ))}
                             {deliveryMethod && (
@@ -156,9 +167,23 @@ const Confirmation = () => {
             </div>
 
             <div className={styles['button-group']}>
-                <button onClick={() => navigate(-1)}>Back</button>
+                <button
+                    onClick={() =>
+                        navigate('/homepage/event/' + eventId + '/seat-selection', {
+                            state: {
+                                ticketQuantities,
+                                deliveryMethod,
+                                ticketTypes,
+                                eventImage,
+                                eventTitle,
+                                eventDate,
+                            },
+                            replace: true // optional: prevents duplicate history entries
+                        })
+                    }
+                > Back </button>
                 <button onClick={() => navigate('./payment', {
-                    state: { ticketQuantities, deliveryMethod, subTotal, deliveryCost, total, eventImage, eventTitle, eventDate }
+                    state: { ticketQuantities, deliveryMethod, ticketTypes, subTotal, deliveryCost, total, eventImage, eventTitle, eventDate, eventId, isRefundable }
                 })}>Next</button>
             </div>
         </div>

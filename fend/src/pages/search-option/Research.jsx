@@ -85,7 +85,6 @@ const EventPage = () => {
     // </div>
     // #endregion
     <div className={styles['container']}>
-      <NavbarUser />
 
       <div className={styles['search-alert']}>
         <p>Search results for "{query}"</p>

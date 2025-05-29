@@ -1,65 +1,72 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Payment.module.css';
-import NavbarUser from '../../components/Navbar/NavbarUser';
 import { useEffect } from 'react';
-
-const ticketTypes = {
-    vip: 'Front Orchestra',
-    premium: 'Rear Orchestra',
-    gold: 'First Mezzanine',
-    silver: 'Second Mezzanine',
-    bronze: 'Restricted View',
-};
-
-const prices = {
-    vip: 3800,
-    premium: 2900,
-    gold: 2200,
-    silver: 1600,
-    bronze: 1200,
-};
-
-const deliveryFees = {
-    'Mobile Ticket': 17.8,
-    PDF: 7.2,
-    'Print at Home': 0,
-};
+// import axios from 'axios';
 
 const Payment = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        if (isRefundable) {
-            const refundData = {
-                originalPayment: total,
-                refundAmount: subtotal,
-                purchasedTickets: selectedTickets.map(([key, qty]) => `x${qty} ${ticketTypes[key]}`).join(', ')
-            };
-            localStorage.setItem('refundInfo', JSON.stringify(refundData));
-        }
-        navigate('./finish');
+    const handleSubmit = async () => {
+        // if (isRefundable) {
+        //     const refundData = {
+        //         originalPayment: total,
+        //         refundAmount: subtotal,
+        //         purchasedTickets: selectedTickets
+        //             .map(t => `x${ticketQuantities[t.key]} ${t.label}`)
+        //             .join(', ')
+        //     };
+        //     localStorage.setItem('refundInfo', JSON.stringify(refundData));
+        // }
+        // navigate('./finish');
+        const ticketsToCreate = selectedTickets.map(t => ({
+            event_id: eventId,
+            user_id: 2, // You need to get this from context/auth/session #TODO: 
+            type: t.label,
+            price: t.price,
+            delivery_method: deliveryMethod,
+            is_refundable: isRefundable,
+            quantity: ticketQuantities[t.key],
+        }));
+
+        fetch('http://localhost:5000/api/tickets', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ tickets: ticketsToCreate })
+        })
+            .then(response => response.json())
+            .then(data => {
+                navigate('./finish');
+            })
+            .catch(error => {
+                alert('Failed to create tickets!');
+            });
     };
 
     const {
         ticketQuantities = {},
         deliveryMethod = '',
-        eventImage = '/images/adele.jpg', 
-        eventTitle = 'Weekend with ADELE',
+        ticketTypes = [],
+        subtotal = 0,
+        deliveryCost = 0,
+        total = 0,
+        eventImage = "/images/adele.jpg",
+        eventTitle = "Weekend with ADELE",
         eventDate = '26 March 2025 (Sat), 18:00',
+        eventId = null
     } = location.state || {};
-
-    const [isRefundable, setIsRefundable] = useState(false);
+    const [isRefundable, setIsRefundable] = useState(location.state?.isRefundable || false);
     const [agreeTerms, setAgreeTerms] = useState(false);
     const [agreeConditions, setAgreeConditions] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('');
 
-    const selectedTickets = Object.entries(ticketQuantities).filter(([_, qty]) => qty > 0);
-    const subtotal = selectedTickets.reduce((sum, [key, qty]) => sum + prices[key] * qty, 0);
-    const deliveryCost = deliveryFees[deliveryMethod] || 0;
+    const selectedTickets = ticketTypes.filter(t => ticketQuantities[t.key] > 0);
+    const hasRefundable = selectedTickets.some(t => t.refundable);
     const refundableFee = isRefundable ? 6.72 : 0;
-    const total = subtotal + deliveryCost + refundableFee;
+    const totalWithRefundable = total + (isRefundable ? refundableFee : 0);
     const isSubmitEnabled = agreeTerms && agreeConditions;
 
     useEffect(() => {
@@ -215,7 +222,6 @@ const Payment = () => {
         // </div>
         // #endregion
         <div className={styles['payment-container']}>
-            <NavbarUser />
 
             <div className={styles['progress-bar']}>
                 <div className={`${styles['step']} ${styles['completed']}`}>Seat Selection</div>
@@ -226,13 +232,18 @@ const Payment = () => {
 
             <div className={styles['order-summary-box']}>
                 <div className={styles['summary-inner']}>
-                    <img src={eventImage} alt="Event Poster" className={styles['payment-event-img']} />
+                    <img
+                        src={
+                            eventImage.startsWith('/')
+                                ? `http://localhost:5000${eventImage}`
+                                : eventImage
+                        } alt="Event Poster" className={styles['payment-event-img']} />
                     <div className={styles['summary-details']}>
                         <h2 className={styles['section-title-center']}>Order Summary</h2>
-                        {selectedTickets.map(([key, qty]) => (
-                            <div key={key}>
-                                <span>{ticketTypes[key]} — Qty: {qty}</span>
-                                <span className={styles['price']}>${(prices[key] * qty).toLocaleString()}</span>
+                        {selectedTickets.map(t => (
+                            <div key={t.key}>
+                                <span>{t.label} — Qty: {ticketQuantities[t.key]}</span>
+                                <span className={styles['price']}>${(t.price * ticketQuantities[t.key]).toLocaleString()}</span>
                             </div>
                         ))}
                         <div>
@@ -247,29 +258,30 @@ const Payment = () => {
                         )}
                         <div className={styles['total-line']}>
                             <strong>Total:</strong>
-                            <strong>${total.toLocaleString()}</strong>
+                            <strong>${totalWithRefundable.toLocaleString()}</strong>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div className={styles['refundable-section']}>
-                <h3 className={styles['section-title-center']}>Refundable Ticket</h3>
-                <p>
-                    Upgrade your booking for just <strong>$6.72</strong> and receive a 100% refund
-                    if you cannot attend for one of the many reasons in our <a href="#" onClick={e => { e.preventDefault(); navigate('./refund-policy'); }}>Terms & Conditions</a>.
-                </p>
-                <div className={styles['radio-group']}>
-                    <label>
-                        <input type="radio" name="refund" onChange={() => setIsRefundable(true)} />
-                        Refundable Ticket
-                    </label>
-                    <label>
-                        <input type="radio" name="refund" checked={!isRefundable} onChange={() => setIsRefundable(false)} />
-                        Non-Refundable Ticket
-                    </label>
+            {hasRefundable && (
+                <div className={styles['refundable-section']}>
+                    <h3 className={styles['section-title-center']}>Refundable Ticket</h3>
+                    <p>
+                        Upgrade your booking for just <strong>$6.72</strong> and receive a 100% refund
+                        if you cannot attend for one of the many reasons in our <a href="#" onClick={e => { e.preventDefault(); navigate('./refund-policy'); }}>Terms & Conditions</a>.
+                    </p>
+                    <div className={styles['radio-group']}>
+                        <label>
+                            <input type="radio" name="refund" checked={isRefundable} onChange={() => setIsRefundable(true)} />
+                            Refundable Ticket
+                        </label>
+                        <label>
+                            <input type="radio" name="refund" checked={!isRefundable} onChange={() => setIsRefundable(false)} />
+                            Non-Refundable Ticket
+                        </label>
+                    </div>
                 </div>
-            </div>
+            )}
 
             <div className={styles['payment-method-section']}>
                 <h3 className={styles['section-title-center']}>Select Payment Method</h3>
@@ -337,13 +349,24 @@ const Payment = () => {
             </div>
 
             <div className={styles['button-group']}>
-                <button onClick={() => navigate(-1)}>Back</button>
+                <button onClick={() => navigate('/homepage/event/' + eventId + '/seat-selection/confirmation', {
+                    state: {
+                        ticketQuantities,
+                        deliveryMethod,
+                        ticketTypes,
+                        subtotal,
+                        deliveryCost,
+                        total,
+                        eventImage,
+                        eventTitle,
+                        eventDate,
+                        isRefundable,
+                    },
+                    replace: true
+                })
+                }>Back</button>
                 <button
-                    disabled={!isSubmitEnabled}
-                    onClick={() => {
-                        handleSubmit(); // Call the first function
-                        navigate(`./finish`); // Then navigate
-                    }}>
+                    disabled={!isSubmitEnabled} onClick={handleSubmit}>
                     Submit Payment
                 </button>
             </div>

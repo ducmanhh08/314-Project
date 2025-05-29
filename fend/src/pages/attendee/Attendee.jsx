@@ -113,7 +113,6 @@ const Attendee = () => {
     // </div>
     // #endregion
     <div className={styles.container}>
-      <NavbarUser />
       <h1>REGISTERED ATTENDEES</h1>
       <div className={styles['event-info']}>
         <p><strong>Event Name:</strong> {event ? event.title : 'Loading...'}</p>

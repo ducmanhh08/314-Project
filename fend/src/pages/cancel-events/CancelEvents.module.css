@@ -8,7 +8,7 @@
   padding: 1rem;
   justify-content: space-between; /* spread content vertically */
   width: 100%; /* Take up the full width */
-  max-width: none;
+  max-width: 800px; /* Limit the maximum width */
   margin: 0 auto; /* centers horizontally */
   border: 3px solid #b6e0f4;
   border-radius: 8px;
@@ -59,6 +59,7 @@
   border-radius: 6px;
   resize: none;
   box-sizing: border-box;
+  margin-bottom: 0;
 }
 
 .info-text {
@@ -67,10 +68,11 @@
 }
 
 .notify-title,
-.refund-title {
+.refund-title,
+.cancel-title {
   font-size: 1.25rem;
   font-weight: bold;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.1rem;
   padding-left: 0; /* Ensure no indent */
   margin-left: 0;
   text-align: left;
@@ -78,7 +80,7 @@
 
 .notification-text {
   font-size: 1rem;
-  margin-bottom: 0.5rem; /* reduce vertical spacing */
+  margin-bottom: 1rem; /* reduce vertical spacing */
 }
 
 .refund-text {

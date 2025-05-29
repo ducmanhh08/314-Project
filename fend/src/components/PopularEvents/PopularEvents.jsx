@@ -14,11 +14,11 @@ const PopularEvents = () => {
     { id: 5, image: 'pain-pot.jpg', title: 'Get Creative: FREE Pot Painting', date: '2025-02-19' },
     { id: 6, image: 'John-Clegg.jpg', title: 'John Clegg Live Music', date: '2025-12-18' },
     { id: 7, image: 'jenhan.jpg', title: 'Kuah Jenhan: Like this, Like Dad.', date: '2025-07-18' },
-    { id: 8, image: 'fuji-rock.jpg', title: 'Fuji Rock Festival 2025.', date: '2025-07-25' },
-    { id: 9, image: 'beach-weather.jpg', title: 'BEACH WEATHER: live in concert', date: '2025-08-20' },
+    { id: 8, image: 'fuji rock.jpg', title: 'Fuji Rock Festival 2025.', date: '2025-07-25' },
+    { id: 9, image: 'beach weather.jpg', title: 'BEACH WEATHER: live in concert', date: '2025-08-20' },
     { id: 10, image: 'xdinary.jpg', title: 'Xdinary Heroes <Beautifull Mind>', date: '2025-07-06' },
     { id: 11, image: 'adele2.jpg', title: 'Weekends with Adele', date: '2025-03-26' },
-    { id: 12, image: 'family-quiz.jpg', title: 'Family Night Trivia.', date: '2025-09-11' },
+    { id: 12, image: 'family quiz.jpg', title: 'Family Night Trivia.', date: '2025-09-11' },
   ];
 
   const visibleEvents = showAll ? popularEvents : popularEvents.slice(0, 4);

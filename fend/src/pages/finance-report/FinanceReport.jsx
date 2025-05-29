@@ -158,7 +158,6 @@ const FinanceReport = () => {
     // </div>
     // #endregion
     <div className={styles['page-wrapper']}>
-      <NavbarUser />
       <div className="card"> {/* Assuming .card is a global or parent style not in module */}
         <button className={styles['back-button']} onClick={() => navigate('/homepage/my-events')}>&larr; Back</button>
         <h1 className={styles['main-title']}>FINANCE MANAGEMENT - PAYMENT DATA</h1>

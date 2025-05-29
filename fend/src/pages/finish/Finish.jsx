@@ -7,6 +7,7 @@ import NavbarUser from '../../components/Navbar/NavbarUser';
 const Finish = () => {
     const navigate = useNavigate();
     return (
+        //#region Code before CSS Module
         // <div className="finish-page">
         //     <NavbarUser />
 
@@ -27,8 +28,8 @@ const Finish = () => {
         //         </button>
         //     </div>
         // </div>
+        //#endregion
         <div className={styles['finish-page']}>
-            <NavbarUser />
 
             <div className={styles['progress-bar']}>
                 <div className={`${styles['step']} ${styles['completed']}`}>Seat Selection</div>

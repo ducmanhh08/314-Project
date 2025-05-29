@@ -57,7 +57,6 @@ const MyEvents = () => {
         // </div>
         // #endregion
         <div>
-            <NavbarUser />
             <div className={styles['my-events-container']}>
                 <div className={styles['back-button']}>
                     <Link to="/homepage" className={styles['back-button']}>

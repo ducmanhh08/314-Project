@@ -24,55 +24,6 @@ const WaitingList2 = () => {
         setCount(count + 1);
     };
     return (
-        // <div>
-        //     <NavbarUser/>
-
-        //     <div className="event-detail-container-2">
-        //     <button className="back-button-2"onClick={handleBack}>
-        //         <FontAwesomeIcon icon={faArrowLeft} />
-        //     </button>
-
-        //     {/* LEFT COLUMN: TEXT */}
-        //     <div className="text-section-2">
-        //         <h1 className="title-2">POTTERY WORKSHOP</h1>
-        //         <p className="date-2">
-        //             <FontAwesomeIcon icon={faCalendar} className="icon-spacing"/>
-        //             Sunday, 10 September 2024 10am – 12pm
-        //         </p>
-
-        //         <div className="ticket-row">
-        //             <span>General Admission</span>
-        //             <div className="ticket-controls">
-        //                 <button onClick={handleDecrement}>-</button>
-        //                 <span>{count}</span>
-        //                 <button onClick={handleIncrement}>+</button>
-        //             </div>
-        //         </div>
-
-
-        //         <div className="status-row">
-        //         <span>Free</span>
-        //         <span className="sold-out">SOLD OUT</span>
-        //         </div>
-        //     </div>
-
-        //     {/* RIGHT COLUMN: IMAGE */}
-        //     <div className="poster-container-2">
-        //         <img
-        //         src="/images/pottery.jpg"
-        //         alt="Event Poster"
-        //         className="event-poster-2"
-        //         width="400"
-        //         height="600"
-        //         />
-        //     </div>
-        //     </div>
-
-        //     {/* Sticky Button at Bottom */}
-        //     <div className="button-container">
-        //     <button className="join-button" onClick={() => navigate('/homepage/my-tickets/waiting-list3')}>JOIN WAITING LIST</button>
-        //     </div>
-        // </div>
         <div>
             <NavbarUser />
 

@@ -78,7 +78,7 @@ const CancelEvents = () => {
         
         {/* Dropdown for cancellation reason */}
         <div className={styles.section}>
-          <label><strong>Cancellation Reason</strong></label><br />
+          <h4 className={styles['cancel-title']}>Cancellation Reason</h4>
           <select
             value={reason}
             onChange={(e) => setReason(e.target.value)}

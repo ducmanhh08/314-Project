@@ -67,7 +67,6 @@ function AccountInfo() {
     //   <button className="save-button">Save</button>
     // </div>
     <div className={styles['account-info-container']}>
-      <NavbarUser />
       <header>
         <button className={styles['back-button']} onClick={() => navigate('/homepage')}>←Homepage</button>
         <h1>Account Information</h1>
