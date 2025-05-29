@@ -34,3 +34,5 @@ Thumbs.db
 # Lock file backups (npm install)
 package-lock.json.*
 yarn.lock.*
+
+secret-key.txt

@@ -1,30 +1,64 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './SeatSelection.module.css';
-import NavbarUser from '../../components/Navbar/NavbarUser';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 
 const SeatSelection = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const eventImage = location.state?.image || "/images/adele.jpg"; // fallback
+    const { id } = useParams();
+    const [event, setEvent] = useState(null);
+    const ticketPrice = location.state?.ticket_price || {};
+    const [ticketQuantities, setTicketQuantities] = useState(
+        location.state?.ticketQuantities || {}
+    );
+    const [deliveryMethod, setDeliveryMethod] = useState(
+        location.state?.deliveryMethod || 'Mobile Ticket'
+    );
 
-    const [deliveryMethod, setDeliveryMethod] = useState('Mobile Ticket');
-    const [ticketQuantities, setTicketQuantities] = useState({
-        vip: 0,
-        premium: 0,
-        gold: 0,
-        silver: 0,
-        bronze: 0,
-    });
+    useEffect(() => {
+        fetch(`http://localhost:5000/event/${id}`)
+            .then(res => res.json())
+            .then(data => setEvent(data))
+            .catch(() => setEvent(null));
+    }, [id]);
+
+    useEffect(() => {
+        if (event && event.ticket_price && Object.keys(ticketQuantities).length === 0) {
+            const initialQuantities = {};
+            Object.keys(event.ticket_price).forEach(key => {
+                initialQuantities[key] = 0;
+            });
+            setTicketQuantities(initialQuantities);
+        }
+    }, [event]);
+
+    const ticketTypes = event && event.ticket_price
+        ? Object.entries(event.ticket_price).map(([label, info]) => ({
+            label,
+            price: info.price,
+            key: label,
+            refundable: info.refundable,
+        }))
+        : [];
+
+    // const [ticketQuantities, setTicketQuantities] = useState({
+    //     vip: 0,
+    //     premium: 0,
+    //     gold: 0,
+    //     silver: 0,
+    //     bronze: 0,
+    // });
 
     const handleNext = () => {
         const selectedData = {
             ticketQuantities,
             deliveryMethod,
-            eventImage, // add this
-            eventTitle: location.state?.title || "Event Title", // add this if you have title
-            eventDate: location.state?.date || "", // add this if you have date
+            ticketTypes, 
+            eventImage: event.image_url,
+            eventTitle: event.title,
+            eventDate: event.date,
+            eventId: event.id,
         };
         navigate('./confirmation', { state: selectedData });
     };
@@ -35,13 +69,13 @@ const SeatSelection = () => {
         'Print at Home': 0,
     };
 
-    const ticketTypes = [
-        { label: 'Front Orchestra', price: 3800, key: 'vip' },
-        { label: 'Rear Orchestra', price: 2900, key: 'premium' },
-        { label: 'First Mezzanine', price: 2200, key: 'gold' },
-        { label: 'Second Mezzanine', price: 1600, key: 'silver' },
-        { label: 'Restricted View', price: 1200, key: 'bronze' },
-    ];
+    // const ticketTypes = [
+    //     { label: 'Front Orchestra', price: 3800, key: 'vip' },
+    //     { label: 'Rear Orchestra', price: 2900, key: 'premium' },
+    //     { label: 'First Mezzanine', price: 2200, key: 'gold' },
+    //     { label: 'Second Mezzanine', price: 1600, key: 'silver' },
+    //     { label: 'Restricted View', price: 1200, key: 'bronze' },
+    // ];
 
     const handleQuantityChange = (key, delta) => {
         setTicketQuantities((prev) => ({
@@ -57,7 +91,11 @@ const SeatSelection = () => {
     );
     const deliveryMethodPrice = deliveryFees[deliveryMethod] || 0;
     const calculateTotal = () => ticketTotal + deliveryMethodPrice;
-
+    const hasSelectedTicket = Object.values(ticketQuantities).some(qty => qty > 0);
+    if (!event) {
+        return <div>Loading...</div>;
+    }
+    // else {
     return (
         // #region Code before CSS Module
         // <div className="seat-selection-container">
@@ -142,7 +180,6 @@ const SeatSelection = () => {
         // </div>
         // #endregion
         <div className={styles['seat-selection-container']}>
-            <NavbarUser />
             <h2>Seat Selection</h2>
 
             <div className={styles['progress-bar']}>
@@ -153,7 +190,11 @@ const SeatSelection = () => {
             </div>
 
             <div className={styles['content-wrapper']}>
-                <img src={eventImage} alt="Event Poster" className={styles['event-poster']} />
+                <img src={
+                    event.image_url.startsWith('/')
+                        ? `http://localhost:5000${event.image_url}`
+                        : event.image_url
+                } alt="Event Poster" className={styles['event-poster']} />
 
                 <div className={styles['seat-summary']}>
                     <div className={styles['seat-map']}>
@@ -218,10 +259,11 @@ const SeatSelection = () => {
                     </div>
                 </div>
 
-                <button className={styles['next-button']} onClick={handleNext}>Next</button>
+                <button className={styles['next-button']} onClick={handleNext} disabled={!hasSelectedTicket} >Next</button>
             </div>
         </div>
-    );
+    )
+    // };
 };
 
 export default SeatSelection;

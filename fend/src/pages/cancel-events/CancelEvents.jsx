@@ -119,7 +119,6 @@ const CancelEvents = () => {
     // </>
     // #endregion
     <>
-      <NavbarUser />
 
       <div className={styles.container}>
         <a href="/homepage/my-events" className={styles['back-link']}>←</a>

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NavbarUser.css';
 
-const NavbarUser = () => {
+const NavbarUser = ({ eventCount = 0 }) => {
+
     const [showDropdown, setShowDropdown] = useState(false);
     const [showCategories, setShowCategories] = useState(false);
     const [query, setQuery] = useState('');
@@ -70,7 +71,7 @@ const NavbarUser = () => {
                                 My Profile
                             </a>
                             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-events'); }}>
-                                My Event (0)
+                                My Event ({eventCount})
                             </a>
                             <a>Logout</a>
                         </div>

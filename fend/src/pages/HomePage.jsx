@@ -1,12 +1,26 @@
 // import React from 'react';
-import Navbar from '../components/Navbar/NavbarUser'; 
+import NavbarUser from '../components/Navbar/NavbarUser';
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { events } from './search-option/DataEvent';
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [eventCount, setEventCount] = useState(0);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/my_events')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setEventCount(data.length);
+        } else {
+          setEventCount(0);
+        }
+      })
+      .catch(() => setEventCount(0));
+  }, []);
 
   const filteredEvents = events.filter((event) =>
     event.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -14,7 +28,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container">
         <input
           type="text"

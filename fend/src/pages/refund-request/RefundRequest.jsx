@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavbarUser from '../../components/Navbar/NavbarUser';
 import styles from './RefundRequest.module.css';
 
 const RefundRequest = () => {
@@ -23,6 +22,7 @@ const RefundRequest = () => {
     };
 
     return (
+        // #region Code before CSS Module
         // <div className="refund-request-page">
         //     <NavbarUser />
         //     <div className="content">
@@ -78,8 +78,8 @@ const RefundRequest = () => {
         //         </button>
         //     </div>
         // </div>
+        // #endregion
         <div className={styles['refund-request-page']}>
-            <NavbarUser />
             <div className={styles['content']}>
                 <a href="#" className={styles['back-link']} onClick={e => { e.preventDefault(); navigate('/homepage'); }}>← Homepage</a>
                 <h2 className={styles['refund-title']}>Refund Request</h2>
@@ -99,9 +99,10 @@ const RefundRequest = () => {
 
                     <div><strong>Purchased Tickets</strong></div>
                     <div>
-                        {refundInfo?.selectedTickets?.map(([key, qty]) => (
+                        {/* {refundInfo?.selectedTickets?.map(([key, qty]) => (
                         <div key={key}>x{qty} {key.replace(/^\w/, c => c.toUpperCase())} Package</div>
-                        ))}
+                        ))} */}
+                        
                     </div>
 
                     <div><strong>Refund Amount</strong></div>
