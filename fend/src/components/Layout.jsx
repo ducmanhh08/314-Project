@@ -3,6 +3,7 @@ import NavbarUser from './Navbar/NavbarUser';
 
 const Layout = ({ children }) => {
   const [eventCount, setEventCount] = useState(0);
+  const [ticketCount, setTicketCount] = useState(0);
 
   useEffect(() => {
     fetch('http://localhost:5000/my_events')
@@ -11,9 +12,16 @@ const Layout = ({ children }) => {
       .catch(() => setEventCount(0));
   }, []);
 
+  useEffect(() => {
+    fetch('http://localhost:5000/my_tickets')
+      .then(res => res.json())
+      .then(data => setTicketCount(Array.isArray(data) ? data.length : 0))
+      .catch(() => setTicketCount(0));
+  }, []);
+
   return (
     <>
-      <NavbarUser eventCount={eventCount} />
+      <NavbarUser eventCount={eventCount} ticketCount={ticketCount}/>
       {children}
     </>
   );

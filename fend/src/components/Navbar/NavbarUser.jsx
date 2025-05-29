@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NavbarUser.css';
 
-const NavbarUser = ({ eventCount = 0 }) => {
+const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [showCategories, setShowCategories] = useState(false);
@@ -65,7 +65,7 @@ const NavbarUser = ({ eventCount = 0 }) => {
                     {showDropdown && (
                         <div className="dropdown-menu">
                             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-tickets'); }}>
-                                My Ticket (0)
+                                My Ticket ({ticketCount})
                             </a>
                             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-info'); }}>
                                 My Profile
