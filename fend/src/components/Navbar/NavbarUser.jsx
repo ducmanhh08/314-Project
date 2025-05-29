@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import './NavbarUser.css';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './NavbarUser.css';
 
 const NavbarUser = () => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showCategories, setShowCategories] = useState(false);
     const [query, setQuery] = useState('');
     const navigate = useNavigate();
 
@@ -20,7 +21,11 @@ const NavbarUser = () => {
     return (
         <nav className="navbar-user">
             <div className="logo">
-                <img src="/images/events/logo.jpg" alt="Ticket Please?" onClick={e => { e.preventDefault(); navigate('/homepage'); }}/>
+                <img
+                    src="/images/logo.jpg"
+                    alt="Ticket Please?"
+                    onClick={() => navigate('/homepage')}
+                />
             </div>
 
             <div className="search-bar">
@@ -34,8 +39,23 @@ const NavbarUser = () => {
             </div>
 
             <div className="nav-links">
-                <span onClick={e => { e.preventDefault(); navigate('/homepage/create-event'); }}>Create Event</span>
-                <span>Categories</span>
+                <span onClick={() => navigate('/homepage/create-event')}>Create Event</span>
+
+                <div
+                    className="categories-container"
+                    onMouseEnter={() => setShowCategories(true)}
+                    onMouseLeave={() => setShowCategories(false)}
+                >
+                    <span className="nav-link">Categories</span>
+                    {showCategories && (
+                        <div className="categories-dropdown">
+                            <div className="category-item" onClick={() => navigate('/homepage/category/concert')}>Concert</div>
+                            <div className="category-item" onClick={() => navigate('/homepage/category/sports')}>Sports</div>
+                            <div className="category-item" onClick={() => navigate('/homepage/category/art')}>Art</div>
+                            <div className="category-item" onClick={() => navigate('/homepage/category/food')}>Food & Drink</div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className="user-section">
@@ -43,9 +63,16 @@ const NavbarUser = () => {
                     <img src="/images/events/user-icon.jpg" alt="User Avatar" className="user-avatar" />
                     {showDropdown && (
                         <div className="dropdown-menu">
-                            <a href="#" onClick={e => { e.preventDefault(); navigate('/homepage/my-tickets'); }}>My Ticket (0)</a>
-                            <a href="#" onClick={e => { e.preventDefault(); navigate('/homepage/my-info'); }}>My Profile</a>
-                            <a href="#" onClick={e => { e.preventDefault(); navigate('/homepage/my-events'); }}>My Event (0)</a>
+                            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-tickets'); }}>
+                                My Ticket (0)
+                            </a>
+                            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-info'); }}>
+                                My Profile
+                            </a>
+                            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-events'); }}>
+                                My Event (0)
+                            </a>
+                            <a>Logout</a>
                         </div>
                     )}
                 </div>
