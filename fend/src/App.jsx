@@ -36,9 +36,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/new-password" element={<NewPassword />} />
-      <Route path="/cancel-events" element={<CancelEvents />} />
-      <Route path="/refund-policy" element={<RefundPolicy />} />
+
       {/* Protect all /homepage routes */}
       <Route
         path="/homepage/*"
