@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 40px 20px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   width: 100%; /* important */
   box-sizing: border-box; /* to prevent overflow */
@@ -43,7 +43,7 @@
 
 .text-section-3 {
   font-family: 'Dai Banna SIL', serif;
-  font-size: 1.2em;
+  font-size: 1em;
   flex: 1;
   min-width: 250px;
   text-align: left;
@@ -52,10 +52,11 @@
 }
 
 .title-3 {
+  font-family: 'Dai Banna SIL', serif;
   font-size: 2em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-align: center;
+  margin: 0 auto 0px auto; /* center horizontally */
+  display: block;
+  width: fit-content; /* or max-content */
 }
 
 .date-3 {
@@ -69,11 +70,11 @@
 }
 
 .disclaimer-3 {
-  font-size: 0.9em;
+  font-size: 0.8em;
   text-align: center;
   color: #000;
   margin-top: -10px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .disclaimer-3 a {
@@ -88,25 +89,24 @@
 .contact-title-3 {
   text-align: center;
   font-weight: bold;
-  font-size: 1.2em;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  font-size: 1.5em;
+  margin: 0 auto 0px auto; /* center horizontally */
 }
 
 .contact-form-3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  margin-top: 10px;
+  gap: 8px;
 }
 
 .name-fields {
   display: flex;
-  gap: 16px;
+  gap: 8px;
   width: 100%;
   max-width: 600px;
   justify-content: center;
+  margin-bottom: -16px; /* Reduce spacing below */
 }
 
 .input-wrapper {
@@ -123,20 +123,31 @@
   width: 100%;
   background-color: #ddd;
   border: none;
-  padding: 24px 10px 8px 10px; /* Top padding leaves space for label */
+  padding: 28px 10px 8px 10px;
   border-radius: 4px;
-  font-size: 1em;
+  font-size: 0.9em;
   color: #000;
   box-sizing: border-box;
 }
 
+.input-wrapper input:focus {
+  outline: none; /* remove browser’s default focus outline */
+  box-shadow: 0 0 0 2px #999; /* optional: custom focus ring */
+  border: none; /* just in case */
+}
+
 .input-wrapper label {
   position: absolute;
-  top: 6px;
-  left: 10px;
-  font-size: 0.9em;
+  top: 10px;
+  left: 8px;
+  font-size: 0.7em;
   color: #555;
   pointer-events: none;
+}
+
+/* Override for wider Email and Phone fields */
+.input-wrapper.long label {
+  top: 6px;
 }
 
 .required {
@@ -146,15 +157,15 @@
 .waitlist-disclaimer-3 {
   text-align: center;
   color: #555;
-  font-size: 0.9em;
+  font-size: 0.8em;
   max-width: 700px;
-  margin: 40px auto 0 auto;
+  margin: 20px auto 0 auto;
   line-height: 1.5;
 }
 
 .order-summary-3 {
   font-family: 'Dai Banna SIL', serif;
-  font-size: 1.2em;
+  font-size: 1em;
   margin-top: 20px;
   text-align: center;
   align-self: flex-end; /* ensures it hugs the right side of container */
@@ -163,8 +174,11 @@
 }
 
 .order-title-3 {
+  text-align: center;
   font-weight: bold;
-  margin-bottom: 20px;
+  font-size: 1.5em;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .order-details-3 {
@@ -183,8 +197,8 @@
 
 .checkout-btn-3 {
   font-family: 'Dai Banna SIL', serif;
-  font-size: 1em;
-  margin-top: 80px;
+  font-size: 1.2em;
+  margin-top: 60px;
   padding: 12px 24px;
   font-weight: bold;
   background-color: #7d92ad;

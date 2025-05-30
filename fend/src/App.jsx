@@ -38,9 +38,7 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/new-password" element={<NewPassword />} />
       <Route path="/cancel-events" element={<CancelEvents />} />
-      <Route path="/waiting-list" element={<WaitingList />} />
-      <Route path="/waiting-list2" element={<WaitingList2 />} />
-      <Route path="/waiting-list3" element={<WaitingList3 />} />
+      <Route path="/refund-policy" element={<RefundPolicy />} />
       {/* Protect all /homepage routes */}
       <Route
         path="/homepage/*"

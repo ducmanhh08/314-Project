@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Dai Banna SIL';
+  src: url('./fonts/DaiBannaSIL-Regular.ttf') format('truetype');
+}
+
 .refund-policy-container {
   /*rem stands for "root em" — it's a relative unit of measurement used in CSS to size things like fonts, padding, margins, etc*/
   padding: 2rem;
@@ -7,16 +12,35 @@
   border: 3px solid #b6e0f4;
   border-radius: 8px;
   background-color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: 'Dai Banna SIL', serif;
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .refund-policy-title {
+  font-family: 'Dai Banna SIL', serif;
   text-align: center;
-  font-size: 2rem;
-  margin-top: 1px;
+  font-size: 2.5rem;
+  margin-top: 0px;
   margin-bottom: 1px;
   font-weight: bold;
+}
+
+.refund-policy-container h2 {
+  font-family: 'Dai Banna SIL', serif;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.refund-policy-container h3 {
+  font-family: 'Dai Banna SIL', serif;
+  font-size: 1.5rem; /* smaller than h2's 2rem */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .scroll-to-top:hover {
@@ -35,7 +59,7 @@
   
 .two-column-list ul {
   list-style-type: disc;
-  padding-left: 20px;
+  padding-left: 40px;
   margin: 0;
   min-width: 200px;            /* keep columns wide enough */
 }
@@ -60,10 +84,11 @@
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
+  font-family: 'Dai Banna SIL', serif;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 30px;
   display: block;
   margin-left: auto;
   margin-right: auto;

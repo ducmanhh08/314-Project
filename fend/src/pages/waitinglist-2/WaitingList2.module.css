@@ -51,9 +51,11 @@
 }
 
 .title-2 {
+  font-family: 'Dai Banna SIL', serif;
   font-size: 2em;
-  margin-bottom: 10px;
-  text-align: center;
+  margin: 0 auto 10px auto; /* center horizontally */
+  display: block;
+  width: fit-content; /* or max-content */
 }
 
 .date-2 {
@@ -131,7 +133,7 @@
   transition: background-color 0.3s ease;
   font-family: 'Dai Banna SIL', serif;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.2em;
   border-radius: 6px;
 }
 

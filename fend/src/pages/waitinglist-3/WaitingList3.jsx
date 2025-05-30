@@ -26,7 +26,6 @@ const WaitingList3 = () => {
     return (
         <div>
             <NavbarUser />
-
             <div className={styles['event-detail-container-3']}>
                 <button className={styles['back-button-3']} onClick={handleBack}>
                     <FontAwesomeIcon icon={faArrowLeft} />

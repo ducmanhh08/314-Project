@@ -21,8 +21,9 @@ const WaitingList2 = () => {
     };
 
     const handleIncrement = () => {
-        setCount(count + 1);
+         if (count < 1) setCount(count + 1);
     };
+
     return (
         <div>
             <NavbarUser />
@@ -43,9 +44,11 @@ const WaitingList2 = () => {
                     <div className={styles['ticket-row']}>
                         <span>General Admission</span>
                         <div className={styles['ticket-controls']}>
-                            <button onClick={handleDecrement}>-</button>
+                            <button onClick={handleDecrement}disabled={count == 0}>-</button>
                             <span>{count}</span>
-                            <button onClick={handleIncrement}>+</button>
+                            <button onClick={handleIncrement}  disabled={count == 1}
+                            title ={count == 1 ? "Limit 1 per person": ""}
+                            >+</button>
                         </div>
                     </div>
 
