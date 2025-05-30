@@ -1,230 +1,90 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
-import styles from "./FinanceReport.module.css";
-import NavbarUser from '../../components/Navbar/NavbarUser';
+import React from "react";
+import "./Finance.css";
+import NavbarUser from '../components/Navbar/NavbarUser';
+import { Attendee } from '../pages/Attendee'; 
 
-const participantsData = [
-  {
-    id: "2025001",
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+61 412 345 678",
-    date: "March 15, 2025",
-    type: "VIP",
-    status: "Paid",
-    amount: "$100",
-    method: "Credit Card",
-    txn: "TXN10001",
-  },
-  {
-    id: "2025002",
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "+61 400 111 222",
-    date: "March 15, 2025",
-    type: "General",
-    status: "Pending",
-    amount: "$50",
-    method: "PayPal",
-    txn: "TXN10002",
-  },
-  {
-    id: "01102002",
-    name: "Katie Beo",
-    email: "beotron@example.com",
-    phone: "+61 400 111 222",
-    date: "March 15, 2025",
-    type: "Vip",
-    status: "Paid",
-    amount: "$150",
-    method: "PayPal",
-    txn: "TXN10003",
-  },
+// Original attendee data
+const initialAttendees = [
+  { id: '982543', name: 'John Doe', email: 'john@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991235', name: 'Jane Smith', email: 'jane@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Pending' },
+  { id: '991412', name: 'Alice Cooper', email: 'alice@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '998546', name: 'Robert King', email: 'robert@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Pending' },
+  { id: '011002', name: 'Kaite Beo', email: 'katie@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Approve' },
+  { id: '991245', name: 'Liam N.', email: 'liam@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991874', name: 'Emma B.', email: 'emma@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Pending' },
+  { id: '991675', name: 'Noah W.', email: 'noah@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991442', name: 'Ava M.', email: 'ava@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991411', name: 'Ethan J.', email: 'ethan@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Pending' },
+  { id: '991244', name: 'Olivia C.', email: 'olivia@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991473', name: 'Isla R.', email: 'isla@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Pending' },
+  { id: '991599', name: 'Mason T.', email: 'mason@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Approve' },
+  { id: '991600', name: 'Sophia L.', email: 'sophia@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991601', name: 'James P.', email: 'james@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Pending' },
+  { id: '991602', name: 'Amelia R.', email: 'amelia@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Approve' },
+  { id: '991603', name: 'Lucas K.', email: 'lucas@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991604', name: 'Mia V.', email: 'mia@example.com', date: 'March 15, 2025', ticket: 'VIP', status: 'Pending' },
+  { id: '991605', name: 'Benjamin F.', email: 'benjamin@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' },
+  { id: '991606', name: 'Charlotte G.', email: 'charlotte@example.com', date: 'March 15, 2025', ticket: 'General', status: 'Approve' }
 ];
+const paymentMethods = ["Credit Card", "PayPal", "AfterPay"];
+// Add financial mock data
+const participantsData = initialAttendees.map((attendee, index) => ({
+  id: attendee.id,
+  name: attendee.name,
+  email: attendee.email,
+  date: attendee.date,
+  type: attendee.ticket,
+  status: attendee.status === "Approve" ? "Paid" : "Pending",
+  amount: attendee.ticket === "VIP" ? "$1000" : "$500",
+  method: paymentMethods[index % 3],
+  txn: `TXN${10000 + index}`
+}));
 
-const FinanceReport = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [event, setEvent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  const { id } = useParams();
+// Calculate total revenue
+const totalRevenue = participantsData
+  .filter((p) => p.status === "Paid")
+  .reduce((sum, p) => sum + parseFloat(p.amount.replace('$', '')), 0);
 
-  useEffect(() => {
-    setLoading(true);
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    fetch(`http://localhost:5000/event/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setEvent(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setEvent(null);
-        setLoading(false);
-      });
-  }, [id]);
-
-  const filteredParticipants = participantsData.filter(
-    (p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+const Finance = () => {
   return (
-    // #region Code before CSS Module
-    // <div className="page-wrapper">
-    //   <NavbarUser />  
-    //   <div className="card">
-    //     <button className="back-button" onClick={() => navigate('/homepage')}>&larr; Back</button>
-    //     <h1 className="main-title">FINANCE MANAGEMENT - PAYMENT DATA</h1>
-    //     <div className="event-details">
-    //       <p>Event Name: Annual Tech Conference 2025</p>
-    //       <p>Date: 20 November 2025</p>
-    //       <p>Location: Sydney Convention Center</p>
-    //     </div>
-    //     <hr style={{ margin: "20px 0",marginLeft: "auto", marginRight: "auto" ,
-    //          width: "95%", borderTop: "2px solid #272725" }} />
-    //     <h2>Search Participants</h2>    
-    //     <div className="search-section">
-    //       <input
-    //         type="text"
-    //         placeholder="Search by Name or Email"
-    //         value={searchTerm}
-    //         onChange={(e) => setSearchTerm(e.target.value)}
-    //         className="search-input"
-    //       />
-    //     </div>
-    //     <hr style={{ margin: "20px 0",marginLeft: "auto", marginRight: "auto" ,
-    //          width: "95%", borderTop: "2px solid #272725" }} />
-    //     <h3>Payment Overview</h3>     
-    //     <div className="overview">
-    //       <p>Total Participants: {participantsData.length}</p>
-    //       <p>Total Registered: {participantsData.length}</p>
-    //       <p>
-    //         Total Payment Pending:{" "}
-    //         {participantsData.filter((p) => p.status === "Pending").length}
-    //       </p>
-    //     </div>
-    //     <hr style={{ margin: "20px 0",marginLeft: "auto", marginRight: "auto" ,
-    //          width: "95%", borderTop: "2px solid #272725" }} />
-    //     <h4>Registered Participants</h4>     
-    //     <div className="table-wrapper">
-    //       <table className="participants-table">
-    //         <thead>
-    //           <tr>
-    //             {[
-    //               "ID",
-    //               "Name",
-    //               "Email",
-    //               "Phone Number",
-    //               "Registration Date",
-    //               "Ticket Type",
-    //               "payment Status",
-    //               "Amount",
-    //               "payment Method",
-    //               "Transaction ID",
-    //             ].map((header) => (
-    //               <th key={header}>{header}</th>
-    //             ))}
-    //           </tr>
-    //         </thead>
-    //         <tbody>
-    //           {filteredParticipants.map((p) => (
-    //             <tr key={p.id}>
-    //               <td>{p.id}</td>
-    //               <td>{p.name}</td>
-    //               <td>{p.email}</td>
-    //               <td>{p.phone}</td>
-    //               <td>{p.date}</td>
-    //               <td>{p.type}</td>
-    //               <td>{p.status}</td>
-    //               <td>{p.amount}</td>
-    //               <td>{p.method}</td>
-    //               <td>{p.txn}</td>
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-    //     </div>
-
-    //     <div className="footer-info">
-    //       Total Participants: {filteredParticipants.length}
-    //     </div>
-    //   </div>
-    // </div>
-    // #endregion
-    <div className={styles['page-wrapper']}>
-      <div className="card"> {/* Assuming .card is a global or parent style not in module */}
-        <button className={styles['back-button']} onClick={() => navigate('/homepage/my-events')}>&larr; Back</button>
-        <h1 className={styles['main-title']}>FINANCE MANAGEMENT - PAYMENT DATA</h1>
-        <div className={styles['event-details']}>
-          <p>Event Name: {loading ? 'Loading...' : event ? event.title : 'Not found'}</p>
-          <p>Date: {loading ? 'Loading...' : event ? event.date : 'Not found'}</p>
-          <p>Location: {loading ? 'Loading...' : event ? (event.location || 'TBA') : 'Not found'}</p>
+    <div className="page-wrapper">
+      <NavbarUser />
+      <div className="card">
+        <button className="back-button">&larr; Back</button>
+        <h1 className="main-title">FINANCE MANAGEMENT - PAYMENT DATA</h1>
+        <div className="event-details">
+          <p>Event Name: Annual Tech Conference 2025</p>
+          <p>Date: 20 November 2025</p>
+          <p>Location: Sydney Convention Center</p>
         </div>
-        <hr style={{
-          margin: "20px 0", marginLeft: "auto", marginRight: "auto",
-          width: "95%", borderTop: "2px solid #272725"
-        }} />
-        <h2>Search Participants</h2>
-        <div className={styles['search-section']}>
-          <input
-            type="text"
-            placeholder="Search by Name or Email"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className={styles['search-input']}
-          />
-        </div>
-        <hr style={{
-          margin: "20px 0", marginLeft: "auto", marginRight: "auto",
-          width: "95%", borderTop: "2px solid #272725"
-        }} />
-        <h3 className={styles['h3']}>Payment Overview</h3> {/* h3 also has a class name in the CSS module */}
-        <div className={styles['overview']}>
+        <hr style={{ margin: "20px 0", marginLeft: "auto", marginRight: "auto", width: "95%", borderTop: "2px solid #272725" }} />
+        <h3>Payment Overview</h3>
+        <div className="overview">
           <p>Total Participants: {participantsData.length}</p>
           <p>Total Registered: {participantsData.length}</p>
-          <p>
-            Total Payment Pending:{" "}
-            {participantsData.filter((p) => p.status === "Pending").length}
-          </p>
+          <p>Total Payment Pending: {participantsData.filter((p) => p.status === "Pending").length}</p>
+          <p>Total Revenue: ${totalRevenue.toFixed(2)}</p>
         </div>
-        <hr style={{
-          margin: "20px 0", marginLeft: "auto", marginRight: "auto",
-          width: "95%", borderTop: "2px solid #272725"
-        }} />
-        <h4 className={styles['h4']}>Registered Participants</h4> {/* h4 also has a class name in the CSS module */}
-        <div className={styles['table-wrapper']}>
-          <table className={styles['participants-table']}>
+        <hr style={{ margin: "20px 0", marginLeft: "auto", marginRight: "auto", width: "95%", borderTop: "2px solid #272725" }} />
+        <h4>Registered Participants</h4>
+        <div className="table-wrapper">
+          <table className="participants-table">
             <thead>
               <tr>
                 {[
-                  "ID",
-                  "Name",
-                  "Email",
-                  "Phone Number",
-                  "Registration Date",
-                  "Ticket Type",
-                  "payment Status",
-                  "Amount",
-                  "payment Method",
-                  "Transaction ID",
+                  "ID", "Name", "Email", "Registration Date", "Ticket Type",
+                  "Payment Status", "Amount", "Payment Method", "Transaction ID"
                 ].map((header) => (
                   <th key={header}>{header}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {filteredParticipants.map((p) => (
+              {participantsData.map((p) => (
                 <tr key={p.id}>
                   <td>{p.id}</td>
                   <td>{p.name}</td>
                   <td>{p.email}</td>
-                  <td>{p.phone}</td>
                   <td>{p.date}</td>
                   <td>{p.type}</td>
                   <td>{p.status}</td>
@@ -236,13 +96,13 @@ const FinanceReport = () => {
             </tbody>
           </table>
         </div>
-
-        <div className={styles['footer-info']}>
-          Total Participants: {filteredParticipants.length}
+        <hr style={{ margin: "20px 0", marginLeft: "auto", marginRight: "auto", width: "95%", borderTop: "2px solid #272725" }} />
+        <div className="footer-info">
+          Total Participants: {participantsData.length}
         </div>
       </div>
     </div>
   );
 };
 
-export default FinanceReport;
+export default Finance;

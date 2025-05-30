@@ -1,27 +1,19 @@
- body {
-  background-color: #FCF8F5;
-  margin: 0; 
-  padding: 0;  
+html, body {
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
-
+  background-color: #FCF8F5;
+  font-family: 'Dai Banna SIL Regular';
+  color: #000;
 }
-    
-    .account-info-container {
-    font-family: 'Dai Banna SIL Regular';;
-    max-width: 100%px;
-    margin: 0px auto; 
-    background-color: #FCF8F5;
 
-  }
-
-
-header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #000;
-
+  font-size: 45px;
+  font-weight: 700;
 }
 
 .back-button {
@@ -30,123 +22,106 @@ header {
   color: #4A4A48;
   font-size: 26px;
   cursor: pointer;
-  top: 0;
   font-weight: 700;
-  font-family: 'Poppins-Bold';
-
+  font-family: 'Poppins-Bold', sans-serif;
 }
 
 h1 {
   text-align: center;
-  width: 100%;
-  color: #000;
   font-size: 40px;
+  margin: 0;
 }
+
 h2 {
-  text-align: left;
-  width: 100%;
-  color: #000;
   font-size: 36px;
+  margin-bottom: 10px;
 }
+
+/* Profile Photo Section */
 .profile-photo-section {
   text-align: center;
   margin: 20px 0;
 }
 
-.profile-photo-box {
-  border: 1px dashed #aaa;
-  padding: 20px;
-  background-color: #ffff;
-  border-radius: 20px;
-  width: 1500px;
-  align-items: center;
-  
-  
-}
-
-.photo-placeholder {
-  font-size: 36px;
-  text-align: left;
-  color: #555;
-}
-
-.upload-button {
-  margin-top: 10px;
-  font-size: 24px;
-}
-
+/* Form Sections */
 .form-section {
-  margin: 20px 0;
+  margin: 20px auto;
+  max-width: 1500px;
 }
 
 .two-column {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  background-color: #ffff;
-  color: #000;
+  background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-  width: 1500px;
   box-shadow: 1px 1px 4px #000;
-  
 }
-.a {
-  border-radius: 11px;
-}
+
 input {
   padding: 10px;
-  width: 270px;
+  width: 100%;
   box-sizing: border-box;
   background-color: #FCF8F5;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  color: #000;
   font-size: 18px;
 }
+
+
 
 
 .inline-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #ffff;
+  background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-  width: 1500px;
   box-shadow: 1px 1px 4px #000;
+  gap: 20px;
+  max-width: 1500px;
 }
 
-.change-button {
-  padding: 5px 10px;
-  background-color: #9FD5ED;
-  border: none;
-  cursor: pointer;
-  color:#000; 
-  margin-right: 1100px; 
-  border-radius: 15px;
-  font-size: 24px;
-}
-
+/* Save Button */
 .save-button {
   display: block;
   margin: 30px auto;
-  padding: 10px 25px;
+  padding: 15px 30px;
   background-color: #9FD5ED;
   border: 1px solid;
-  font-size: 36px;;
-  cursor: pointer;
-  color: #000;
+  font-size: 26px;
   border-radius: 15px;
+  cursor: pointer;
+  font-weight: 600;
 }
-.last{
+
+
+
+.address-and-checkboxes {
   display: flex;
-  align-items: left;
-  justify-content: space-between;
-  background-color: #ffff;
-  padding: 20px;
-  border-radius: 20px;
-  width: 1500px;
-  box-shadow: 1px 1px 4px #000;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+}
+
+
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #9FD5ED; 
 }
