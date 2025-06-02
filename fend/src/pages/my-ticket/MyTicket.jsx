@@ -1,11 +1,10 @@
 import React from 'react';
-import NavbarUser from '../../components/Navbar/NavbarUser.jsx';
+//import NavbarUser from '../../components/Navbar/NavbarUser.jsx';
 import './MyTicket.module.css';
 
 const MyTickets = () => {
   return (
     <div className="my-tickets-page">
-      <NavbarUser />
       <div className="content">
         <a href="#" className="back-link">← Homepage</a>
         <h2>My Tickets</h2>

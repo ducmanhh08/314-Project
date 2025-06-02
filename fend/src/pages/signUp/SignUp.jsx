@@ -1,13 +1,13 @@
 import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './SignUp.module.css'
+import styles from './SignUp.module.css';
 
 function SignUp() {
   // const [count, setCount] = useState(0)
 
   return (
-    <div className="signup-container">
+    <div className={styles[my-events-container]}>
       
       <div className="card">
         <div className="signup-form">

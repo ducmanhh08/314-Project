@@ -1,6 +1,6 @@
 import React from "react";
 import "./FinanceReport.module.css";
-import NavbarUser from '../../components/Navbar/NavbarUser';
+//import NavbarUser from '../../components/Navbar/NavbarUser';
 import { Attendee } from '../attendee/Attendee';
 
 // Original attendee data
@@ -48,7 +48,6 @@ const totalRevenue = participantsData
 const Finance = () => {
   return (
     <div className="page-wrapper">
-      <NavbarUser />
       <div className="card">
         <button className="back-button">&larr; Back</button>
         <h1 className="main-title">FINANCE MANAGEMENT - PAYMENT DATA</h1>
