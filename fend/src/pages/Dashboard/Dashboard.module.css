@@ -1,0 +1,225 @@
+.dashboardContainer {
+    display: flex; 
+    height: 100vh; 
+}
+
+.sidebar {
+    flex: 0 0 220px; 
+    background-color: #80A1C0;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar img.logo {
+    width: 120px;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    margin: 10px 0;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.mainContent {
+    flex: 1; 
+    background-color: #fdfdfd;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.createEventBtn {
+    background-color: #4c87b5;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+
+.card {
+    background-color: #CCCCCC; 
+    border: 3px solid #ccc;    
+    border-radius: 15px;        
+    padding: 20px;             
+    margin: 10px;               
+    text-align: center;        
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    flex: 1;   
+}
+
+.myEvents {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.myEvents table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.myEvents th, .myEvents td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.analyticsContainer {
+    display: flex;
+    gap: 30px;
+}
+
+.analyticsContainer > div {
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.sectionTitle {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.refundRequest table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.refundRequest th, .refundRequest td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.create-event-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.create-event-container p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.create-event-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #6b92b9; 
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-event-button:hover {
+    background-color: #4c7da0;
+}
+
+.plus-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.viewButton {
+    padding: 8px 16px;  
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.viewButton:hover {
+    background-color: #3a6d97;
+    color: white;
+}
+
+.pending {
+    background-color: #f0c040;
+    color: black;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.statusDropdown {
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: white; 
+    font-weight: bold;
+}
+
+.approved {
+    background-color: #4CAF50; 
+}
+
+.rejected {
+    background-color: #f44336; 
+}
+
+.statusButton {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.refundRequest td:nth-child(5) {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.analyticsContainer img {
+    width: 100%;
+    height: auto;  
+    display: block;
+    border-radius: 10px;
+}
+
+.analyticsImage {
+    width: 100%;
+    max-width: 400px; /* adjust this width as needed */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto; 
+}
+
