@@ -1,44 +1,51 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import { useState } from 'react';
 import styles from './SignUp.module.css';
 
 function SignUp() {
-  // const [count, setCount] = useState(0)
-
   return (
-    <div className={styles[my-events-container]}>
-      
-      <div className="card">
-        <div className="signup-form">
-        <center><h1 className="signup">Sign up</h1></center>
-          <center><h2 className="PROMO">Unlock your personalized journey by entering personal details below.</h2></center>
-          <form>
-            <label className="fn">User Name</label>
-            <input className="box" type="text" placeholder="User Name" />
-            <label className="fn">Full Name</label>
-            <input className="box" type="text" placeholder="Full Name" />
-            <label className="fn">Phone Number</label>
-            <input className="box" type="text" placeholder="Phone Number" />
-            <label className="fn">Email</label>
-            <input className="box"  type="text" placeholder="Email Name" />
-            <label className="fn">Password</label>
-            <input className="box"  type="password" placeholder="Password" />
-            <label className="fn"> Confirm Password</label>
-            <input  className="box" type="password" placeholder="Confirm Password" />
+    
+    <div className={styles.signupContainer}>
+      <div className={styles.card}>
+        <div className={styles.signupForm}>
+          <h1 className={styles.signup}>Sign up</h1>
+          <h2 className={styles.PROMO}>
+            Unlock your personalized journey by entering personal details below.
+          </h2>
 
-          <center><button className="signup-button">Sign up</button></center></form>
+          <form>
+            <label htmlFor="username" className={styles.fn}>User Name</label>
+            <input id="username" name="username" className={styles.box} type="text" placeholder="User Name" />
+
+            <label htmlFor="fullName" className={styles.fn}>Full Name</label>
+            <input id="fullName" name="fullName" className={styles.box} type="text" placeholder="Full Name" />
+
+            <label htmlFor="phone" className={styles.fn}>Phone Number</label>
+            <input id="phone" name="phone" className={styles.box} type="text" placeholder="Phone Number" />
+
+            <label htmlFor="email" className={styles.fn}>Email</label>
+            <input id="email" name="email" className={styles.box} type="text" placeholder="Email Address" />
+
+            <label htmlFor="password" className={styles.fn}>Password</label>
+            <input id="password" name="password" className={styles.box} type="password" placeholder="Password" />
+
+            <label htmlFor="confirmPassword" className={styles.fn}>Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" className={styles.box} type="password" placeholder="Confirm Password" />
+
+            <div style={{ textAlign: 'center' }}>
+              <button type="submit" className={styles.signupButton}>Sign up</button>
+            </div>
+          </form>
         </div>
-        <div className="signup-right">
-          <img src="/logo.jpg" alt="logo" className="logo-img" />
+
+        <div className={styles.signupRight}>
+          <img src="/logo.png" alt="logo" className={styles.logoImg} />
           <h2>Welcome back</h2>
           <p>Sign in to stay connected and make the most of your exclusive offers.</p>
-          <button className="login-button">Login</button>
+          <button className={styles.loginButton}>Login</button>
         </div>
       </div>
     </div>
   );
 }
-
 
 export default SignUp;

@@ -9,7 +9,6 @@ function AccountInfo() {
 
   return (
     <div className="account-info-container">
-      <NavbarUser />
       <header>
         <button className="back-button">←Homepage</button>
         <h1>Account Information</h1>
