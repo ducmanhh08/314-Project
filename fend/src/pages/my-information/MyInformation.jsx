@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser';
-import ProfileUpload from '../myInformation/ProfileUpload';
-import './MyInformation.css';
+import ProfileUpload from '../my-information/ProfileUpload';
+import './MyInformation.module.css';
 
 function AccountInfo() {
   const [useHomeForBilling, setUseHomeForBilling] = useState(true);

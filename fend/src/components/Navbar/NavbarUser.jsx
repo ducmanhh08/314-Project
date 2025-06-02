@@ -40,7 +40,7 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
             </div>
 
             <div className="nav-links">
-                <span onClick={() => navigate('/homepage/create-event')}>Create Event</span>
+                
 
                 <div
                     className="categories-container"

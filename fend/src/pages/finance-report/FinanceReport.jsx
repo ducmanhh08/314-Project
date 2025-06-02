@@ -1,7 +1,7 @@
 import React from "react";
-import "./Finance.css";
-import NavbarUser from '../components/Navbar/NavbarUser';
-import { Attendee } from '../pages/Attendee'; 
+import "./FinanceReport.module.css";
+import NavbarUser from '../../components/Navbar/NavbarUser';
+import { Attendee } from '../attendee/Attendee';
 
 // Original attendee data
 const initialAttendees = [

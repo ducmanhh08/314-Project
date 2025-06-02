@@ -1,6 +1,6 @@
 import React from 'react';
 import NavbarUser from '../../components/Navbar/NavbarUser.jsx';
-import './MyTicket.css';
+import './MyTicket.module.css';
 
 const MyTickets = () => {
   return (
