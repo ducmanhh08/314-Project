@@ -4,10 +4,10 @@ import './NavbarUser.css';
 
 const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
 
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [showCategories, setShowCategories] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState(null);
     const [query, setQuery] = useState('');
     const navigate = useNavigate();
+    const categories = ['Concert', 'Sports', 'Art', 'Food & Drink', 'Other'];
 
     const toggleDropdown = () => {
         setShowDropdown(prev => !prev);
@@ -16,6 +16,7 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
     const handleSearch = (e) => {
         if (e.key === 'Enter') {
             navigate(`/homepage/result?query=${encodeURIComponent(query)}`);
+            // setQuery('');
         }
     };
 
@@ -31,6 +32,7 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
 
             <div className="search-bar">
                 <input
+                    className="input-bar"
                     type="text"
                     placeholder="Search events..."
                     value={query}
@@ -40,29 +42,35 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
             </div>
 
             <div className="nav-links">
-                
-
                 <div
                     className="categories-container"
-                    onMouseEnter={() => setShowCategories(true)}
-                    onMouseLeave={() => setShowCategories(false)}
+                    onClick={() =>
+                        setOpenDropdown(openDropdown === 'categories' ? null : 'categories')
+                    }
                 >
                     <span className="nav-link">Categories</span>
-                    {showCategories && (
+                    {openDropdown === 'categories' && (
                         <div className="categories-dropdown">
-                            <div className="category-item" onClick={() => navigate('/homepage/category/concert')}>Concert</div>
-                            <div className="category-item" onClick={() => navigate('/homepage/category/sports')}>Sports</div>
-                            <div className="category-item" onClick={() => navigate('/homepage/category/art')}>Art</div>
-                            <div className="category-item" onClick={() => navigate('/homepage/category/food')}>Food & Drink</div>
+                            {categories.map(cat => (
+                                <div
+                                    key={cat}
+                                    className="category-item"
+                                    onClick={() => navigate(`/homepage/result?category=${encodeURIComponent(cat)}`)}
+                                >
+                                    {cat}
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>
             </div>
 
             <div className="user-section">
-                <div className="avatar-dropdown" onClick={toggleDropdown}>
+                <div className="avatar-dropdown" onClick={() =>
+                    setOpenDropdown(openDropdown === 'user' ? null : 'user')
+                }>
                     <img src="/images/events/user-icon.jpg" alt="User Avatar" className="user-avatar" />
-                    {showDropdown && (
+                    {openDropdown === 'user' && (
                         <div className="dropdown-menu">
                             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-tickets'); }}>
                                 My Ticket ({ticketCount})
@@ -73,7 +81,15 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
                             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-events'); }}>
                                 My Event ({eventCount})
                             </a>
-                            <a>Logout</a>
+                            <a className="logout-link" href="#"
+                                onClick={(e) => {
+                                    if (window.confirm("Are you sure you want to log out?")) {
+                                        localStorage.removeItem('token');
+                                        sessionStorage.removeItem('token');
+                                        navigate('/');
+                                    }
+                                }}
+                            >Logout</a>
                         </div>
                     )}
                 </div>

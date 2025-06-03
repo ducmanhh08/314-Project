@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import styles from './SeatSelection.module.css';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
-
 const SeatSelection = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -54,7 +53,7 @@ const SeatSelection = () => {
         const selectedData = {
             ticketQuantities,
             deliveryMethod,
-            ticketTypes, 
+            ticketTypes,
             eventImage: event.image_url,
             eventTitle: event.title,
             eventDate: event.date,
@@ -191,10 +190,10 @@ const SeatSelection = () => {
 
             <div className={styles['content-wrapper']}>
                 <img src={
-                    event.image_url.startsWith('/')
-                        ? `http://localhost:5000${event.image_url}`
-                        : event.image_url
-                } alt="Event Poster" className={styles['event-poster']} />
+                            event.image_url.startsWith('/images/events/')
+                                ? event.image_url
+                                : `http://localhost:5000${event.image_url}`
+                        } alt="Event Poster" className={styles['event-poster']} />
 
                 <div className={styles['seat-summary']}>
                     <div className={styles['seat-map']}>

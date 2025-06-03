@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { authFetch } from '../../components/authFetch';
 
 const EventDetail = () => {
     const navigate = useNavigate();
@@ -8,15 +9,17 @@ const EventDetail = () => {
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-        fetch(`http://localhost:5000/event/${id}`)
-            //     , {
-            //     headers: {
-            //         'Authorization': `Bearer ${token}`
-            //     }
-            // })
-            .then(res => res.json())
-            .then(data => setEvent(data));
+        authFetch(`http://localhost:5000/event/${id}`)
+            .then(res => {
+                if (res.status !== 200) {
+                    setEvent(null); // or set an error state
+                    return;
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data) setEvent(data);
+            });
     }, [id]);
 
     if (!event) {
@@ -146,11 +149,10 @@ const EventDetail = () => {
         // </div>
         // #endregion
         <div>
-
             <div className={styles['event-detail-container']}>
                 <div className={styles['poster-container']}>
                     <img
-                        src={event.image_url?.startsWith('http') ? event.image_url : `http://localhost:5000${event.image_url}`}
+                        src={event.image_url?.startsWith('/images/events/') ? event.image_url : `http://localhost:5000${event.image_url}`}
                         alt="Event Poster"
                         className={styles['event-poster']}
                     />
@@ -176,7 +178,12 @@ const EventDetail = () => {
                                 <td>
                                     <button
                                         className={styles['find-ticket-btn']}
-                                        onClick={() =>
+                                        onClick={() => {
+                                            const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+                                            if (!token) {
+                                                navigate("/login");
+                                                return;
+                                            }
                                             navigate(`/homepage/event/${event.id}/seat-selection`, {
                                                 state: {
                                                     image: event.image_url?.startsWith('http')
@@ -186,7 +193,7 @@ const EventDetail = () => {
                                                     date: event.date,
                                                 }
                                             })
-                                        }
+                                        }}
                                     >
                                         Find Tickets
                                     </button>

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Finish.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
-
 const Finish = () => {
     const navigate = useNavigate();
 

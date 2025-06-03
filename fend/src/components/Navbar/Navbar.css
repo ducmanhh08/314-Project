@@ -6,14 +6,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     gap: 1rem;
     font-family: 'Dai Banna SIL', serif;
 }
 
 .logo img {
-    height: 60px;
-    object-fit: contain;
+    height: 50px;
+    cursor: pointer;
 }
 
 .navbar-center {
@@ -26,15 +25,19 @@
 }
 
 .search-bar {
-    flex-grow: 1;
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 1000px;
 }
 
-.search-bar input {
+.input-bar {
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    width: 80%;
+    width: 4000px;
+    max-width: 100%;
     font-family: 'Dai Banna SIL', serif;
+    font-size: 1rem;
 }
 
 .create-events,

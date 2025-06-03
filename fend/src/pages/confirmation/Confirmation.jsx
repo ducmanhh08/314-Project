@@ -36,7 +36,7 @@ const Confirmation = () => {
         eventTitle = "Event Title",
         eventDate = "",
         eventId = null,
-        isRefundable = false 
+        isRefundable = false
     } = location.state || {};
 
     // const selectedTickets = Object.entries(ticketQuantities).filter(([_, qty]) => qty > 0);
@@ -45,7 +45,7 @@ const Confirmation = () => {
     const subTotal = selectedTickets.reduce((sum, t) => sum + t.price * ticketQuantities[t.key], 0);
     const deliveryCost = deliveryFees[deliveryMethod] || 0;
     const total = subTotal + deliveryCost;
-    
+
 
 
     return (
@@ -124,9 +124,9 @@ const Confirmation = () => {
                 <div className={styles['summary-left']}>
                     <img
                         src={
-                            eventImage.startsWith('/')
-                                ? `http://localhost:5000${eventImage}`
-                                : eventImage
+                            eventImage.startsWith('/images/events/')
+                                ? eventImage
+                                : `http://localhost:5000${eventImage}`
                         } alt="Event Poster" className={styles['event-image']} />
                     <h3 className={styles['event-title']}>{eventTitle}</h3>
                     <p className={styles['event-date']}>

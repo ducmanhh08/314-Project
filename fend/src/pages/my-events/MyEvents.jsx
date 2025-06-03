@@ -11,13 +11,12 @@ const MyEvents = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            // const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/my_events');
-            //     , {
-            //     headers: {
-            //         'Authorization': `Bearer ${token}`
-            //     }
-            // });
+            const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/my_events', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             setEvents(data);
             setLoading(false);
@@ -90,7 +89,7 @@ const MyEvents = () => {
                         event && event.image_url ? (
                             <div className={styles['event-card']} key={event.id}>
                                 <div className={styles['event-images']}>
-                                    <img src={`http://localhost:5000${event.image_url}`} alt={event.title} />
+                                    <img src={event.image_url?.startsWith('/images/events/') ? event.image_url : `http://localhost:5000${event.image_url}`} alt={event.title} />
                                 </div>
                                 <div className={styles['event-details']}>
                                     <h3>{event.title}</h3>

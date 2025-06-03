@@ -2,67 +2,64 @@ import os
 import jwt
 import json
 from flask import request, jsonify, send_from_directory, current_app
-from flask_cors import CORS
 from config import app, db
-from models import User, Event, Category, Ticket, DeliveryMethod
+from models import User, Event, Category, Ticket, DeliveryMethod, Role
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from functools import wraps
 
-# CORS(app)  
-
 # User Routes:
-@app.route("/users", methods=["GET"])
-def get_users():
-    users = User.query.all()
-    json_users = [user.to_json() for user in users]
-    return jsonify({"users": json_users})
+# @app.route("/users", methods=["GET"])
+# def get_users():
+#     users = User.query.all()
+#     json_users = [user.to_json() for user in users]
+#     return jsonify({"users": json_users})
 
-@app.route("/create_user", methods=["POST"])
-def create_users():
-    data = request.json
-    name = data.get("name")
-    email = data.get("email")
-    password = data.get("password")
+# @app.route("/create_user", methods=["POST"])
+# def create_users():
+#     data = request.json
+#     name = data.get("name")
+#     email = data.get("email")
+#     password = data.get("password")
 
-    new_user = User(name=name, email=email, password=password)
+#     new_user = User(name=name, email=email, password=password)
 
-    try:
-        db.session.add(new_user)
-        db.session.commit()
-    except Exception as e:
-        return jsonify({"message": str(e)}), 400
+#     try:
+#         db.session.add(new_user)
+#         db.session.commit()
+#     except Exception as e:
+#         return jsonify({"message": str(e)}), 400
 
-@app.route("/update_user/<int:user_id>", methods=["PATCH"])
-def update_user(user_id):
-    user = User.query.get(user_id)
+# @app.route("/update_user/<int:user_id>", methods=["PATCH"])
+# def update_user(user_id):
+#     user = User.query.get(user_id)
 
-    if not user:
-        return jsonify({"message": "User not found"}), 404
+#     if not user:
+#         return jsonify({"message": "User not found"}), 404
 
-    data = request.json
-    user.name = data.get("name", user.name)
-    user.email = data.get("email", user.email)
+#     data = request.json
+#     user.name = data.get("name", user.name)
+#     user.email = data.get("email", user.email)
 
-    if data.get("password"):
-        user.password = data["password"]
+#     if data.get("password"):
+#         user.password = data["password"]
 
-    db.session.commit()
+#     db.session.commit()
 
-    return jsonify({"message": "User updated."}), 200
+#     return jsonify({"message": "User updated."}), 200
 
-@app.route("/delete_user/<int:user_id>", methods=["DELETE"])
-def delete_user(user_id):
-    user = User.query.get(user_id)
+# @app.route("/delete_user/<int:user_id>", methods=["DELETE"])
+# def delete_user(user_id):
+#     user = User.query.get(user_id)
 
-    if not user:
-        return jsonify({"message": "User not found"}), 404
+#     if not user:
+#         return jsonify({"message": "User not found"}), 404
 
-    db.session.delete(user)
-    db.session.commit()
+#     db.session.delete(user)
+#     db.session.commit()
 
-    return jsonify({"message": "User deleted!"}), 200
+#     return jsonify({"message": "User deleted!"}), 200
 
 
 ### Authentication Routes:
@@ -73,14 +70,22 @@ def register_user():
     email = data.get("email")
     password = data.get("password")
     hashed_password = generate_password_hash(password)
-
-    if not all([name, email, password]):
+    # role = data.get('role', 'attendee').lower()
+    # if role not in ['attendee', 'organizer']:
+    #     return jsonify({'message': 'Invalid role!'}), 400
+    
+    if not all([name, email, password]): #role
         return jsonify({"message": "All fields are required."}), 400
 
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "Email already registered."}), 409
 
-    new_user = User(name=name, email=email, password=hashed_password)
+    new_user = User(
+        name=name, 
+        email=email, 
+        password=hashed_password
+        # role=Role.ORGANIZER if role == 'organizer' else Role.ATTENDEE
+    )
 
     db.session.add(new_user)
     db.session.commit()
@@ -156,8 +161,6 @@ def reset_password():
 
 # Event Routes:
 @app.route("/events", methods=["GET"])
-# @token_required
-# def get_events(current_user):
 def get_events():
     events = Event.query.all()
     return jsonify([event.to_json() for event in events])
@@ -168,17 +171,8 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/create_event", methods=["POST"])
-# @token_required
-# def create_event(current_user):
-def create_event():
-    """
-    data = request.json
-    # Organizer should be authenticated in a real system
-    new_event = Event(**data)
-    db.session.add(new_event)
-    db.session.commit()
-    return jsonify({"message": "Event created!"}), 201
-    """
+@token_required
+def create_event(current_user):
     title = request.form.get('title')
     description = request.form.get('description')
     location = request.form.get('location')
@@ -197,11 +191,9 @@ def create_event():
     date = None
     if date_str:
         try:
-            # Try parsing with time first
             date = datetime.strptime(date_str, "%Y-%m-%dT%H:%M")
         except ValueError:
             try:
-                # Fallback to date only
                 date = datetime.strptime(date_str, "%Y-%m-%d")
             except ValueError:
                 return jsonify({"message": "Invalid date format. Use YYYY-MM-DD or YYYY-MM-DDTHH:MM."}), 400
@@ -215,7 +207,7 @@ def create_event():
             save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             image.save(save_path)
-            image_url = f"/images/events/{filename}"
+            image_url = f"/images/uploaded_events/{filename}"
     
     new_event = Event(
         title=title,
@@ -223,7 +215,7 @@ def create_event():
         date=date,
         location=location,
         image_url=image_url,
-        # organizer_id=current_user.id
+        organizer_id=current_user.id,
         category=category,
         ticket_price=ticket_price,
         tickets_available=tickets_available,
@@ -233,39 +225,51 @@ def create_event():
     db.session.commit()
     return jsonify({"message": "Event created!", "image_url": image_url}), 201
 
-@app.route('/images/events/<filename>')
+@app.route('/images/uploaded_events/<filename>')
 def serve_event_image(filename):
     print("Serving from:", current_app.config['UPLOAD_FOLDER'])
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/my_events", methods=["GET"])
-# @token_required
-# def my_events(current_user):
-def my_events():
-    # events = Event.query.filter_by(organizer_id=current_user.id).all() # TODO: UNDO THIS TO SHOW NUM OF EVENT ON USeR
-    events = Event.query.all()
+@token_required
+def my_events(current_user):
+    events = Event.query.filter_by(organizer_id=current_user.id).all()
     return jsonify([event.to_json() for event in events])
 
 @app.route("/event/<int:event_id>", methods=["GET"])
-# @token_required
-# def get_event(current_user, event_id):
-def get_event(event_id):
+@token_required
+def get_event(current_user, event_id):
     event = Event.query.get_or_404(event_id)
     return jsonify(event.to_json())
 
 @app.route("/event/<int:event_id>", methods=["DELETE"])
-# @token_required
-# def delete_event(current_user, event_id):
-def delete_event(event_id):
+@token_required
+def delete_event(current_user, event_id):
     event = Event.query.get_or_404(event_id)
+    image_url = event.image_url
+
+    if image_url and image_url.startswith('/images/uploaded_events/'):
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], os.path.basename(image_url))
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
     db.session.delete(event)
     db.session.commit()
     return jsonify({"message": "Event deleted successfully"}), 200
 
 @app.route("/search", methods=["GET"])
 def search_events():
-    query = request.args.get("query", "")
-    events = Event.query.filter(Event.title.ilike(f"%{query}%")).all()
+    query = request.args.get("query", "").lower()
+    category = request.args.get('category', '').lower()
+    events = Event.query
+
+    if query:
+        events = events.filter(Event.title.ilike(f'%{query}%'))
+
+    if category:
+        events = events.filter(Event.category.ilike(f'%{category}%'))
+
+    results = [event.to_json() for event in events.all()]
     return jsonify([event.to_json() for event in events])
 
 @app.route('/api/tickets', methods=['POST'])
@@ -289,12 +293,9 @@ def create_tickets():
     return jsonify([ticket.to_json() for ticket in created]), 201
 
 @app.route("/my_tickets", methods=["GET"])
-# @token_required
-# def my_tickets(current_user):
-def my_tickets():
-    user_id = request.args.get('user_id')
-    # tickets = Event.query.filter_by(user_id=user_id).all() # TODO: UNDO THIS TO SHOW NUM OF EVENT ON USeR
-    tickets = Ticket.query.all()
+@token_required
+def my_tickets(current_user):
+    tickets = Ticket.query.filter_by(user_id=current_user.id).all()
     result = []
     for ticket in tickets:
         event = Event.query.get(ticket.event_id)
@@ -307,7 +308,14 @@ def my_tickets():
         result.append(ticket_json)
     return jsonify(result)
 
-
+@app.route("/ticket/<int:ticket_id>", methods=["DELETE"])
+def delete_ticket(ticket_id):
+    ticket = Ticket.query.get(ticket_id)
+    if not ticket:
+        return jsonify({"message": "Ticket not found"}), 404
+    db.session.delete(ticket)
+    db.session.commit()
+    return jsonify({"message": "Ticket deleted successfully"}), 200
 
 
 if __name__ == "__main__":

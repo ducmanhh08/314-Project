@@ -1,11 +1,11 @@
-import NavbarUser from '../components/Navbar/Navbar';
+import Navbar from '../components/Navbar/Navbar';
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
 
 function UserHomePage() {
     return (
         <div className="home">
-            <NavbarUser />
+            <Navbar />
             <main>
                 <EventSlider />
                 <PopularEvents />

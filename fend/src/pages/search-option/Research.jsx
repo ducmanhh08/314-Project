@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import NavbarUser from "../../components/Navbar/NavbarUser";
-import { events as staticEvents } from "./DataEvent";
 import styles from "./Research.module.css";
 
 const EventPage = () => {
@@ -9,45 +7,38 @@ const EventPage = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("query") || "";
+  const category = searchParams.get("category") || "";
 
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const matchedEvents = events.filter((event) =>
-  //   event.title.toLowerCase().includes(query.toLowerCase())
-  // );
   useEffect(() => {
     setLoading(true);
-    // 1. Filter static events
-    const filteredStatic = staticEvents.filter((event) =>
-      event.title.toLowerCase().includes(query.toLowerCase())
-    );
 
-    // 2. Fetch backend events
-    fetch(`http://localhost:5000/search?query=${encodeURIComponent(query)}`)
+    let url = `http://localhost:5000/search?`;
+    if (query) url += `query=${encodeURIComponent(query)}&`;
+    if (category) url += `category=${encodeURIComponent(category)}`;
+
+    fetch(url)
       .then((res) => res.json())
       .then((backendEvents) => {
-        // 3. Combine static and backend events
-        const combined = [
-          ...filteredStatic,
-          ...backendEvents.map(event => ({
-            ...event,
-            image: event.image_url
-              ? (event.image_url.startsWith("http")
-                ? event.image_url
-                : `http://localhost:5000${event.image_url}`)
-              : "/images/events/default.jpg",
-            isBackend: true  // fallback image
-          }))
-        ];
-        setAllEvents(combined);
+        const events = backendEvents.map(event => ({
+          ...event,
+          image: event.image_url
+            ? (event.image_url.startsWith("http")
+              ? event.image_url
+              : `http://localhost:5000${event.image_url}`)
+            : "/images/events/default.jpg",
+          isBackend: true
+        }));
+        setAllEvents(events);
         setLoading(false);
       })
       .catch(() => {
-        setAllEvents(filteredStatic);
-        setLoading(false); // Done loading
+        setAllEvents([]);
+        setLoading(false);
       });
-  }, [query]);
+  }, [query, category]);
 
   return (
     // #region Code before CSS Module
@@ -87,7 +78,11 @@ const EventPage = () => {
     <div className={styles['container']}>
 
       <div className={styles['search-alert']}>
-        <p>Search results for "{query}"</p>
+        <p>
+          Search results
+          {query && <> for "{query}"</>}
+          {category && <> in category "{category}"</>}
+        </p>
       </div>
 
       <div className={styles['event-grid']}>
@@ -108,7 +103,7 @@ const EventPage = () => {
                 onClick={event.isBackend ? handleClick : undefined}
               >
                 <img
-                  src={event.image}
+                  src={event.image_url?.startsWith('/images/events/') ? event.image_url : `http://localhost:5000${event.image_url}`}
                   alt={event.title}
                   className={styles['event-image']}
                 />
@@ -125,7 +120,12 @@ const EventPage = () => {
             );
           })
         ) : (
-          <p>No events found for "{query}".</p>
+          <p>
+            No events found
+            {query && <> for "{query}"</>}
+            {category && <> in category "{category}"</>}
+            .
+          </p>
         )}
       </div>
     </div>

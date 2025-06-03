@@ -26,7 +26,8 @@ import WaitingList2 from './pages/waitinglist-2/WaitingList2';
 import WaitingList3 from './pages/waitinglist-3/WaitingList3';
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePageLayout from "./pages/HomePageLayout";
-import Layout from "./components/Layout";
+import { Layout, GuestLayout } from "./components/Layout";
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/new-password" element={<NewPassword />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route element={<GuestLayout />}>
+        <Route path="/event/:id" element={<EventDetail />} />
+      </Route>
 
       {/* Protect all /homepage routes */}
       <Route
@@ -50,6 +56,7 @@ function App() {
       >
         <Route index element={<HomePage />} />
         <Route path="result" element={<EventPage />} />
+        <Route path="event/:id" element={<EventDetail />} />
         {/* Ticket Selection option: */}
         <Route path="event/:id/seat-selection" element={<SeatSelection />} />
         <Route path="event/:id/seat-selection/confirmation" element={<Confirmation />} />
@@ -59,7 +66,7 @@ function App() {
 
         <Route path="my-tickets" element={<MyTickets />} />
         <Route path="my-tickets/event/:id" element={<EventDetail />} />
-        <Route path="my-tickets/refund-request" element={<RefundRequest />} />
+        <Route path="my-tickets/refund-request/:id" element={<RefundRequest />} />
         <Route path="my-tickets/waiting-list" element={<WaitingList />} />
         <Route path="my-tickets/waiting-list2" element={<WaitingList2 />} />
         <Route path="my-tickets/waiting-list3" element={<WaitingList3 />} />

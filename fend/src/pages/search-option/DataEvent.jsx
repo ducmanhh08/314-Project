@@ -23,21 +23,21 @@ export const events = [
   },
   {
     id: 4,
-    image: '/images/events/musical theatre.jpg',
+    image: '/images/events/musical-theatre.jpg',
     title: 'Crystal Clear Production: A Night to Remember',
     date: '2025-05-11',
     category: 'popular'
   },
   {
     id: 5,
-    image: '/images/events/pain pot.jpg',
+    image: '/images/events/pain-pot.jpg',
     title: 'Get Creative: FREE Pot Painting',
     date: '2025-02-19',
     category: 'popular'
   },
   {
     id: 6,
-    image: '/images/events/John Clegg.jpg',
+    image: '/images/events/John-Clegg.jpg',
     title: 'John Clegg Live Music',
     date: '2025-12-18',
     category: 'popular'

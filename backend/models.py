@@ -15,6 +15,9 @@ class Mode(Enum):
     OFFLINE = "offline"
 
 
+class Role(Enum):
+    ATTENDEE = "attendee"
+    ORGANIZER = "organizer"
 # Objects:
 class User(db.Model):
     __tablename__ = "users"
@@ -23,12 +26,14 @@ class User(db.Model):
     name  = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    # role = db.Column(db.Enum(Role), default=Role.ATTENDEE, nullable=False)
 
     def to_json(self):
         return {
             "id": self.id,
             "name": self.name,
             "email": self.email,
+            # "role": self.role.value
         }
 
 class Category(Enum):
