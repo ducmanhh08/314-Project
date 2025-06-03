@@ -34,7 +34,7 @@ const Navbar = () => {
                 <img
                     src="/images/logo.jpg"
                     alt="Ticket Please?"
-                    onClick={() => navigate('/homepage')}
+                    onClick={() => navigate('/')}
                 />
             </div>
             <div className="search-bar">
