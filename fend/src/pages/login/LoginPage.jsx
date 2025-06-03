@@ -128,7 +128,7 @@ function LoginPage() {
                     navigate('/sign-up');
                   }}
                 >
-                  Signup
+                  SIGN UP
                 </a>
               </span>
             ) : (
