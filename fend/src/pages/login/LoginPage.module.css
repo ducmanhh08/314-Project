@@ -3,10 +3,8 @@ body, html {
   padding: 0;
   font-family: 'Dai Banna SIL';
   height: 100%;
+  display: flex;
   background-color: #fdf9f5;
-  /* display: flex;                Make it a flex container */
-  justify-content: center;     /* Center horizontally */
-  align-items: center;         /* Center vertically */
 }
 
 .login-container {
@@ -27,9 +25,10 @@ body, html {
   box-sizing: border-box;
   height: 550px;
 }
+
 .logo-img {
   width: 120px;
-  margin-top: 1%;
+  margin-bottom: 30px;
   align-self: flex-start;
 }
 
@@ -45,13 +44,13 @@ body, html {
 }
 
 .login-left h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: 26px;
+  margin-bottom: 15px;
 }
 
 .login-left p {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .login-right {
@@ -63,15 +62,15 @@ body, html {
 }
 
 .login-right h2 {
-  font-size: 36px;
+  font-size: 26px;
   margin-bottom: 10px;
   color: #000;
 }
 
 .login-right p {
-  font-size: 14px;
+  font-size: 20px;
   color: #000;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .ha {
@@ -79,32 +78,36 @@ body, html {
   display: block;
   margin-bottom: 5px;
   font-weight: 500;
+  font-size: 20px;
 }
+
 .input-field {
   margin-bottom: 10px;
-  margin-top: 0;
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fdf9f5;
+  font-size: 15px;
 }
 
 .checkbox-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  font-size: 15px;
 }
 
 .checkbox-container input {
   margin-right: 10px;
 }
-.button{
+
+.button {
   margin-top: 10px;
   background-color: #9FD5ED;
   border: none;
   padding: 12px 20px;
-  font-size: 1rem;
+  font-size: 15px;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
@@ -113,7 +116,6 @@ body, html {
 
 .signup-link {
   margin-top: 20px;
-  font-size: 0.85em;
   color: #000;
   display: flex; 
   justify-content: space-between; 
@@ -121,8 +123,14 @@ body, html {
   font-size: 15px;
 }
 
-.signup-link span {
-  /* Styles for the "New User? Signup" part */
+.baba {
+  color: #9FD5ED;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
 }
 
 .forgot-password {
@@ -130,10 +138,54 @@ body, html {
   text-decoration: none;
   font-size: 15px;
 }
-.baba{
-  color: #9FD5ED;
-  font-size: 20px;
+
+.role-switcher {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
 }
-.signup-link a:hover {
-  text-decoration: underline;
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.switch input:checked + .slider {
+  background-color: #6b92b9;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(26px);
 }
