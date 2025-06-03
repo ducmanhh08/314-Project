@@ -3,3 +3,5 @@ Flask-SQLAlchemy
 flask-cors
 werkzeug
 PyJWT
+FlaskMail
+reportlab
