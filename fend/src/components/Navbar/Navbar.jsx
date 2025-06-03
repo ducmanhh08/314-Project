@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
 
-    const [showCategories, setShowCategories] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState(null);
     const [query, setQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const categories = ['Concert', 'Sports', 'Art', 'Comedy', 'Theater', 'Food & Drink'];
 
     const toggleDropdown = () => {
         setShowDropdown(prev => !prev);
@@ -14,20 +18,30 @@ const Navbar = () => {
 
     const handleSearch = (e) => {
         if (e.key === 'Enter') {
-            navigate(`/homepage/result?query=${encodeURIComponent(query)}`);
-            // setQuery('');
+            navigate(`/result?query=${encodeURIComponent(query)}`);
         }
     };
 
-    const categories = [
-        'Concert',
-        'Sports',
-        'Art',
-        'Comedy',
-        'Theater',
-        'Food & Drink',
-    ];
+    const handleCategoryClick = (cat) => {
+        setSelectedCategory(cat);
+        setOpenDropdown('categories');
+        const params = [];
+        if (query) params.push(`query=${encodeURIComponent(query)}`);
+        if (cat) params.push(`category=${encodeURIComponent(cat)}`);
+        navigate(`/result?${params.join('&')}`);
+    };
 
+    useEffect(() => {
+    const urlQuery = searchParams.get('query') || '';
+    setQuery(urlQuery);
+    const urlCategory = searchParams.get('category') || null;
+    setSelectedCategory(urlCategory);
+
+    // Open dropdown if on /result and category is set
+    if (location.pathname === '/result' && urlCategory) {
+        setOpenDropdown('categories');
+    }
+}, [searchParams, location.pathname]);
     return (
         <nav className="navbar">
             <div className="logo">
@@ -50,13 +64,24 @@ const Navbar = () => {
             <div className="nav-links">
                 <div
                     className="categories-container"
-                    onClick={() => setShowCategories((prev) => !prev)}
+                    onClick={() =>
+                        setOpenDropdown(openDropdown === 'categories' ? null : 'categories')
+                    }
                 >
-                    <div className="categories">Categories</div>
-                    {showCategories && (
+                    <span className="nav-link">Categories</span>
+                    {openDropdown === 'categories' && (
                         <div className="categories-dropdown">
-                            {categories.map((category, index) => (
-                                <div key={index} className="category-item">{category}</div>
+                            {categories.map(cat => (
+                                <div
+                                    key={cat}
+                                    className={`category-item${selectedCategory === cat ? ' selected' : ''}`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleCategoryClick(cat);
+                                    }}
+                                >
+                                    {cat}
+                                </div>
                             ))}
                         </div>
                     )}

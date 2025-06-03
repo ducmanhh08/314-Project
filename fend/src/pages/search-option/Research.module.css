@@ -13,6 +13,15 @@ body, html {
   padding: 0px;
 }
 
+.filters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; 
+  gap: 1rem;               
+  align-items: center;
+  overflow-x: auto;  
+  padding: 0 1rem;
+}
 
 .event-grid {
   display: grid;

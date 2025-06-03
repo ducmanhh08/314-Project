@@ -1,24 +1,34 @@
 import React, { useState } from 'react';
 import styles from './Dashboard.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     // For toggling status color on selection
+    const navigate = useNavigate();
     const [refundStatus, setRefundStatus] = useState('approved');
 
     const handleStatusChange = (e) => {
         setRefundStatus(e.target.value);
     };
 
+    const handleLogout = () => {
+        if (window.confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
+            navigate('/login');
+        }
+    };
+
     return (
         <div className={styles.dashboardContainer}>
             {/* Sidebar */}
             <div className={styles.sidebar}>
-                <img src="/images/logo dark.png" alt="Logo" className={styles.logo} />
-                <a href="#">My Events</a>
+                <img src="/images/logo-dark.png" alt="Logo" className={styles.logo} onClick={() => navigate('/dashboard')} />
+                <a href="" onClick={() => navigate('./my-events')}>My Events</a>
                 <a href="#">Ticket Sales</a>
                 <a href="#">Refund Request</a>
                 <a href="#">My Profile</a>
-                <a href="#">Logout</a>
+                <a className={styles.logout} onClick={handleLogout}>Logout</a>
             </div>
 
             {/* Main Content */}
@@ -27,7 +37,7 @@ const Dashboard = () => {
                     <h1>Welcome Back, Raissa!</h1>
                     <div className={styles["create-event-container"]}>
                         <p>CREATE NEW<br />EVENTS</p>
-                        <button className={styles["create-event-button"]}>
+                        <button className={styles["create-event-button"]} onClick={() => navigate('./create-event')}>
                             <span className={styles["plus-icon"]}>+</span>
                         </button>
                     </div>

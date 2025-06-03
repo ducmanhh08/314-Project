@@ -15,8 +15,9 @@
 }
 
 .sidebar img.logo {
-    width: 120px;
+    /* width: 120px; */
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .sidebar a {
@@ -24,6 +25,14 @@
     text-decoration: none;
     color: black;
     font-weight: bold;
+}
+
+.logout {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.logout:hover {
+  color: #c01300;
 }
 
 .mainContent {

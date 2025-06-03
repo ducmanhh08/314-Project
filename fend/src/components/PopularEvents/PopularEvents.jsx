@@ -65,6 +65,7 @@ const PopularEvents = () => {
       <div className="popular-events-container">
         <div className="popular-events-header">
           <h2>Recently Added</h2>
+          <a href="/homepage/result?query=" className="see-all">See all events</a>
         </div>
         {renderEventCards(recentlyAddedEvents)}
       </div>
@@ -86,7 +87,6 @@ const PopularEvents = () => {
       <div className="popular-events-container">
         <div className="popular-events-header">
           <h2>Popular Events</h2>
-          <a href="/homepage/result?query=" className="see-all">See all events</a>
         </div>
         {renderEventCards(visibleEvents)}
 

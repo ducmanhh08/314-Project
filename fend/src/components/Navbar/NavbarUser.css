@@ -78,6 +78,10 @@
     font-family: 'Dai Banna SIL', serif;
 }
 
+.category-item.selected {
+  background: #cde8ff;
+}
+
 .dropdown-menu {
     position: absolute;
     top: 48px;

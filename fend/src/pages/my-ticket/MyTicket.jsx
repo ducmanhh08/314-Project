@@ -36,7 +36,7 @@ const MyTickets = () => {
   return (
     <div className={styles['my-tickets-page']}>
       <div className={styles['content']}>
-        <a href="#" className={styles['back-link']}>← Homepage</a>
+        <a href="/homepage" className={styles['back-link']}>← Homepage</a>
         <h2 className={styles['title']}>My Tickets</h2>
         {sortedTickets.length === 0 && <p className={styles['no-tickets']}>No tickets found.</p>}
 
@@ -54,7 +54,7 @@ const MyTickets = () => {
               <p className={styles['ticket-type']}>x{ticket.quantity} {ticket.type}</p>
             </div>
             <div className={styles['buttons']}>
-              <button className={styles['view-btn']} onClick={() => navigate(`/homepage/my-tickets/event/${ticket.event_id}`)}>View Event Detail</button>
+              {/* <button className={styles['view-btn']} onClick={() => navigate(`/homepage/my-tickets/event/${ticket.event_id}`)}>View Event Detail</button> */}
               {ticket.is_refundable && (
                 <button className={styles['refund-btn']} onClick={() => navigate(`/homepage/my-tickets/refund-request/${ticket.id}`)}>Request a Refund</button>
               )}

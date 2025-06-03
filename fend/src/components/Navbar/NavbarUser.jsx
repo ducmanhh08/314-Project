@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './NavbarUser.css';
 
 const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
 
     const [openDropdown, setOpenDropdown] = useState(null);
     const [query, setQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation(); 
     const categories = ['Concert', 'Sports', 'Art', 'Food & Drink', 'Other'];
 
     const toggleDropdown = () => {
@@ -16,9 +18,27 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
     const handleSearch = (e) => {
         if (e.key === 'Enter') {
             navigate(`/homepage/result?query=${encodeURIComponent(query)}`);
-            // setQuery('');
         }
     };
+
+    const handleCategoryClick = (cat) => {
+        setSelectedCategory(cat);
+        const params = [];
+        if (query) params.push(`query=${encodeURIComponent(query)}`);
+        if (cat) params.push(`category=${encodeURIComponent(cat)}`);
+        navigate(`/homepage/result?${params.join('&')}`);
+    };
+
+    useEffect(() => {
+        const isSearchPage =
+            location.pathname.startsWith('/homepage/result') ||
+            location.pathname.startsWith('/homepage/search');
+        if (!isSearchPage) {
+            if (query) setQuery('');
+            if (selectedCategory) setSelectedCategory(null);
+            if (openDropdown) setOpenDropdown(null);
+        }
+    }, [location.pathname]);
 
     return (
         <nav className="navbar-user">
@@ -26,7 +46,7 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
                 <img
                     src="/images/logo.jpg"
                     alt="Ticket Please?"
-                    onClick={() => navigate('/homepage')}
+                    onClick={() => { navigate('/homepage'); }}
                 />
             </div>
 
@@ -54,8 +74,11 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
                             {categories.map(cat => (
                                 <div
                                     key={cat}
-                                    className="category-item"
-                                    onClick={() => navigate(`/homepage/result?category=${encodeURIComponent(cat)}`)}
+                                    className={`category-item${selectedCategory === cat ? ' selected' : ''}`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleCategoryClick(cat);
+                                    }}
                                 >
                                     {cat}
                                 </div>

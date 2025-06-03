@@ -39,8 +39,12 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/new-password" element={<NewPassword />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/create-event" element={<CreateEvents />} />
+      <Route path="/dashboard/my-events" element={<MyEvents />} />
+
       <Route element={<GuestLayout />}>
         <Route path="/event/:id" element={<EventDetail />} />
+        <Route path="/result" element={<EventPage />} />
       </Route>
 
       {/* Protect all /homepage routes */}
@@ -75,7 +79,6 @@ function App() {
         <Route path="my-events/attendee/:id" element={<Attendee />} />
         <Route path="my-events/finnace-report/:id" element={<FinanceReport />} />
         <Route path="my-events/cancel-events" element={<CancelEvents />} />
-        <Route path="create-event" element={<CreateEvents />} />
       </Route>
     </Routes>
     // </Router>

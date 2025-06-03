@@ -237,8 +237,6 @@ def my_events(current_user):
     return jsonify([event.to_json() for event in events])
 
 @app.route("/event/<int:event_id>", methods=["GET"])
-# @token_required
-# def get_event(current_user, event_id):
 def get_event(event_id):
     event = Event.query.get_or_404(event_id)
     return jsonify(event.to_json())

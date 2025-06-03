@@ -7,7 +7,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [role, setRole] = useState('guest'); 
+  const [role, setRole] = useState('guest');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -23,6 +23,10 @@ function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
+        if (role === 'guest' && data.user.role.toLowerCase() !== 'attendee') {
+          setMessage('You must log in as an attendee to use guest mode.');
+          return;
+        }
         if (rememberMe) {
           localStorage.setItem('token', data.token);
         } else {
@@ -104,7 +108,7 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </p>
-
+          {message && <div className={styles['error-message']}>{message}</div>}
           <div className={styles['checkbox-container']}>
             <input
               type="checkbox"

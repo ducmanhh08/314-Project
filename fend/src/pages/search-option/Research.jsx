@@ -11,10 +11,14 @@ const EventPage = () => {
 
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
     setLoading(true);
-
     let url = `http://localhost:5000/search?`;
     if (query) url += `query=${encodeURIComponent(query)}&`;
     if (category) url += `category=${encodeURIComponent(category)}`;
@@ -40,43 +44,67 @@ const EventPage = () => {
       });
   }, [query, category]);
 
+  const filteredEvents = allEvents.filter(event => {
+    const eventDate = new Date(event.date).toISOString().slice(0, 10);
+    const matchesStart = !startDate || eventDate >= startDate;
+    const matchesEnd = !endDate || eventDate <= endDate;
+    const matchesLocation = !filterLocation || event.location?.toLowerCase().includes(filterLocation.toLowerCase());
+    let matchesPrice = true;
+    if (minPrice || maxPrice) {
+      const prices = event.ticket_price ? Object.values(event.ticket_price).map(p => p.price) : [];
+      matchesPrice = prices.some(price => {
+        const aboveMin = !minPrice || price >= Number(minPrice);
+        const belowMax = !maxPrice || price <= Number(maxPrice);
+        return aboveMin && belowMax;
+      });
+    }
+    return matchesStart && matchesEnd && matchesLocation && matchesPrice;
+  });
+
   return (
-    // #region Code before CSS Module
-    // <div className="container">
-    //   <NavbarUser />
-
-    //   <div className="search-alert">
-    //     <p>Search results for "{query}"</p>
-    //   </div>
-
-    //   <div className="event-grid">
-    //     {matchedEvents.length > 0 ? (
-    //       matchedEvents.map((event) => (
-    //         <div key={event.id} className="event">
-    //           <img
-    //             src={event.image}
-    //             alt={event.title}
-    //             className="event-image"
-    //           />
-    //           <div className="event-date">
-    //             {new Date(event.date).toLocaleDateString(undefined, {
-    //               weekday: "long",
-    //               year: "numeric",
-    //               month: "long",
-    //               day: "numeric",
-    //             })}
-    //           </div>
-    //           <div className="event-details">{event.title}</div>
-    //         </div>
-    //       ))
-    //     ) : (
-    //       <p>No events found for "{query}".</p>
-    //     )}
-    //   </div>
-    // </div>
-    // #endregion
     <div className={styles['container']}>
-
+      <div className={styles['filters']}>
+        <input
+          type="date"
+          value={startDate}
+          onChange={e => setStartDate(e.target.value)}
+          placeholder="Start Date"
+        />
+        <input
+          type="date"
+          value={endDate}
+          onChange={e => setEndDate(e.target.value)}
+          placeholder="End Date"
+        />
+        <input
+          type="text"
+          value={filterLocation}
+          onChange={e => setFilterLocation(e.target.value)}
+          placeholder="Location"
+          list="location-suggestions"
+        />
+        <datalist id="location-suggestions">
+          {[...new Set(filteredEvents.map(e => e.location))]
+            .filter(loc => loc && loc.toLowerCase().includes(filterLocation.toLowerCase()))
+            .map(loc => (
+              <option value={loc} key={loc} />
+            ))}
+        </datalist>
+        <input
+          type="number"
+          value={minPrice}
+          onChange={e => setMinPrice(e.target.value)}
+          placeholder="Min Price"
+          min="0"
+        />
+        <input
+          type="number"
+          value={maxPrice}
+          onChange={e => setMaxPrice(e.target.value)}
+          placeholder="Max Price"
+          min="0"
+        />
+      </div>
       <div className={styles['search-alert']}>
         <p>
           Search results
@@ -88,8 +116,8 @@ const EventPage = () => {
       <div className={styles['event-grid']}>
         {loading ? (
           <p>Loading events...</p>
-        ) : allEvents.length > 0 ? (
-          allEvents.map((event) => {
+        ) : filteredEvents.length > 0 ? (
+          filteredEvents.map((event) => {
             const handleClick = () => {
               if (event.isBackend) {
                 navigate(`/homepage/my-tickets/event/${event.id}`);
