@@ -37,7 +37,7 @@ class User(db.Model):
     name  = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    # role = db.Column(db.Enum(UserRole), nullable=False)
+    role = db.Column(db.Enum(UserRole), nullable=False)
 
     # (optional)
     __mapper_args__ = {

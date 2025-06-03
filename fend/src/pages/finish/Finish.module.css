@@ -43,7 +43,7 @@ p {
     margin-bottom: 20px;
 }
 
-.explore-btn {
+.btn {
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #74c0fc;
@@ -55,6 +55,15 @@ p {
     transition: background-color 0.3s;
 }
 
-.explore-btn:hover {
+.explore-btn:hover .view-ticket-btn:hover {
     background-color: #4dabf7;
 }
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+
