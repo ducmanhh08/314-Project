@@ -34,25 +34,29 @@ const MyTickets = () => {
   );
 
   return (
-    <div className="my-tickets-page">
-      <div className="content">
-        <a href="#" className="back-link">← Homepage</a>
-        <h2>My Tickets</h2>
-        {sortedTickets.length === 0 && <p>No tickets found.</p>}
+    <div className={styles['my-tickets-page']}>
+      <div className={styles['content']}>
+        <a href="#" className={styles['back-link']}>← Homepage</a>
+        <h2 className={styles['title']}>My Tickets</h2>
+        {sortedTickets.length === 0 && <p className={styles['no-tickets']}>No tickets found.</p>}
 
         {sortedTickets.map(ticket => (
           <div className={styles['ticket-card']} key={ticket.id}>
-            <img src={ticket.event_image?.startsWith('/images/events/') ? ticket.event_image : `http://localhost:5000${ticket.event_image}`} alt={ticket.event_title} />
+            <img
+              src={ticket.event_image?.startsWith('/images/events/') ? ticket.event_image : `http://localhost:5000${ticket.event_image}`}
+              alt={ticket.event_title}
+              className={styles['ticket-image']}
+            />
             <div className={styles['ticket-details']}>
-              <h3>{ticket.event_title}</h3>
-              <p>{formatEventDate(ticket.event_date)}</p>
-              <p>{ticket.event_location}</p>
-              <p>x{ticket.quantity} {ticket.type}</p>
+              <h3 className={styles['event-title']}>{ticket.event_title}</h3>
+              <p className={styles['event-date']}>{formatEventDate(ticket.event_date)}</p>
+              <p className={styles['event-location']}>{ticket.event_location}</p>
+              <p className={styles['ticket-type']}>x{ticket.quantity} {ticket.type}</p>
             </div>
             <div className={styles['buttons']}>
-              <button onClick={() => navigate(`/homepage/my-tickets/event/${ticket.event_id}`)}>View Event Detail</button>
+              <button className={styles['view-btn']} onClick={() => navigate(`/homepage/my-tickets/event/${ticket.event_id}`)}>View Event Detail</button>
               {ticket.is_refundable && (
-                <button onClick={() => navigate(`/homepage/my-tickets/refund-request/${ticket.id}`)}>Request a Refund</button>
+                <button className={styles['refund-btn']} onClick={() => navigate(`/homepage/my-tickets/refund-request/${ticket.id}`)}>Request a Refund</button>
               )}
             </div>
           </div>
@@ -60,28 +64,28 @@ const MyTickets = () => {
 
         {/* Example static tickets for demonstration */}
         <div className={styles['ticket-card']}>
-          <img src="/images/adele.jpg" alt="Weekend with Adele" />
-          <div className="ticket-details">
-            <h3>Weekend with ADELE</h3>
-            <p>26 March 2025 (Sat.) 18.00</p>
-            <p>The Colosseum Theater at Caesars Palace</p>
-            <p>x1 VIP Diamond Package</p>
-          </div>  
-          <div className="buttons">
-              <button>Request a Refund</button> 
+          <img src="/images/adele.jpg" alt="Weekend with Adele" className={styles['ticket-image']} />
+          <div className={styles['ticket-details']}>
+            <h3 className={styles['event-title']}>Weekend with ADELE</h3>
+            <p className={styles['event-date']}>26 March 2025 (Sat.) 18.00</p>
+            <p className={styles['event-location']}>The Colosseum Theater at Caesars Palace</p>
+            <p className={styles['ticket-type']}>x1 VIP Diamond Package</p>
+          </div>
+          <div className={styles['buttons']}>
+            <button className={styles['refund-btn']}>Request a Refund</button>
           </div>
         </div>
 
-        <div className="ticket-card">
-          <img src="/images/pottery.jpg" alt="Pottery Workshop" />
-          <div className="ticket-details">
-            <h3>POTTERY WORKSHOP</h3>
-            <p>Sunday, 10 September 2024</p>
-            <p>10 am - 12pm</p>
-            <p>x1 General Admission</p>
-          </div>  
-            <div className="buttons">
-              <button>Waiting List</button>
+        <div className={styles['ticket-card']}>
+          <img src="/images/pottery.jpg" alt="Pottery Workshop" className={styles['ticket-image']} />
+          <div className={styles['ticket-details']}>
+            <h3 className={styles['event-title']}>POTTERY WORKSHOP</h3>
+            <p className={styles['event-date']}>Sunday, 10 September 2024</p>
+            <p className={styles['event-location']}>10 am - 12pm</p>
+            <p className={styles['ticket-type']}>x1 General Admission</p>
+          </div>
+          <div className={styles['buttons']}>
+            <button className={styles['waitlist-btn']}>Waiting List</button>
           </div>
         </div>
       </div>
