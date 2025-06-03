@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProfileUpload.module.css';
+import styles from './ProfileUpload.module.css';
 
 const ProfileUpload = () => {
   const [image, setImage] = useState(null);
@@ -17,18 +17,18 @@ const ProfileUpload = () => {
 
   return (
     <div
-      className="upload-box"
+      className={styles['uploadBox']}
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
     >
       {image ? (
-        <img src={image} alt="Profile Preview" className="profile-preview" />
+        <img src={image} alt="Profile Preview" className={styles['profilePreview']} />
       ) : (
         <>
-          <div className="upload-icon">👤</div>
-          <div className="upload-text">ADD A PROFILE IMAGE</div>
-          <div className="upload-subtext">Drag and drop or choose a file to upload</div>
-          <input type="file" accept="image/*" onChange={handleChange} />
+          <div className={styles['uploadIcon']}>👤</div>
+          <div className={styles['uploadText']}>ADD A PROFILE IMAGE</div>
+          <div className={styles['uploadSubtext']}>Drag and drop or choose a file to upload</div>
+          <input type="file" accept="image/*" onChange={handleChange} className={styles['fileInput']} />
         </>
       )}
     </div>

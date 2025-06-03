@@ -361,6 +361,7 @@ const Payment = () => {
                         eventTitle,
                         eventDate,
                         isRefundable,
+                        eventId, 
                     },
                     replace: true
                 })

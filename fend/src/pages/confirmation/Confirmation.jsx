@@ -1,26 +1,9 @@
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Confirmation.module.css';
 
-const ticketTypes = {
-    vip: 'Front Orchestra',
-    premium: 'Rear Orchestra',
-    gold: 'First Mezzanine',
-    silver: 'Second Mezzanine',
-    bronze: 'Restricted View',
-};
-
-const prices = {
-    vip: 3800,
-    premium: 2900,
-    gold: 2200,
-    silver: 1600,
-    bronze: 1200,
-};
-
 const deliveryFees = {
-    'Mobile Ticket': 17.8,
-    'PDF': 7.2,
+    'Mobile Ticket': 1.5,
+    'PDF': 1.0,
     'Print at Home': 0,
 };
 
@@ -39,76 +22,12 @@ const Confirmation = () => {
         isRefundable = false
     } = location.state || {};
 
-    // const selectedTickets = Object.entries(ticketQuantities).filter(([_, qty]) => qty > 0);
-    // const subTotal = selectedTickets.reduce((sum, [key, qty]) => sum + prices[key] * qty, 0);
     const selectedTickets = ticketTypes.filter(t => ticketQuantities[t.key] > 0);
     const subTotal = selectedTickets.reduce((sum, t) => sum + t.price * ticketQuantities[t.key], 0);
     const deliveryCost = deliveryFees[deliveryMethod] || 0;
     const total = subTotal + deliveryCost;
 
-
-
     return (
-        // #region Code before CSS Module
-        // <div className="confirmation-container">
-        //     <NavbarUser />
-
-        //     <div className="progress-bar">
-        //         <div className="step completed">Seat Selection</div>
-        //         <div className="step active">Confirmation</div>
-        //         <div className="step">Payment</div>
-        //         <div className="step">Finish</div>
-        //     </div>
-
-        //     <h2 className="section-title">Order Summary</h2>
-
-        //     <div className="summary-wrapper">
-        //         <div className="summary-left">
-        //             <img src="/images/adele.jpg" alt="Event Poster" className="event-image" />
-        //             <h3 className="event-title">Weekend with ADELE</h3>
-        //             <p className="event-date">26 March 2025 (Sat), 18:00</p>
-        //         </div>
-
-        //         <div className="summary-right">
-        //             <table>
-        //                 <thead>
-        //                     <tr>
-        //                         <th>TYPE</th>
-        //                         <th>QTY</th>
-        //                         <th>PRICE</th>
-        //                     </tr>
-        //                 </thead>
-        //                 <tbody>
-        //                     {selectedTickets.map(([key, qty]) => (
-        //                         <tr key={key}>
-        //                             <td>{ticketTypes[key]}</td>
-        //                             <td>{qty}</td>
-        //                             <td>${(prices[key] * qty).toLocaleString()}</td>
-        //                         </tr>
-        //                     ))}
-        //                     {deliveryMethod && (
-        //                         <tr>
-        //                             <td colSpan="2">Delivery: {deliveryMethod}</td>
-        //                             <td>${deliveryCost.toFixed(2)}</td>
-        //                         </tr>
-        //                     )}
-        //                     <tr className="total-row">
-        //                         <td colSpan="2"><strong>Total</strong></td>
-        //                         <td><strong>${total.toLocaleString()}</strong></td>
-        //                     </tr>
-        //                 </tbody>
-        //             </table>
-        //         </div>
-        //     </div>
-
-        //     <div className="button-group">
-        //         <button onClick={() => navigate(-1)}>Back</button>
-        //         <button onClick={() => navigate('./payment', {
-        //         state: { ticketQuantities, deliveryMethod, subTotal, deliveryCost, total }
-        //         })}>Next</button>
-        //     </div>
-        // </div>
-        // #endregion
         <div className={styles['confirmation-container']}>
 
             <div className={styles['progress-bar']}>
@@ -174,16 +93,33 @@ const Confirmation = () => {
                                 ticketQuantities,
                                 deliveryMethod,
                                 ticketTypes,
+                                subTotal,
+                                deliveryCost,
+                                total,
                                 eventImage,
                                 eventTitle,
                                 eventDate,
+                                isRefundable,
+                                eventId,
                             },
-                            replace: true // optional: prevents duplicate history entries
+                            replace: true
                         })
                     }
                 > Back </button>
                 <button onClick={() => navigate('./payment', {
-                    state: { ticketQuantities, deliveryMethod, ticketTypes, subTotal, deliveryCost, total, eventImage, eventTitle, eventDate, eventId, isRefundable }
+                    state: {
+                        ticketQuantities,
+                        deliveryMethod,
+                        ticketTypes,
+                        subTotal,
+                        deliveryCost,
+                        total,
+                        eventImage,
+                        eventTitle,
+                        eventDate,
+                        eventId,
+                        isRefundable
+                    }
                 })}>Next</button>
             </div>
         </div>
