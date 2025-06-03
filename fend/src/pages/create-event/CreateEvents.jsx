@@ -34,10 +34,10 @@ const CreateEvents = () => {
     const [endHour, setEndHour] = useState('');
     const [endMinute, setEndMinute] = useState('');
     const [capacity, setCapacity] = useState('');
-    const [tickets, setTickets] = useState([{ type: '', price: '' }]);
+    const [tickets, setTickets] = useState([{ type: '', price: '', refundable: false }]);
     const [category, setCategory] = useState('');
     const [customCategory, setCustomCategory] = useState('');
-
+    const [uploadError, setUploadError] = useState('');
 
     //db
     const [title, setTitle] = useState('');
@@ -76,15 +76,24 @@ const CreateEvents = () => {
             dateTime = `${date}T${startHour}:${startMinute}`;
         }
 
+        const ticketTypesObj = {};
+        tickets.forEach(ticket => {
+            if (ticket.type && ticket.price) {
+                ticketTypesObj[ticket.type] = {
+                    price: Number(ticket.price),
+                    refundable: !!ticket.refundable
+                };
+            }
+        });
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
         formData.append('date', dateTime);
         formData.append('location', location);
         formData.append('category', category === 'Other' ? customCategory : category);
-        // formData.append('category', category);
-        // formData.append('ticket_price', ticket_price);
-        // formData.append('tickets_available', tickets_available);
+        formData.append('ticket_price', JSON.stringify(ticketTypesObj));
+        formData.append('tickets_available', capacity);
         if (selectedFile) {
             formData.append('image', selectedFile); // 'image' is the key for the file
         }
@@ -92,7 +101,7 @@ const CreateEvents = () => {
         const response = await fetch('http://localhost:5000/create_event', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}` // <-- Add token here
+                'Authorization': `Bearer ${token}`
             },
             body: formData,
         });
@@ -256,23 +265,32 @@ const CreateEvents = () => {
         // </div>
         // #endregion
         <div>
-            <NavbarUser />
             <form onSubmit={handleSubmit} className={styles['create-events-container']}>
                 <h1 className={styles['main-title']}>START YOUR EVENT</h1>
 
                 <div className={styles['upload-section']}>
                     <input
                         type="file"
-                        value={image_url}
                         accept="image/*,video/*"
                         style={{ display: 'none' }}
                         id="event-media-upload"
                         onChange={(e) => {
                             const file = e.target.files[0];
-                            setSelectedFile(file);
                             if (file) {
+                                // Allowed types: jpg, jpeg, png, gif, mp4, etc.
+                                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'video/mp4'];
+                                if (!allowedTypes.includes(file.type)) {
+                                    setUploadError('File type not allowed. Please upload jpg, png, gif, or mp4.');
+                                    setSelectedFile(null);
+                                    setPreviewUrl(null);
+                                    return;
+                                }
+                                setUploadError('');
+                                setSelectedFile(file);
                                 setPreviewUrl(URL.createObjectURL(file));
                             } else {
+                                setUploadError('');
+                                setSelectedFile(null);
                                 setPreviewUrl(null);
                             }
                         }}
@@ -293,7 +311,9 @@ const CreateEvents = () => {
                         <p>Upload Photos and Videos</p>
                     </div>
                 </div>
-
+                {uploadError && (
+                    <div style={{ color: 'red', marginBottom: '20px' }}>{uploadError}</div>
+                )}
                 {/* EVENT OVERVIEW */}
                 <div className={styles['section-box']}>
                     <h2>EVENT OVERVIEW</h2>
@@ -428,43 +448,55 @@ const CreateEvents = () => {
                         className={styles['capacity-input']}
                     />
                     {tickets.map((ticket, index) => (
-                    <div key={index} className={styles['ticket-row']}>
-                        <input
-                        type="text"
-                        placeholder="Ticket type (e.g., VIP, General)"
-                        value={ticket.type}
-                        onChange={(e) => {
-                            const newTickets = [...tickets];
-                            newTickets[index].type = e.target.value;
-                            setTickets(newTickets);
-                        }}
-                        />
-                        <input
-                        type="number"
-                        placeholder="Price"
-                        value={ticket.price}
-                        onChange={(e) => {
-                            const newTickets = [...tickets];
-                            newTickets[index].price = e.target.value;
-                            setTickets(newTickets);
-                        }}
-                        />
-                        {tickets.length > 1 && (
-                        <button
-                            type="button"
-                            onClick={() => setTickets(tickets.filter((_, i) => i !== index))}
-                            className={styles['remove-button']}
-                        >
-                            Remove
-                        </button>
-                        )}
-                    </div>
+                        <div key={index} className={styles['ticket-row']}>
+                            <input
+                                type="text"
+                                placeholder="Ticket type (e.g., VIP, General)"
+                                value={ticket.type}
+                                onChange={(e) => {
+                                    const newTickets = [...tickets];
+                                    newTickets[index].type = e.target.value;
+                                    setTickets(newTickets);
+                                }}
+                            />
+                            <input
+                                type="number"
+                                placeholder="Price"
+                                value={ticket.price}
+                                onChange={(e) => {
+                                    const newTickets = [...tickets];
+                                    newTickets[index].price = e.target.value;
+                                    setTickets(newTickets);
+                                }}
+                            />
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={ticket.refundable}
+                                    onChange={(e) => {
+                                        const newTickets = [...tickets];
+                                        newTickets[index].refundable = e.target.checked;
+                                        setTickets(newTickets);
+                                    }}
+                                />
+                                Refundable
+                            </label>
+                            {tickets.length > 1 && (
+                                <button
+                                    type="button"
+                                    onClick={() => setTickets(tickets.filter((_, i) => i !== index))}
+                                    className={styles['remove-button']}
+                                >
+                                    Remove
+                                </button>
+                            )}
+                        </div>
                     ))}
 
                     <div className={styles['ticket-controls']}>
-                    <button type="button" onClick={() => setTickets([...tickets, { type: '', price: '' }])}>
-                        Add Ticket Type
-                    </button>
+                        <button type="button" onClick={() => setTickets([...tickets, { type: '', price: '' }])}>
+                            Add Ticket Type
+                        </button>
                     </div>
                 </div>
 
@@ -486,11 +518,11 @@ const CreateEvents = () => {
                 <div className={styles['section-box']}>
                     <h2>CATEGORY</h2>
                     <label htmlFor="category"><strong>Select Category</strong></label>
-                    
+
                     <p className={styles['category-note']}>
                         Your event will appear when users filter by this category.
                     </p>
-                    
+
                     <select
                         id="category"
                         value={category}
@@ -515,6 +547,7 @@ const CreateEvents = () => {
                         />
                     )}
                 </div>
+                
                 <button type="submit" className={styles['submit-button']}>Create Event</button>
             </form>
         </div>

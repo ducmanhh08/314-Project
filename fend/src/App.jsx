@@ -26,6 +26,7 @@ import WaitingList2 from './pages/waitinglist-2/WaitingList2';
 import WaitingList3 from './pages/waitinglist-3/WaitingList3';
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePageLayout from "./pages/HomePageLayout";
+import Layout from "./components/Layout";
 
 function App() {
   return (
@@ -35,18 +36,18 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/new-password" element={<NewPassword />} />
-      
 
       {/* Protect all /homepage routes */}
       <Route
         path="/homepage/*"
         element={
-          <ProtectedRoute>
-            <HomePageLayout />
-          </ProtectedRoute>
+          <Layout>
+            <ProtectedRoute>
+              <HomePageLayout />
+            </ProtectedRoute>
+          </Layout>
         }
-      > 
+      >
         <Route index element={<HomePage />} />
         <Route path="result" element={<EventPage />} />
         {/* Ticket Selection option: */}

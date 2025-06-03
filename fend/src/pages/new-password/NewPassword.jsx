@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './NewPassword.module.css';
 
-
 function NewPassword() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -103,14 +102,13 @@ function NewPassword() {
     // </>
     // #endregion
     <>
-      <div className={styles['page-title']}>New Password Page</div>
       <div className={styles['new-password-wrapper']}>
-        <div className={styles['form-container']}>
-          <div className={styles['branding']}>Ticket<br />Please?</div>
-          <h2 className={styles['form-title']}>New Password</h2>
-          <p className={styles['form-subtext']}>
+        <div className={styles['branding']}>Ticket<br />Please?</div>
+          <div className={styles['form-container']}>
+            <h2 className={styles['form-title']}>New Password</h2>
+            <p className={styles['form-subtext']}>
             Please create a new password. For security, we recommend a unique password you haven't used before.
-          </p>
+            </p>
 
           <form onSubmit={handleSubmit}>
             <input

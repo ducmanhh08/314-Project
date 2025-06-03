@@ -97,7 +97,7 @@ export const events = [
 },
 {
     id: 14,
-    image: '/images/events/musical theatre.jpg',
+    image: '/images/events/musical-theatre.jpg',
     title: 'Junior Musical Theatre',
     date: '2025-05-25',
     category: 'slider'

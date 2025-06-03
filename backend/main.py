@@ -1,9 +1,10 @@
 import os
 import jwt
+import json
 from flask import request, jsonify, send_from_directory, current_app
 from flask_cors import CORS
 from config import app, db
-from models import User, Attendee, Organizer, UserRole, Event
+from models import User, Event, Category, Ticket, DeliveryMethod
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
@@ -21,32 +22,17 @@ def get_users():
 @app.route("/create_user", methods=["POST"])
 def create_users():
     data = request.json
-    role = data.get("role")
     name = data.get("name")
     email = data.get("email")
     password = data.get("password")
 
-    if not role or not name or not email or not password:
-        return (
-            jsonify({"message": "Missing required fields"}),
-            400,
-        )
-
-    if role == UserRole.ATTENDEE.value:
-        new_user = Attendee(name=name, email=email, password=password, role=UserRole.ATTENDEE)
-    elif role == UserRole.ORGANIZER.value:
-        new_user = Organizer(name=name, email=email, password=password, role=UserRole.ORGANIZER)
-    else:
-        return jsonify({"message": "Invalid role"}), 400
-        
+    new_user = User(name=name, email=email, password=password)
 
     try:
         db.session.add(new_user)
         db.session.commit()
     except Exception as e:
         return jsonify({"message": str(e)}), 400
-
-    return jsonify({"message": f"{role.capitalize()} created!"}), 201
 
 @app.route("/update_user/<int:user_id>", methods=["PATCH"])
 def update_user(user_id):
@@ -61,7 +47,6 @@ def update_user(user_id):
 
     if data.get("password"):
         user.password = data["password"]
-    user.role = UserRole(data["role"])
 
     db.session.commit()
 
@@ -88,7 +73,6 @@ def register_user():
     email = data.get("email")
     password = data.get("password")
     hashed_password = generate_password_hash(password)
-    # role = data.get("role")  # "attendee" or "organizer"
 
     if not all([name, email, password]):
         return jsonify({"message": "All fields are required."}), 400
@@ -96,12 +80,6 @@ def register_user():
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "Email already registered."}), 409
 
-    # if role == UserRole.ATTENDEE.value:
-    #     new_user = Attendee(name=name, email=email, password=password, role=UserRole.ATTENDEE)
-    # elif role == UserRole.ORGANIZER.value:
-    #     new_user = Organizer(name=name, email=email, password=password, role=UserRole.ORGANIZER)
-    # else:
-    #     return jsonify({"message": "Invalid role."}), 400
     new_user = User(name=name, email=email, password=hashed_password)
 
     db.session.add(new_user)
@@ -126,7 +104,9 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
     return decorated
 
-SECRET_KEY = "your_secret_key" 
+with open('secret-key.txt', 'r') as f:
+    SECRET_KEY = f.read().strip()
+
 @app.route("/login", methods=["POST"])
 def login():
     data = request.json
@@ -202,11 +182,17 @@ def create_event():
     title = request.form.get('title')
     description = request.form.get('description')
     location = request.form.get('location')
-    # category = request.form.get('category')
-    # ticket_price = request.form.get('ticket_price')
-    # tickets_available = request.form.get('tickets_available')
+    category_str = request.form.get('category')
+    ticket_price = request.form.get('ticket_price')
+    tickets_available = request.form.get('tickets_available')
     date_str = request.form.get('date')
-    print("Received date_str:", date_str) 
+
+    try:
+        category = Category(category_str)
+    except ValueError:
+        return jsonify({"message": "Invalid category."}), 400
+    
+    ticket_price = json.loads(ticket_price) if ticket_price else {}
 
     date = None
     if date_str:
@@ -238,9 +224,9 @@ def create_event():
         location=location,
         image_url=image_url,
         # organizer_id=current_user.id
-        # category=category,
-        # ticket_price=ticket_price,
-        # tickets_available=tickets_available,
+        category=category,
+        ticket_price=ticket_price,
+        tickets_available=tickets_available,
     )
     
     db.session.add(new_event)
@@ -256,7 +242,7 @@ def serve_event_image(filename):
 # @token_required
 # def my_events(current_user):
 def my_events():
-    # events = Event.query.filter_by(organizer_id=current_user.id).all()
+    # events = Event.query.filter_by(organizer_id=current_user.id).all() # TODO: UNDO THIS TO SHOW NUM OF EVENT ON USeR
     events = Event.query.all()
     return jsonify([event.to_json() for event in events])
 
@@ -281,6 +267,47 @@ def search_events():
     query = request.args.get("query", "")
     events = Event.query.filter(Event.title.ilike(f"%{query}%")).all()
     return jsonify([event.to_json() for event in events])
+
+@app.route('/api/tickets', methods=['POST'])
+def create_tickets():
+    data = request.get_json()
+    tickets = data.get('tickets', [])
+    created = []
+    for t in tickets:
+        ticket = Ticket(
+            event_id=t['event_id'],
+            user_id=t['user_id'],
+            type=t['type'],
+            price=t['price'],
+            delivery_method=DeliveryMethod(t['delivery_method']),
+            is_refundable=t['is_refundable'],
+            quantity=t['quantity']
+        )
+        db.session.add(ticket)
+        created.append(ticket)
+    db.session.commit()
+    return jsonify([ticket.to_json() for ticket in created]), 201
+
+@app.route("/my_tickets", methods=["GET"])
+# @token_required
+# def my_tickets(current_user):
+def my_tickets():
+    user_id = request.args.get('user_id')
+    # tickets = Event.query.filter_by(user_id=user_id).all() # TODO: UNDO THIS TO SHOW NUM OF EVENT ON USeR
+    tickets = Ticket.query.all()
+    result = []
+    for ticket in tickets:
+        event = Event.query.get(ticket.event_id)
+        ticket_json = ticket.to_json()
+        if event:
+            ticket_json['event_title'] = event.title
+            ticket_json['event_date'] = event.date.isoformat()
+            ticket_json['event_location'] = event.location
+            ticket_json['event_image'] = event.image_url
+        result.append(ticket_json)
+    return jsonify(result)
+
+
 
 
 if __name__ == "__main__":

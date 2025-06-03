@@ -1,12 +1,12 @@
 // import React from 'react';
-import Navbar from '../components/Navbar/NavbarUser'; 
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { events } from './search-option/DataEvent';
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   const filteredEvents = events.filter((event) =>
     event.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -14,7 +14,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container">
         <input
           type="text"

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import NavbarUser from '../../components/Navbar/NavbarUser'; // Make sure path matches your structure
+import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -11,11 +10,11 @@ const EventDetail = () => {
     useEffect(() => {
         const token = sessionStorage.getItem('token') || localStorage.getItem('token');
         fetch(`http://localhost:5000/event/${id}`)
-        //     , {
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`
-        //     }
-        // })
+            //     , {
+            //     headers: {
+            //         'Authorization': `Bearer ${token}`
+            //     }
+            // })
             .then(res => res.json())
             .then(data => setEvent(data));
     }, [id]);
@@ -23,7 +22,6 @@ const EventDetail = () => {
     if (!event) {
         return (
             <div>
-                <NavbarUser />
                 <div className={styles['event-detail-container']}>
                     <p>Loading event details...</p>
                 </div>
@@ -148,7 +146,6 @@ const EventDetail = () => {
         // </div>
         // #endregion
         <div>
-            <NavbarUser />
 
             <div className={styles['event-detail-container']}>
                 <div className={styles['poster-container']}>
@@ -185,8 +182,8 @@ const EventDetail = () => {
                                                     image: event.image_url?.startsWith('http')
                                                         ? event.image_url
                                                         : `http://localhost:5000${event.image_url}`,
-                                                    title: event.title, 
-                                                    date: event.date, 
+                                                    title: event.title,
+                                                    date: event.date,
                                                 }
                                             })
                                         }
@@ -208,7 +205,24 @@ const EventDetail = () => {
                     <div className={styles['pricing-container']}>
                         <div className={styles['pricing-list']}>
                             <h2>Ticket Pricing</h2>
-                            <div className={styles['category-price']}>
+                            {event.ticket_price && Object.entries(event.ticket_price).length > 0 ? (
+                                Object.entries(event.ticket_price).map(([type, info]) => (
+                                    <div className={styles['category-price']} key={type}>
+                                        <span className={styles['tier']}>{type}</span>
+                                        <span className={styles['price']}>
+                                            {info.refundable && (
+                                                <span className={styles['refundable']} style={{ color: 'green', fontSize: '0.9em', marginRight: 15, fontWeight: 300 }}>
+                                                    (Refundable)
+                                                </span>
+                                            )}
+                                            ${info.price}
+                                        </span>
+                                    </div>
+                                ))
+                            ) : (
+                                <div>No ticket types available.</div>
+                            )}
+                            {/* <div className={styles['category-price']}>
                                 <span className={styles['tier']}>VIP Diamond Package</span>
                                 <span className={styles['price']}>$ 3,800</span>
                             </div>
@@ -235,7 +249,7 @@ const EventDetail = () => {
                             <div className={styles['category-price']}>
                                 <span className={styles['tier']}>Restricted View</span>
                                 <span className={styles['price']}>$ 600</span>
-                            </div>
+                            </div> */}
                         </div>
                         <div className={styles['seat-plan']}>
                             <img

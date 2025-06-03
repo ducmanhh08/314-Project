@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Dai Banna SIL';
+  src: url('./fonts/DaiBannaSIL-Regular.ttf') format('truetype');
+}
+
 .page-wrapper {
   display: flex;
   justify-content: center;
@@ -5,7 +10,7 @@
 }
 
 .event-detail-container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 10px auto;
     padding: 0 20px;
 }
@@ -29,6 +34,8 @@
 }
 
 .event-info {
+    font-family: 'Dai Banna SIL', serif;
+    font-size: 1.2em;
     position: relative;
 }
 
@@ -45,6 +52,7 @@
 .event-title {
     font-size: 2em;
     color: #333;
+    text-align: left;
 }
 
 .event-description {
@@ -59,10 +67,10 @@
 }
 
 .date-time-section h3 {
-    font-size: 1.2em;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     color: #333;
 }
+
 .date-time-details {
     display: flex;
     align-items: center;
@@ -95,6 +103,7 @@
     padding: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Dai Banna SIL', serif;
     font-weight: bold;
     font-size: 1em;
 }
