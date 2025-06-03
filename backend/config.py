@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # UPLOAD_FOLDER = os.path.join(os.getcwd(), 'public', 'images', 'events')
-UPLOAD_FOLDER = os.path.join('public', 'images', 'events')
+UPLOAD_FOLDER = os.path.join('public', 'images', 'uploaded_events')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # CORS(app)

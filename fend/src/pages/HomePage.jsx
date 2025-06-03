@@ -1,13 +1,11 @@
-// import React from 'react';
 import EventSlider from '../components/EventSlider/EventSlider';
 import PopularEvents from '../components/PopularEvents/PopularEvents';
-import React, { useState, useEffect } from 'react';
 import { events } from './search-option/DataEvent';
+import React, { useState } from 'react';
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   
-
   const filteredEvents = events.filter((event) =>
     event.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -15,13 +13,13 @@ const HomePage = () => {
   return (
     <>
       <div className="container">
-        <input
+        {/* <input
           type="text"
           placeholder="Search events"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-box"
-        />
+        /> */}
 
         {searchTerm ? (
           <div className="search-results">

@@ -8,22 +8,25 @@
     display: flex;
     justify-content: center;
     gap: 40px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .step {
     padding: 8px 16px;
-    border-radius: 20px;
-    background-color: #ccc;
-    font-weight: bold;
+    border-radius: 50px;
+    background-color: #ddd;
+    font-size: 14px;
 }
 
 .step.active {
-    background-color: #76c9f5;
+    background-color: #c9e6ff;
+    border: 2px solid #58a9f4;
+    font-weight: bold;
 }
 
 .step.completed {
-    background-color: #9FD5ED;
+    background-color: #a1d6f2;
+    font-weight: bold;
 }
 
 .order-summary-box {
@@ -54,18 +57,17 @@
 
 .summary-details span {
     display: inline-block;
-    margin: 4px 0;
+    margin: 4px 15px;
 }
 
 .price {
     float: right;
     font-weight: bold;
-    margin-left: 20px;
 }
 
 .total-line {
     border-top: 3px solid #ccc;
-    margin-top: 10px;
+    margin: 10px 15px 0 15px;
     padding-top: 10px;
     display: flex;
     font-size: 20px;
@@ -74,7 +76,6 @@
 
 .section-title-center {
     text-align: center;
-    margin-bottom: 10px;
     font-size: 30px;
 }
 
@@ -159,19 +160,21 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .button-group button {
+    background-color: #add8f7;
+    border: none;
     padding: 10px 24px;
-    border-radius: 6px;
-    font-weight: bold;
     font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.button-group button:disabled {
-    background-color: #ccc;
-    color: #666;
+.button-group button:hover {
+    background-color: #87c7f0;
 }
 
 .payment-icon-button {

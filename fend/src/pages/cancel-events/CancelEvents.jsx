@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './CancelEvents.module.css';
-import NavbarUser from '../../components/Navbar/NavbarUser';
 
 const CancelEvents = () => {
   const [reason, setReason] = useState('');
@@ -51,8 +50,6 @@ const CancelEvents = () => {
   }, [eventId]);
 
   return (
-    <>
-    <NavbarUser /> {/* Navbar component */}
       <div className={styles.container}> {/* Main container */}
         
         {/* Back to homepage link */}
@@ -122,7 +119,6 @@ const CancelEvents = () => {
           <button className={styles['cancel-btn']} onClick={handleCancel}>Cancel Event</button>
         </div>
       </div>
-    </>
     );
   };
 

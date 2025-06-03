@@ -1,7 +1,7 @@
-import React from "react";
-import "./FinanceReport.module.css";
-//import NavbarUser from '../../components/Navbar/NavbarUser';
 import { Attendee } from '../attendee/Attendee';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
+import styles from "./FinanceReport.module.css";
 
 // Original attendee data
 const initialAttendees = [

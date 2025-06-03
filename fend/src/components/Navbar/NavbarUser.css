@@ -15,7 +15,13 @@
     cursor: pointer;
 }
 
-.search-bar input {
+.search-bar {
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 1000px;
+}
+
+.input-bar {
     padding: 0.5rem 1rem;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -23,12 +29,6 @@
     max-width: 100%;
     font-family: 'Dai Banna SIL', serif;
     font-size: 1rem;
-}
-
-.search-bar {
-    flex-shrink: 0;
-    flex-grow: 0;
-    width: 1000px;
 }
 
 .nav-links {
@@ -123,4 +123,8 @@
 
 .category-item:hover {
     background-color: #f0f0f0;
+}
+
+.logout-link {
+    color: #e74c3c !important;
 }

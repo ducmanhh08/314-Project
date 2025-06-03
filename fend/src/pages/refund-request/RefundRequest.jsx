@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './RefundRequest.module.css';
 
 const RefundRequest = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
     const [refundInfo, setRefundInfo] = useState(null);
     const [email, setEmail] = useState('');
     const [comment, setComment] = useState('');
@@ -16,9 +17,22 @@ const RefundRequest = () => {
         }
     }, []);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!agreed) return;
-        alert('Your refund request has been sent!');
+        try {
+            // Call Flask backend to delete the ticket
+            const response = await fetch(`http://localhost:5000/ticket/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                alert('Your refund request has been sent!');
+                navigate('/homepage/my-tickets');
+            } else {
+                alert('Failed to delete ticket.');
+            }
+        } catch (error) {
+            alert('There was an error processing your refund.');
+        }
     };
 
     return (
@@ -92,7 +106,7 @@ const RefundRequest = () => {
                     <div>{refundInfo?.eventTitle}</div>
 
                     <div><strong>Date</strong></div>
-                    <div>{refundInfo?.eventDate}</div>
+                    <div>{refundInfo?.registration_date ? new Date(refundInfo.registration_date).toLocaleString() : ''}</div>
 
                     <div><strong>Original Payment</strong></div>
                     <div>${(refundInfo?.subtotal || 0).toLocaleString()}</div>
@@ -102,11 +116,10 @@ const RefundRequest = () => {
                         {/* {refundInfo?.selectedTickets?.map(([key, qty]) => (
                         <div key={key}>x{qty} {key.replace(/^\w/, c => c.toUpperCase())} Package</div>
                         ))} */}
-                        
                     </div>
 
                     <div><strong>Refund Amount</strong></div>
-                    <div>${(refundInfo?.refundAmount || 0).toLocaleString()}</div>
+                    <div>${(refundInfo?.subtotal || 0).toLocaleString()}</div>
                 </div>
 
                 <div className={styles['comment-section']}>

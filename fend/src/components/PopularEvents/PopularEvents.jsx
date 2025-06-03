@@ -1,53 +1,106 @@
-import { useState } from 'react';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './PopularEvents.css';
+
+const POPULAR_IDS = [1, 2, 3, 4, 5, 6, 17, 18, 19, 20, 21, 22];
 
 const PopularEvents = () => {
   const [showAll, setShowAll] = useState(false);
+  const [allEvents, setAllEvents] = useState([]);
+  const [popularEvents, setPopularEvents] = useState([]);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
-  const popularEvents = [
-    { id: 1, image: 'chaplin.jpg', title: 'Charlie Chaplin Show', date: '2025-05-15' },
-    { id: 2, image: 'dj.jpg', title: 'DJ McQuirre World Tour', date: '2025-08-05' },
-    { id: 3, image: 'market.jpg', title: 'The Paddington Vintage Market', date: '2025-10-22' },
-    { id: 4, image: 'musical-theatre.jpg', title: 'Crystal Clear Production: A Night to Remember', date: '2025-05-11' },
-    { id: 5, image: 'pain-pot.jpg', title: 'Get Creative: FREE Pot Painting', date: '2025-02-19' },
-    { id: 6, image: 'John-Clegg.jpg', title: 'John Clegg Live Music', date: '2025-12-18' },
-    { id: 7, image: 'jenhan.jpg', title: 'Kuah Jenhan: Like this, Like Dad.', date: '2025-07-18' },
-    { id: 8, image: 'fuji rock.jpg', title: 'Fuji Rock Festival 2025.', date: '2025-07-25' },
-    { id: 9, image: 'beach weather.jpg', title: 'BEACH WEATHER: live in concert', date: '2025-08-20' },
-    { id: 10, image: 'xdinary.jpg', title: 'Xdinary Heroes <Beautifull Mind>', date: '2025-07-06' },
-    { id: 11, image: 'adele2.jpg', title: 'Weekends with Adele', date: '2025-03-26' },
-    { id: 12, image: 'family quiz.jpg', title: 'Family Night Trivia.', date: '2025-09-11' },
-  ];
+  useEffect(() => {
+    fetch('http://localhost:5000/events')
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data)) {
+          setAllEvents([]);
+          return;
+        }
+        setAllEvents(data);
+        const filtered = data.filter(event => POPULAR_IDS.includes(event.id));
+        setPopularEvents(filtered);
+      });
+  }, []);
 
   const visibleEvents = showAll ? popularEvents : popularEvents.slice(0, 4);
 
-  return (
-    <div className="popular-events-container">
-      <div className="popular-events-header">
-        <h2>Popular Events</h2>
-        <a href="/homepage/result?query=" className="see-all">See all events</a>
-      </div>
+  const now = new Date();
+  const upcomingEvents = [...allEvents]
+    .filter(event => new Date(event.date) > now)
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .slice(0, 4);
 
-      <div className="popular-events-grid">
-        {visibleEvents.map((event) => (
-          <div key={event.id} className="popular-event-card">
-            <img src={`/images/events/${event.image}`} alt={event.title} />
-            <h3>{event.title}</h3>
-            <p>{new Date(event.date).toLocaleDateString()}</p>
-          </div>
-        ))}
-      </div>
+  const artEvents = allEvents.filter(event => event.category === "Art").slice(0, 4);
 
-      {!showAll && (
-        <div className="show-more-container">
-          <button onClick={() => setShowAll(true)} className="show-more-button">
-            Show More
-          </button>
+  const recentlyAddedEvents = [...allEvents]
+    .sort((a, b) => b.id - a.id)
+    .slice(0, 4);
+
+  const renderEventCards = (events) => (
+    <div className="popular-events-grid">
+      {events.map((event) => (
+        <div
+          key={event.id}
+          className="popular-event-card"
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigate(`./event/${event.id}`)}
+        >
+          <img
+            src={event.image_url?.startsWith('/images/events/')
+              ? event.image_url
+              : `http://localhost:5000${event.image_url}`}
+            alt={event.title}
+          />
+          <h3>{event.title}</h3>
+          <p>{new Date(event.date).toLocaleDateString()}</p>
         </div>
-      )}
+      ))}
     </div>
+  );
+  return (
+    <div>
+      <div className="popular-events-container">
+        <div className="popular-events-header">
+          <h2>Recently Added</h2>
+        </div>
+        {renderEventCards(recentlyAddedEvents)}
+      </div>
+
+      <div className="popular-events-container">
+        <div className="popular-events-header">
+          <h2>Upcoming Events</h2>
+        </div>
+        {renderEventCards(upcomingEvents)}
+      </div>
+
+      <div className="popular-events-container">
+        <div className="popular-events-header">
+          <h2>Featured Art Shows</h2>
+        </div>
+        {renderEventCards(artEvents)}
+      </div>
+
+      <div className="popular-events-container">
+        <div className="popular-events-header">
+          <h2>Popular Events</h2>
+          <a href="/homepage/result?query=" className="see-all">See all events</a>
+        </div>
+        {renderEventCards(visibleEvents)}
+
+        {!showAll && (
+          <div className="show-more-container">
+            <button onClick={() => setShowAll(true)} className="show-more-button">
+              Show More
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+
+
   );
 };
 

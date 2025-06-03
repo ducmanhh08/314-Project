@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Payment.module.css';
 import { useEffect } from 'react';
-// import axios from 'axios';
 
 const Payment = () => {
     const location = useLocation();
@@ -58,6 +57,7 @@ const Payment = () => {
         eventDate = '26 March 2025 (Sat), 18:00',
         eventId = null
     } = location.state || {};
+    
     const [isRefundable, setIsRefundable] = useState(location.state?.isRefundable || false);
     const [agreeTerms, setAgreeTerms] = useState(false);
     const [agreeConditions, setAgreeConditions] = useState(false);
@@ -224,19 +224,19 @@ const Payment = () => {
         <div className={styles['payment-container']}>
 
             <div className={styles['progress-bar']}>
-                <div className={`${styles['step']} ${styles['completed']}`}>Seat Selection</div>
-                <div className={`${styles['step']} ${styles['completed']}`}>Confirmation</div>
-                <div className={`${styles['step']} ${styles['active']}`}>Payment</div>
-                <div className={styles['step']}>Finish</div>
+                <div className={`${styles.step} ${styles.completed}`}>Seat Selection</div>
+                <div className={`${styles.step} ${styles.completed}`}>Confirmation</div>
+                <div className={`${styles.step} ${styles.active}`}>Payment</div>
+                <div className={styles.step}>Finish</div>
             </div>
 
             <div className={styles['order-summary-box']}>
                 <div className={styles['summary-inner']}>
                     <img
                         src={
-                            eventImage.startsWith('/')
-                                ? `http://localhost:5000${eventImage}`
-                                : eventImage
+                            eventImage.startsWith('/images/events/')
+                                ? eventImage
+                                : `http://localhost:5000${eventImage}`
                         } alt="Event Poster" className={styles['payment-event-img']} />
                     <div className={styles['summary-details']}>
                         <h2 className={styles['section-title-center']}>Order Summary</h2>
@@ -247,7 +247,7 @@ const Payment = () => {
                             </div>
                         ))}
                         <div>
-                            <span>Delivery: {deliveryMethod}</span>
+                            <span className={styles['delivery-method']}>Delivery: {deliveryMethod}</span>
                             <span className={styles['price']}>${deliveryCost.toFixed(2)}</span>
                         </div>
                         {isRefundable && (
