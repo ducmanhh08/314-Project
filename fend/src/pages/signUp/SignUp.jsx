@@ -1,49 +1,69 @@
+import React, { useState } from 'react';
 import styles from './SignUp.module.css';
 
-function SignUp() {
+const SignUpPage = () => {
+  const [role, setRole] = useState('guest');
+
   return (
-    <div className={styles['signupContainer']}>
-      <div className={styles['card']}>
-        <div className={styles['signupForm']}>
-          <h1 className={styles['signup']}>Sign up</h1>
-          <h2 className={styles['PROMO']}>
-            Unlock your personalized journey by entering personal details below.
-          </h2>
+    <div className={styles['signup-container']}>
+      <div className={styles['signup-card']}>
+        {/* Left Section */}
+        <div className={styles['signup-left']}>
+          <img src="/images/logo.jpg" alt="logo" className={styles['logo-img']} />
+          <h2>Welcome back</h2>
+          <p>
+            Sign in to stay connected and make the most of your exclusive offers.
+          </p>
+          <button className={styles['login-button']}>Login</button>
 
-          <form>
-            <label htmlFor="username" className={styles['fn']}>User Name</label>
-            <input id="username" name="username" className={styles['box']} type="text" placeholder="User Name" />
-
-            <label htmlFor="fullName" className={styles['fn']}>Full Name</label>
-            <input id="fullName" name="fullName" className={styles['box']} type="text" placeholder="Full Name" />
-
-            <label htmlFor="phone" className={styles['fn']}>Phone Number</label>
-            <input id="phone" name="phone" className={styles['box']} type="text" placeholder="Phone Number" />
-
-            <label htmlFor="email" className={styles['fn']}>Email</label>
-            <input id="email" name="email" className={styles['box']} type="text" placeholder="Email Address" />
-
-            <label htmlFor="password" className={styles['fn']}>Password</label>
-            <input id="password" name="password" className={styles['box']} type="password" placeholder="Password" />
-
-            <label htmlFor="confirmPassword" className={styles['fn']}>Confirm Password</label>
-            <input id="confirmPassword" name="confirmPassword" className={styles['box']} type="password" placeholder="Confirm Password" />
-
-            <div style={{ textAlign: 'center' }}>
-              <button type="submit" className={styles['signupButton']}>Sign up</button>
-            </div>
-          </form>
+          {/* Toggle */}
+          <div className={styles['role-switcher']}>
+            <span>Guest</span>
+            <label className={styles['switch']}>
+              <input
+                type="checkbox"
+                checked={role === 'organizer'}
+                onChange={() => setRole(role === 'guest' ? 'organizer' : 'guest')}
+              />
+              <span className={styles['slider']}></span>
+            </label>
+            <span>Organizer</span>
+          </div>
         </div>
 
-        <div className={styles['signupRight']}>
-          <img src="/images/logo.png" alt="logo" className={styles['logoImg']} />
-          <h2>Welcome back</h2>
-          <p>Sign in to stay connected and make the most of your exclusive offers.</p>
-          <button className={styles['loginButton']}>Login</button>
+        {/* Right Section */}
+        <div className={styles['signup-right']}>
+          <h1>Sign up</h1>
+          <p className={styles['signup-description']}>
+            {role === 'guest'
+              ? 'Unlock your personalized journey. Enter your personal details to begin.'
+              : 'Sign in to start your first journey as organizer. Enter your personal details to begin.'}
+          </p>
+          <form>
+            <label>User Name</label>
+            <input type="text" placeholder="User Name" />
+
+            <label>Full Name</label>
+            <input type="text" placeholder="Full Name" />
+
+            <label>Phone Number</label>
+            <input type="text" placeholder="Phone Number" />
+
+            <label>Email</label>
+            <input type="text" placeholder="Email Address" />
+
+            <label>Password</label>
+            <input type="password" placeholder="Password" />
+
+            <label>Confirm Password</label>
+            <input type="password" placeholder="Confirm Password" />
+
+            <button type="submit" className={styles['signup-button']}>Sign up</button>
+          </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default SignUp;
+export default SignUpPage;
