@@ -17,18 +17,18 @@ const ProfileUpload = () => {
 
   return (
     <div
-      className={styles['uploadBox']}
+      className={styles.uploadBox}
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
     >
       {image ? (
-        <img src={image} alt="Profile Preview" className={styles['profilePreview']} />
+        <img src={image} alt="Profile Preview" className={styles.profilePreview} />
       ) : (
         <>
-          <div className={styles['uploadIcon']}>👤</div>
-          <div className={styles['uploadText']}>ADD A PROFILE IMAGE</div>
-          <div className={styles['uploadSubtext']}>Drag and drop or choose a file to upload</div>
-          <input type="file" accept="image/*" onChange={handleChange} className={styles['fileInput']} />
+          <div className={styles.uploadIcon}>👤</div>
+          <div className={styles.uploadText}>ADD A PROFILE IMAGE</div>
+          <div className={styles.uploadSubtext}>Drag and drop or choose a file to upload</div>
+          <input type="file" accept="image/*" onChange={handleChange} className={styles.fileInput} />
         </>
       )}
     </div>
