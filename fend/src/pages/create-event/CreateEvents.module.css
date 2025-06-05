@@ -296,5 +296,33 @@ input[type="number"] {
     color: #666;
     margin: 4px 0 10px 0;
 }
+.back-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+    background: none;
+    border: none;
+    color: #4A4A48;
+    font-size: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    padding: 0;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+.back-icon {
+    font-size: 18px;
+}
+
 
 

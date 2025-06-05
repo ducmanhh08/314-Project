@@ -5,6 +5,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import { authFetch } from '../../components/authFetch';
+import { FaArrowLeft } from 'react-icons/fa';
+
 
 const locationOptions = {
     Indonesia: {
@@ -112,6 +114,16 @@ const CreateEvents = () => {
     return (
         <div>
             <form onSubmit={handleSubmit} className={styles['create-events-container']}>
+                <div className={styles['back-button-container']}>
+                    <button
+                        type="button"
+                        className={styles['back-button']}
+                        onClick={() => navigate('/dashboard')}
+                    >
+                        <FaArrowLeft className={styles['back-icon']} />
+                    </button>
+                </div>
+
                 <h1 className={styles['main-title']}>START YOUR EVENT</h1>
 
                 <div className={styles['upload-section']}>
