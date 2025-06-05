@@ -38,9 +38,10 @@ function App() {
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/new-password" element={<NewPassword />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/dashboard/create-event" element={<CreateEvents />} />
-      <Route path="/dashboard/my-events" element={<MyEvents />} />
+
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/dashboard/create-event" element={<ProtectedRoute><CreateEvents /></ProtectedRoute>} />
+      <Route path="/dashboard/my-events" element={<ProtectedRoute><MyEvents /></ProtectedRoute>} />
 
       <Route element={<GuestLayout />}>
         <Route path="/event/:id" element={<EventDetail />} />
