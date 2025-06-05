@@ -63,26 +63,36 @@ const EventPage = () => {
 
   return (
     <div className={styles['container']}>
-      <div className={styles['filters']}>
+    <div className={styles['filters']}>
+      <div className={styles['input-group']}>
+        <label htmlFor="start-date">Start Date</label>
         <input
+          id="start-date"
           type="date"
           value={startDate}
           onChange={e => setStartDate(e.target.value)}
-          placeholder="Start Date"
+          className={styles['filter-input']}
         />
+      </div>
+
+      <div className={styles['input-group']}>
+        <label htmlFor="end-date">End Date</label>
         <input
+          id="end-date"
           type="date"
           value={endDate}
           onChange={e => setEndDate(e.target.value)}
-          placeholder="End Date"
+          className={styles['filter-input']}
         />
-        <input
-          type="text"
-          value={filterLocation}
-          onChange={e => setFilterLocation(e.target.value)}
-          placeholder="Location"
-          list="location-suggestions"
-        />
+      </div>
+
+      <input
+        type="text"
+        value={filterLocation}
+        onChange={e => setFilterLocation(e.target.value)}
+        placeholder="Location"
+        className={styles['filter-input']}
+      />
         <datalist id="location-suggestions">
           {[...new Set(filteredEvents.map(e => e.location))]
             .filter(loc => loc && loc.toLowerCase().includes(filterLocation.toLowerCase()))

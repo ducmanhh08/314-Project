@@ -6,13 +6,23 @@
 
 .filters {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap; 
-  gap: 1rem;               
+  flex-wrap: wrap;
+  gap: 1rem;
   align-items: center;
-  overflow-x: auto;  
-  padding: 0 1rem;
+  padding: 10px;
 }
+
+.filters input,
+.filters select {
+  flex: 0 1 500px; 
+  min-width: 200px; 
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
 
 .search-alert {
   background-color: #fbe9e9;
@@ -67,3 +77,26 @@
   font-weight: bold;
   text-align: center;
 }
+.input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.placeholder-text {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none;
+  font-size: 14px;
+}
+
