@@ -101,11 +101,11 @@ function LoginPage() {
             : 'Please log in to create and manage your events.'}
         </p>
         <form onSubmit={handleLogin}>
-          <label className={styles['ha']}>User Name</label>
+          <label className={styles['ha']}>Email</label>
           <p>
             <input
-              type="text"
-              placeholder="Enter your username"
+              type="email"
+              placeholder="Enter your email address "
               className={styles['input-field']}
               value={email}
               onChange={(e) => setEmail(e.target.value)}

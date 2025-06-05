@@ -1,15 +1,17 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfileUpload from './ProfileUpload';
 import styles from './MyInformation.module.css';
 
 function AccountInfo() {
   const [useHomeForBilling, setUseHomeForBilling] = useState(true);
   const [useBillingForShipping, setUseBillingForShipping] = useState(true);
+  const navigate = useNavigate();
 
   return (
     <div className={styles.accountInfoContainer}>
       <header className={styles.header}>
-        <button className={styles.backButton}>← Homepage</button>
+        <button className={styles.backButton} onClick={() => navigate(-1)}>←</button>
         <h1>Account Information</h1>
       </header>
 

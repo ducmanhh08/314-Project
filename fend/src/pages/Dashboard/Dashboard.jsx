@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { authFetch } from '../../components/authFetch';
@@ -31,6 +31,15 @@ const Dashboard = () => {
             }
         };
         fetchEvents();
+
+        const fetchUserName = async () => {
+            const response = await authFetch('http://localhost:5000/me');
+            if (response.ok) {
+                const data = await response.json();
+                setUserName(data.name);
+            }
+        };
+        fetchUserName();
     }, []);
 
     const now = new Date();
@@ -50,14 +59,14 @@ const Dashboard = () => {
                 <a href="" onClick={() => navigate('./my-events')}>My Events</a>
                 <a href="#">Ticket Sales</a>
                 <a href="#">Refund Request</a>
-                <a href="#">My Profile</a>
+                <a href="" onClick={() => navigate('./my-info')}>My Profile</a>
                 <a className={styles.logout} onClick={handleLogout}>Logout</a>
             </div>
 
             {/* Main Content */}
             <div className={styles.mainContent}>
                 <div className={styles.header}>
-                    <h1>Welcome Back, {userName || "User"}!</h1>
+                    <h1>Welcome Back, {(userName && userName.split(' ')[0]) || "User"}!</h1>
                     <div className={styles["create-event-container"]}>
                         <p>CREATE NEW<br />EVENTS</p>
                         <button className={styles["create-event-button"]} onClick={() => navigate('./create-event')}>

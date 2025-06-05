@@ -42,6 +42,7 @@ function App() {
       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/dashboard/create-event" element={<ProtectedRoute><CreateEvents /></ProtectedRoute>} />
       <Route path="/dashboard/my-events" element={<ProtectedRoute><MyEvents /></ProtectedRoute>} />
+      <Route path="/dashboard/my-info" element={<ProtectedRoute><AccountInfo /></ProtectedRoute>} />
 
       <Route element={<GuestLayout />}>
         <Route path="/event/:id" element={<EventDetail />} />

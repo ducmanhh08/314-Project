@@ -1,7 +1,6 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Finish.module.css';
-import NavbarUser from '../../components/Navbar/NavbarUser';
 
 const Finish = () => {
     const navigate = useNavigate();
@@ -26,7 +25,6 @@ const Finish = () => {
 
     return (
         <div className={styles['finish-page']}>
-            <NavbarUser />
 
             <div className={styles['success-box']}>
                 <img src="/images/checkmark.jpg" alt="Success Checkmark" className={styles['success-check']} />
@@ -35,7 +33,7 @@ const Finish = () => {
                 <p>An invoice and e-ticket have been sent to your registered email.</p>
 
                 <div className={styles['button-group']}>
-                    <button className={styles['btn']} onClick={() => navigate('/my-tickets')}>
+                    <button className={styles['btn']} onClick={() => navigate('/homepage/my-tickets')}>
                         View Ticket
                     </button>
                     <button className={styles['btn']} onClick={() => navigate('/homepage')}>

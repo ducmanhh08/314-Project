@@ -62,8 +62,7 @@ const MyTickets = () => {
           </div>
         ))}
 
-        {/* Example static tickets for demonstration */}
-        <div className={styles['ticket-card']}>
+        {/* <div className={styles['ticket-card']}>
           <img src="/images/adele.jpg" alt="Weekend with Adele" className={styles['ticket-image']} />
           <div className={styles['ticket-details']}>
             <h3 className={styles['event-title']}>Weekend with ADELE</h3>
@@ -87,7 +86,7 @@ const MyTickets = () => {
           <div className={styles['buttons']}>
             <button className={styles['waitlist-btn']}>Waiting List</button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

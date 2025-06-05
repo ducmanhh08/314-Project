@@ -70,11 +70,11 @@ def register_user():
     email = data.get("email")
     password = data.get("password")
     hashed_password = generate_password_hash(password)
-    # role = data.get('role', 'attendee').lower()
-    # if role not in ['attendee', 'organizer']:
-    #     return jsonify({'message': 'Invalid role!'}), 400
+    role = data.get('role', 'attendee').lower()
+    if role not in ['attendee', 'organizer']:
+        return jsonify({'message': 'Invalid role!'}), 400
     
-    if not all([name, email, password]): #role
+    if not all([name, email, password, role]): 
         return jsonify({"message": "All fields are required."}), 400
 
     if User.query.filter_by(email=email).first():
@@ -83,8 +83,8 @@ def register_user():
     new_user = User(
         name=name, 
         email=email, 
-        password=hashed_password
-        # role=Role.ORGANIZER if role == 'organizer' else Role.ATTENDEE
+        password=hashed_password,
+        role=Role.ORGANIZER if role == 'organizer' else Role.ATTENDEE
     )
 
     db.session.add(new_user)
@@ -272,14 +272,15 @@ def search_events():
     return jsonify([event.to_json() for event in events])
 
 @app.route('/api/tickets', methods=['POST'])
-def create_tickets():
+@token_required
+def create_tickets(current_user):
     data = request.get_json()
     tickets = data.get('tickets', [])
     created = []
     for t in tickets:
         ticket = Ticket(
             event_id=t['event_id'],
-            user_id=t['user_id'],
+            user_id=current_user.id, 
             type=t['type'],
             price=t['price'],
             delivery_method=DeliveryMethod(t['delivery_method']),
@@ -316,6 +317,10 @@ def delete_ticket(ticket_id):
     db.session.commit()
     return jsonify({"message": "Ticket deleted successfully"}), 200
 
+@app.route("/me", methods=["GET"])
+@token_required
+def get_me(current_user):
+    return jsonify({"name": current_user.name, "email": current_user.email, "role": current_user.role.value}), 200
 
 if __name__ == "__main__":
     with app.app_context():

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 import styles from './RefundRequest.module.css';
 
 const RefundRequest = () => {
@@ -9,6 +9,7 @@ const RefundRequest = () => {
     const [email, setEmail] = useState('');
     const [comment, setComment] = useState('');
     const [agreed, setAgreed] = useState(false);
+    const { fetchTicketCount } = useOutletContext();
 
     useEffect(() => {
         const stored = localStorage.getItem('refundableTicket');
@@ -25,6 +26,7 @@ const RefundRequest = () => {
                 method: 'DELETE',
             });
             if (response.ok) {
+                if (fetchTicketCount) fetchTicketCount(); 
                 alert('Your refund request has been sent!');
                 navigate('/homepage/my-tickets');
             } else {
