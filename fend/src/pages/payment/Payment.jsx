@@ -135,41 +135,53 @@ const Payment = () => {
 
             <div className={styles.PaymentStyles__paymentSection}>
                 <h3 className={styles.PaymentStyles__sectionTitle}>Select Payment Method</h3>
-                    <div className={styles.PaymentStyles__paymentOptions}>
-                    <img src="/images/credit-card-icon.png" alt="Credit Card" onClick={() => setPaymentMethod('card')} />
-                    <img src="/images/afterpay.jpg" alt="Afterpay" onClick={() => alert('You will be directed to AfterPay')} />
-                    <img src="/images/paypal.jpg" alt="PayPal" onClick={() => alert('You will be directed to PayPal')} />
-                </div>
-
-                <div className={styles.PaymentStyles__checkboxes}>
-                <label className={styles.PaymentStyles__checkboxLabel}>
-                    <input
-                    className={styles.PaymentStyles__checkboxInput}
-                    type="checkbox"
-                    checked={agreeTerms}
-                    onChange={(e) => setAgreeTerms(e.target.checked)}
+                <div className={styles.PaymentStyles__paymentOptions}>
+                    <button
+                        className={styles.PaymentStyles__paymentButton}
+                        onClick={() => setPaymentMethod('card')}
+                    >
+                        Credit Card
+                    </button>
+                    <img
+                        src="/images/afterpay.jpg"
+                        alt="Afterpay"
+                        onClick={() => alert('You will be directed to AfterPay')}
                     />
-                    By continuing to payment, you agree to our Terms, Privacy Policy, and Collection Statement.
-                </label>
-                <label className={styles.PaymentStyles__checkboxLabel}>
-                    <input
-                    className={styles.PaymentStyles__checkboxInput}
-                    type="checkbox"
-                    checked={agreeConditions}
-                    onChange={(e) => setAgreeConditions(e.target.checked)}
+                    <img
+                        src="/images/paypal.jpg"
+                        alt="PayPal"
+                        onClick={() => alert('You will be directed to PayPal')}
                     />
-                    I have read and agree to the event’s terms and conditions.
-                </label>
-
-                {paymentMethod === 'card' && (
-                    <div className={styles.PaymentStyles__cardForm}>
-                    <label className={styles.PaymentStyles__cardFormLabel}>Enter your payment details:</label>
-                    <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="Name on card" />
-                    <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="Card number" />
-                    <div className={styles.PaymentStyles__cardFormRow}>
-                        <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="MM/YY" maxLength={5} />
-                        <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="CVV" maxLength={4} pattern="\d*" />
                     </div>
+                <div className={styles.PaymentStyles__checkboxes}>
+                    <label className={styles.PaymentStyles__checkboxLabel}>
+                        <input
+                        className={styles.PaymentStyles__checkboxInput}
+                        type="checkbox"
+                        checked={agreeTerms}
+                        onChange={(e) => setAgreeTerms(e.target.checked)}
+                        />
+                        By continuing to payment, you agree to our Terms, Privacy Policy, and Collection Statement.
+                    </label>
+                    <label className={styles.PaymentStyles__checkboxLabel}>
+                        <input
+                        className={styles.PaymentStyles__checkboxInput}
+                        type="checkbox"
+                        checked={agreeConditions}
+                        onChange={(e) => setAgreeConditions(e.target.checked)}
+                        />
+                        I have read and agree to the event’s terms and conditions.
+                    </label>
+
+                    {paymentMethod === 'card' && (
+                        <div className={styles.PaymentStyles__cardForm}>
+                        <label className={styles.PaymentStyles__cardFormLabel}>Enter your payment details:</label>
+                        <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="Name on card" />
+                        <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="Card number" />
+                        <div className={styles.PaymentStyles__cardFormRow}>
+                            <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="MM/YY" maxLength={5} />
+                            <input className={styles.PaymentStyles__cardFormInput} type="text" placeholder="CVV" maxLength={4} pattern="\d*" />
+                        </div>
                     </div>
                 )}
                 </div>
