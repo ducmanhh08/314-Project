@@ -23,29 +23,43 @@ function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        if (role === 'guest' && data.user.role.toLowerCase() !== 'attendee') {
-          setMessage('You must log in as an attendee to use guest mode.');
-          return;
-        }
-        if (rememberMe) {
-          localStorage.setItem('token', data.token);
+        const userRole = data.user.role.toLowerCase();
+
+        if (role === 'guest') {
+        if (userRole === 'attendee') {
+          if (rememberMe) {
+            localStorage.setItem('token', data.token);
+          } else {
+            sessionStorage.setItem('token', data.token);
+          }
+          navigate('/homepage');
         } else {
-          sessionStorage.setItem('token', data.token);
+          setMessage('You must log in as an attendee to use guest mode.');
         }
-        setMessage(data.message);
-        navigate('/homepage');
-      } else {
-        setMessage(data.message);
+      } else if (role === 'organizer') {
+        if (userRole === 'organizer') {
+          if (rememberMe) {
+            localStorage.setItem('token', data.token);
+          } else {
+            sessionStorage.setItem('token', data.token);
+          }
+          navigate('/dashboard');
+        } else {
+          setMessage('You must log in as an organizer to use organizer mode.');
+        }
       }
-    } catch (error) {
-      setMessage('An error occurred. Please try again.');
+    } else {
+      setMessage(data.message);
     }
-  };
+  } catch (error) {
+    setMessage('An error occurred. Please try again.');
+  }
+};
 
   return (
     <div className={styles['login-container']}>
       <div className={styles['login-left']}>
-        <img src="/images/logo.jpg" alt="logo" className={styles['logo-img']} />
+        <img src="/images/logo.jpg" alt="logo" className={styles['logo-img']} onClick={() => navigate('/')}/>
         {role === 'guest' ? (
           <>
             <h1>Welcome Guest!</h1>
@@ -87,11 +101,11 @@ function LoginPage() {
             : 'Please log in to create and manage your events.'}
         </p>
         <form onSubmit={handleLogin}>
-          <label className={styles['ha']}>User Name</label>
+          <label className={styles['ha']}>Email</label>
           <p>
             <input
-              type="text"
-              placeholder="Enter your username"
+              type="email"
+              placeholder="Enter your email address "
               className={styles['input-field']}
               value={email}
               onChange={(e) => setEmail(e.target.value)}

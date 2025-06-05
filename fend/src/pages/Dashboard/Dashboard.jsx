@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
+import { authFetch } from '../../components/authFetch';
 
 const Dashboard = () => {
     // For toggling status color on selection
     const navigate = useNavigate();
     const [refundStatus, setRefundStatus] = useState('approved');
+    const [events, setEvents] = useState([]);
+    const [userName, setUserName] = useState('');
 
     const handleStatusChange = (e) => {
         setRefundStatus(e.target.value);
@@ -15,9 +18,38 @@ const Dashboard = () => {
         if (window.confirm('Are you sure you want to logout?')) {
             localStorage.removeItem('token');
             sessionStorage.removeItem('token');
-            navigate('/login');
+            navigate('/');
         }
     };
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            const response = await authFetch('http://localhost:5000/my_events')
+            if (response.ok) {
+                const data = await response.json();
+                setEvents(data);
+            }
+        };
+        fetchEvents();
+
+        const fetchUserName = async () => {
+            const response = await authFetch('http://localhost:5000/me');
+            if (response.ok) {
+                const data = await response.json();
+                setUserName(data.name);
+            }
+        };
+        fetchUserName();
+    }, []);
+
+    const now = new Date();
+    const nextMonth = new Date();
+    nextMonth.setMonth(now.getMonth() + 1);
+
+    const upcomingEvents = events.filter(event => {
+        const eventDate = new Date(event.date);
+        return eventDate >= now && eventDate <= nextMonth;
+    });
 
     return (
         <div className={styles.dashboardContainer}>
@@ -27,14 +59,14 @@ const Dashboard = () => {
                 <a href="" onClick={() => navigate('./my-events')}>My Events</a>
                 <a href="#">Ticket Sales</a>
                 <a href="#">Refund Request</a>
-                <a href="#">My Profile</a>
+                <a href="" onClick={() => navigate('./my-info')}>My Profile</a>
                 <a className={styles.logout} onClick={handleLogout}>Logout</a>
             </div>
 
             {/* Main Content */}
             <div className={styles.mainContent}>
                 <div className={styles.header}>
-                    <h1>Welcome Back, Raissa!</h1>
+                    <h1>Welcome Back, {(userName && userName.split(' ')[0]) || "User"}!</h1>
                     <div className={styles["create-event-container"]}>
                         <p>CREATE NEW<br />EVENTS</p>
                         <button className={styles["create-event-button"]} onClick={() => navigate('./create-event')}>
@@ -47,7 +79,7 @@ const Dashboard = () => {
                 <div className={styles.cardContainer}>
                     <div className={styles.card}>
                         <p>TOTAL EVENTS CREATED</p>
-                        <h2>17</h2>
+                        <h2>{events.length}</h2>
                     </div>
                     <div className={styles.card}>
                         <p>TICKET SOLD</p>
@@ -55,7 +87,7 @@ const Dashboard = () => {
                     </div>
                     <div className={styles.card}>
                         <p>UPCOMING EVENTS</p>
-                        <h2>2</h2>
+                        <h2>{upcomingEvents.length}</h2>
                     </div>
                     <div className={styles.card}>
                         <p>PENDING REFUND REQUEST</p>

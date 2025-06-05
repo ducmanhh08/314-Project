@@ -101,9 +101,9 @@ const NavbarUser = ({ eventCount = 0, ticketCount = 0 }) => {
                             <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-info'); }}>
                                 My Profile
                             </a>
-                            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-events'); }}>
+                            {/* <a href="#" onClick={(e) => { e.preventDefault(); navigate('/homepage/my-events'); }}>
                                 My Event ({eventCount})
-                            </a>
+                            </a> */}
                             <a className="logout-link" href="#"
                                 onClick={(e) => {
                                     if (window.confirm("Are you sure you want to log out?")) {

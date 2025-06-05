@@ -55,52 +55,6 @@ function NewPassword() {
   };
 
   return (
-    // #region Code before CSS Module
-    // <>
-    //   <div className="page-title">New Password Page</div>
-    //     <div className="new-password-wrapper">
-    //     {/* Form container */}
-    //       <div className="form-container">
-    //       {/* App branding */}
-    //         <div className="branding">Ticket<br />Please?</div>
-
-    //       {/* Inner box that contains the form */}
-    //         <div className="form-box"> </div>
-    //         <h2 className="form-title">New Password</h2>
-    //         <p className="form-subtext">
-    //         Please create a new password. For security, we recommend a unique password you haven't used before.
-    //         </p>
-
-    //       {/* Password creation form */}
-    //       <form onSubmit={handleSubmit}>
-    //         <input
-    //           type="password"
-    //           className="form-control mb-3"
-    //           placeholder="Create new password"
-    //           value={password}
-    //           onChange={(e) => setPassword(e.target.value)}
-    //           required
-    //         />
-
-    //         <input
-    //           type="password"
-    //           className="form-control mb-3"
-    //           placeholder="Confirm your password"
-    //           value={confirmPassword}
-    //           onChange={(e) => setConfirmPassword(e.target.value)}
-    //           required
-    //         />
-
-    //         <button type="submit" className="btn btn-primary w-100">Save</button>
-    //       </form>
-
-    //       {/* Feedback messages */}
-    //       {error && <div className="alert alert-danger mt-3">{error}</div>}
-    //       {message && <div className={`alert alert-${variant} mt-3`}>{message}</div>}
-    //     </div>
-    //   </div>
-    // </>
-    // #endregion
     <>
       <div className={styles['new-password-wrapper']}>
         <div className={styles['branding']}>Ticket<br />Please?</div>

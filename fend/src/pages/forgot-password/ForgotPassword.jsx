@@ -33,46 +33,6 @@ function ForgotPassword() {
 
   //return the JSX layout for the password 
   return (
-    // #region Code before CSS Module
-    // <div className="forgot-password-page-wrapper">
-    //   <div className="page-title">Forgot Password Page</div>
-    //   {/* Outer container to center and style the content*/}
-    //   <div className="forgot-container">
-    //     {/* App branding */}
-    //     <div className="branding">Ticket<br />Please?</div>
-    //     {/* Inner box that contains the form */}
-    //     <div className="forgot-box">
-    //       {/* Title of the page */}
-    //       <h2>Forgot Password</h2>
-    //       {/* Instruction shown above the input field */}
-    //       <small>Enter your email address</small>
-
-    //       {/* Form with email input & continue button */}
-    //       <form onSubmit={handleContinue}>
-    //         {/* Email input field */}
-    //         <input
-    //           // Set the input type to email
-    //           type="email"
-    //           // Placeholder shown inside the input
-    //           placeholder="Enter email address"
-    //           // Controlled input bound to state
-    //           value={email}
-    //           // Update email state on typing            
-    //           onChange={(e) => setEmail(e.target.value)}
-    //           // Makes the input field mandatory
-    //           required
-    //         />
-
-    //         {/*Continue button*/}
-    //         <button type="submit" onClick={() => navigate('/new-password')}>Continue</button>
-    //       </form>
-
-    //       {/* Conditionally show the message if it exists */}
-    //       {message && <p className="message">{message}</p>}
-    //     </div>
-    //   </div>
-    // </div>
-    // #endregion
     <div className={styles['forgot-password-wrapper']}>
       <div className={styles['forgot-container']}>
         <div className={styles['branding']}>Ticket<br />Please?</div>

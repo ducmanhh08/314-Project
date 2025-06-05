@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import styles from './PaymentStyles.module.css';
+import { authFetch } from '../../components/authFetch';
 
 const Payment = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { fetchTicketCount } = useOutletContext();
 
     const [isRefundable, setIsRefundable] = useState(location.state?.isRefundable || false);
     const [agreeTerms, setAgreeTerms] = useState(false);
@@ -26,38 +28,40 @@ const Payment = () => {
 
     const selectedTickets = ticketTypes.filter(t => ticketQuantities[t.key] > 0);
     const hasRefundable = selectedTickets.some(t => t.refundable);
-    const refundableFee = isRefundable ? 6.72 : 0;
+    const refundableFee = isRefundable ? 6.50 : 0;
     const totalWithRefundable = total + refundableFee;
     const isSubmitEnabled = agreeTerms && agreeConditions;
 
     useEffect(() => {
         if (isRefundable) {
-        const refundData = { subtotal, selectedTickets, refundAmount: subtotal, eventTitle, eventDate };
-        localStorage.setItem('refundableTicket', JSON.stringify(refundData));
+            const refundData = { subtotal, selectedTickets, refundAmount: subtotal, eventTitle, eventDate };
+            localStorage.setItem('refundableTicket', JSON.stringify(refundData));
         } else {
-        localStorage.removeItem('refundableTicket');
+            localStorage.removeItem('refundableTicket');
         }
     }, [isRefundable, subtotal, selectedTickets, eventTitle, eventDate]);
 
     const handleSubmit = () => {
         const ticketsToCreate = selectedTickets.map(t => ({
-        event_id: eventId,
-        user_id: 2,
-        type: t.label,
-        price: t.price,
-        delivery_method: deliveryMethod,
-        is_refundable: isRefundable,
-        quantity: ticketQuantities[t.key],
+            event_id: eventId,
+            type: t.label,
+            price: t.price,
+            delivery_method: deliveryMethod,
+            is_refundable: isRefundable,
+            quantity: ticketQuantities[t.key],
         }));
 
-        fetch('http://localhost:5000/api/tickets', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tickets: ticketsToCreate }),
+        authFetch('http://localhost:5000/api/tickets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tickets: ticketsToCreate }),
         })
-        .then(response => response.json())
-        .then(() => navigate('./finish'))
-        .catch(() => alert('Failed to create tickets!'));
+            .then(response => response.json())
+            .then(() => {
+                if (fetchTicketCount) fetchTicketCount(); // <-- call it here
+                navigate('./finish');
+            })
+            .catch(() => alert('Failed to create tickets!'));
     };
 
     return (
@@ -71,34 +75,34 @@ const Payment = () => {
 
             <div className={styles.PaymentStyles__orderSummary}>
                 <div className={styles.PaymentStyles__summaryInner}>
-                <img
-                    src={eventImage.startsWith('/images/events/') ? eventImage : `http://localhost:5000${eventImage}`}
-                    alt="Event Poster"
-                    className={styles.PaymentStyles__eventImg}
-                />
-                <div className={styles.PaymentStyles__summaryDetails}>
-                    <h2 className={styles.PaymentStyles__sectionTitle}>Order Summary</h2>
-                    {selectedTickets.map(t => (
-                    <div key={t.key}>
-                        <span>{t.label} — Qty: {ticketQuantities[t.key]}</span>
-                        <span className={styles.PaymentStyles__price}>${(t.price * ticketQuantities[t.key]).toLocaleString()}</span>
+                    <img
+                        src={eventImage.startsWith('/images/events/') ? eventImage : `http://localhost:5000${eventImage}`}
+                        alt="Event Poster"
+                        className={styles.PaymentStyles__eventImg}
+                    />
+                    <div className={styles.PaymentStyles__summaryDetails}>
+                        <h2 className={styles.PaymentStyles__sectionTitle}>Order Summary</h2>
+                        {selectedTickets.map(t => (
+                            <div key={t.key}>
+                                <span>{t.label} — Qty: {ticketQuantities[t.key]}</span>
+                                <span className={styles.PaymentStyles__price}>${(t.price * ticketQuantities[t.key]).toLocaleString()}</span>
+                            </div>
+                        ))}
+                        <div>
+                            <span>Delivery: {deliveryMethod}</span>
+                            <span className={styles.PaymentStyles__price}>${deliveryCost.toFixed(2)}</span>
+                        </div>
+                        {isRefundable && (
+                            <div>
+                                <span>Refundable Ticket</span>
+                                <span className={styles.PaymentStyles__price}>${refundableFee.toFixed(2)}</span>
+                            </div>
+                        )}
+                        <div className={styles.PaymentStyles__totalLine}>
+                            <strong>Total:</strong>
+                            <strong>${totalWithRefundable.toLocaleString()}</strong>
+                        </div>
                     </div>
-                    ))}
-                    <div>
-                    <span>Delivery: {deliveryMethod}</span>
-                    <span className={styles.PaymentStyles__price}>${deliveryCost.toFixed(2)}</span>
-                    </div>
-                    {isRefundable && (
-                    <div>
-                        <span>Refundable Ticket</span>
-                        <span className={styles.PaymentStyles__price}>${refundableFee.toFixed(2)}</span>
-                    </div>
-                    )}
-                    <div className={styles.PaymentStyles__totalLine}>
-                    <strong>Total:</strong>
-                    <strong>${totalWithRefundable.toLocaleString()}</strong>
-                    </div>
-                </div>
                 </div>
             </div>
 
@@ -106,28 +110,28 @@ const Payment = () => {
                 <div className={styles.PaymentStyles__refundable}>
                     <h3 className={styles.PaymentStyles__sectionTitle}>Refundable Ticket</h3>
                     <p>
-                        Upgrade your booking for just <strong>$6.72</strong> and receive a 100% refund if you cannot attend for one of the many reasons in our <a href="#" onClick={e => { e.preventDefault(); navigate('./refund-policy'); }}>Terms & Conditions</a>.
+                        Upgrade your booking for just <strong>$6.50</strong> and receive a 100% refund if you cannot attend for one of the many reasons in our <a href="#" onClick={e => { e.preventDefault(); navigate('./refund-policy'); }}>Terms & Conditions</a>.
                     </p>
                     <div className={styles.PaymentStyles__radioGroup}>
                         <label className={styles.PaymentStyles__radioLabel}>
-                        <input
-                            className={styles.PaymentStyles__radioInput}
-                            type="radio"
-                            name="refund"
-                            checked={isRefundable}
-                            onChange={() => setIsRefundable(true)}
-                        />
-                        Refundable Ticket
+                            <input
+                                className={styles.PaymentStyles__radioInput}
+                                type="radio"
+                                name="refund"
+                                checked={isRefundable}
+                                onChange={() => setIsRefundable(true)}
+                            />
+                            Refundable Ticket
                         </label>
                         <label className={styles.PaymentStyles__radioLabel}>
-                        <input
-                            className={styles.PaymentStyles__radioInput}
-                            type="radio"
-                            name="refund"
-                            checked={!isRefundable}
-                            onChange={() => setIsRefundable(false)}
-                        />
-                        Non-Refundable Ticket
+                            <input
+                                className={styles.PaymentStyles__radioInput}
+                                type="radio"
+                                name="refund"
+                                checked={!isRefundable}
+                                onChange={() => setIsRefundable(false)}
+                            />
+                            Non-Refundable Ticket
                         </label>
                     </div>
                 </div>
@@ -145,7 +149,7 @@ const Payment = () => {
                     <img
                         src="/images/afterpay.jpg"
                         alt="Afterpay"
-                        onClick={() => alert('You will be directed to AfterPay')}
+                        onCgitlick={() => alert('You will be directed to AfterPay')}
                     />
                     <img
                         src="/images/paypal.jpg"
@@ -190,7 +194,7 @@ const Payment = () => {
             <div className={styles.PaymentStyles__buttonGroup}>
                 <button className={styles.PaymentStyles__button} onClick={() => navigate(-1)}>Back</button>
                 <button className={styles.PaymentStyles__button} disabled={!isSubmitEnabled} onClick={handleSubmit}>
-                Submit Payment
+                    Submit Payment
                 </button>
             </div>
         </div>
