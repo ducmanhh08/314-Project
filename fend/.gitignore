@@ -26,12 +26,14 @@ Thumbs.db
 
 # Environment variables
 .env
+.env/
 .env.*  # e.g., .env.local, .env.production
 
 # Output of npm pack
 *.tgz
 
 # Lock file backups (npm install)
+package-lock.json
 package-lock.json.*
 yarn.lock.*
 
