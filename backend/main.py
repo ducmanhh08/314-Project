@@ -9,6 +9,10 @@ from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from functools import wraps
 
+@app.route('/')
+def home():
+    return 'Flask running on Render!'
+
 # User Routes:
 # @app.route("/users", methods=["GET"])
 # def get_users():

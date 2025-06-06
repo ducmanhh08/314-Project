@@ -1,10 +1,11 @@
 services:
   - type: web
     name: tp-backend
-    plan: free
     env: python
+    plan: free
+    rootDir: backend
     buildCommand: ""
-    startCommand: gunicorn app:app
+    startCommand: gunicorn main:app
     envVars:
       - key: FLASK_ENV
         value: production
@@ -14,9 +15,9 @@ services:
 
   - type: static
     name: ticket-please
+    rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: build
     buildFilter:
       paths:
         - frontend/**
-    rootDir: frontend
