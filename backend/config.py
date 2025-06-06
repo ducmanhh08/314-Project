@@ -10,7 +10,7 @@ UPLOAD_FOLDER = os.path.join('public', 'images', 'uploaded_events')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # CORS(app)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "https://ticket-please-app.onrender.com"}})
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
