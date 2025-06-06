@@ -15,9 +15,9 @@ services:
 
   - type: static
     name: ticket-please
-    rootDir: frontend
+    rootDir: fend
     buildCommand: npm install && npm run build
     staticPublishPath: build
     buildFilter:
       paths:
-        - frontend/**
+        - fend/**
