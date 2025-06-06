@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import styles from './PaymentStyles.module.css';
 import { authFetch } from '../../components/authFetch';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 
 const Payment = () => {

@@ -3,7 +3,7 @@ import styles from './SeatSelection.module.css';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { authFetch } from '../../components/authFetch';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 
 const SeatSelection = () => {

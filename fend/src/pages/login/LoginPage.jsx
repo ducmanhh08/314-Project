@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginPage.module.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -28,29 +28,29 @@ function LoginPage() {
         const userRole = data.user.role.toLowerCase();
 
         if (role === 'guest') {
-        if (userRole === 'attendee') {
-          if (rememberMe) {
-            localStorage.setItem('token', data.token);
+          if (userRole === 'attendee') {
+            if (rememberMe) {
+              localStorage.setItem('token', data.token);
+            } else {
+              sessionStorage.setItem('token', data.token);
+            }
+            navigate('/homepage');
           } else {
-            sessionStorage.setItem('token', data.token);
+            setMessage('You must log in as an attendee to use guest mode.');
           }
-          navigate('/homepage');
-        } else {
-          setMessage('You must log in as an attendee to use guest mode.');
-        }
-      } else if (role === 'organizer') {
-        if (userRole === 'organizer') {
-          if (rememberMe) {
-            localStorage.setItem('token', data.token);
+        } else if (role === 'organizer') {
+          if (userRole === 'organizer') {
+            if (rememberMe) {
+              localStorage.setItem('token', data.token);
+            } else {
+              sessionStorage.setItem('token', data.token);
+            }
+            navigate('/dashboard');
           } else {
-            sessionStorage.setItem('token', data.token);
+            setMessage('You must log in as an organizer to use organizer mode.');
           }
-          navigate('/dashboard');
-        } else {
-          setMessage('You must log in as an organizer to use organizer mode.');
         }
-      }
-    } else {
+      } else {
       setMessage(data.message);
     }
   } catch (error) {

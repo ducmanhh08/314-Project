@@ -3,7 +3,7 @@ import styles from './MyEvents.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 const MyEvents = () => {
     const [events, setEvents] = useState([]);

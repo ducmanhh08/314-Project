@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from './Attendee.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 const attendees = [
   { id: '982543', name: 'John Doe', email: 'john@example.com', phone: '1234567890', date: 'March 15, 2025', ticket: 'General', status: 'Paid' },

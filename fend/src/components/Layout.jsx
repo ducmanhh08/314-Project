@@ -4,7 +4,7 @@ import Navbar from './Navbar/Navbar';
 import { authFetch } from './authFetch';
 import { Outlet } from 'react-router-dom';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 const Layout = ({ children }) => {
   const [ticketCount, setTicketCount] = useState(0);

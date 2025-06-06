@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://ticket-please.onrender.com";
 
 const EventDetail = () => {
     const navigate = useNavigate();
