@@ -3,6 +3,9 @@ import styles from './SeatSelection.module.css';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { authFetch } from '../../components/authFetch';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
 const SeatSelection = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,7 +20,7 @@ const SeatSelection = () => {
     );
 
     useEffect(() => {
-        authFetch(`http://localhost:5000/event/${id}`)
+        authFetch(`${API_BASE_URL}/event/${id}`)
             .then(res => {
                 if (res.status === 401) {
                     navigate('/login');
@@ -103,7 +106,7 @@ const SeatSelection = () => {
                 <img src={
                     event.image_url.startsWith('/images/events/')
                         ? event.image_url
-                        : `http://localhost:5000${event.image_url}`
+                        : `${API_BASE_URL}${event.image_url}`
                 } alt="Event Poster" className={styles['event-poster']} />
 
                 <div className={styles['seat-summary']}>

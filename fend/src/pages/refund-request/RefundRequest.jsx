@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 import styles from './RefundRequest.module.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
 const RefundRequest = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -22,7 +25,7 @@ const RefundRequest = () => {
         if (!agreed) return;
         try {
             // Call Flask backend to delete the ticket
-            const response = await fetch(`http://localhost:5000/ticket/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/ticket/${id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {

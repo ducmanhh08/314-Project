@@ -100,7 +100,7 @@ const CreateEvents = () => {
             formData.append('image', selectedFile); // 'image' is the key for the file
         }
 
-        const response = await authFetch('http://localhost:5000/create_event', {
+        const response = await authFetch('${API_BASE_URL}/create_event', {
             method: 'POST',
             body: formData,
         });

@@ -3,6 +3,9 @@ import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import styles from './PaymentStyles.module.css';
 import { authFetch } from '../../components/authFetch';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
 const Payment = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -51,7 +54,7 @@ const Payment = () => {
             quantity: ticketQuantities[t.key],
         }));
 
-        authFetch('http://localhost:5000/api/tickets', {
+        authFetch('${API_BASE_URL}/api/tickets', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ tickets: ticketsToCreate }),
@@ -76,7 +79,7 @@ const Payment = () => {
             <div className={styles.PaymentStyles__orderSummary}>
                 <div className={styles.PaymentStyles__summaryInner}>
                     <img
-                        src={eventImage.startsWith('/images/events/') ? eventImage : `http://localhost:5000${eventImage}`}
+                        src={eventImage.startsWith('/images/events/') ? eventImage : `${API_BASE_URL}${eventImage}`}
                         alt="Event Poster"
                         className={styles.PaymentStyles__eventImg}
                     />

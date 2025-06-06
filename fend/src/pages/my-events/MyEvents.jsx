@@ -3,6 +3,8 @@ import styles from './MyEvents.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const MyEvents = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true); 
@@ -11,7 +13,7 @@ const MyEvents = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/my_events', {
+            const response = await fetch('${API_BASE_URL}/my_events', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -58,7 +60,7 @@ const MyEvents = () => {
                         event && event.image_url ? (
                             <div className={styles['event-card']} key={event.id}>
                                 <div className={styles['event-images']}>
-                                    <img src={event.image_url?.startsWith('/images/events/') ? event.image_url : `http://localhost:5000${event.image_url}`} alt={event.title} />
+                                    <img src={event.image_url?.startsWith('/images/events/') ? event.image_url : `${API_BASE_URL}${event.image_url}`} alt={event.title} />
                                 </div>
                                 <div className={styles['event-details']}>
                                     <h3>{event.title}</h3>

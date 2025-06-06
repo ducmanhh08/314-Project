@@ -3,6 +3,8 @@ import styles from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { authFetch } from '../../components/authFetch';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Dashboard = () => {
     // For toggling status color on selection
     const navigate = useNavigate();
@@ -24,7 +26,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const response = await authFetch('http://localhost:5000/my_events')
+            const response = await authFetch('${API_BASE_URL}/my_events')
             if (response.ok) {
                 const data = await response.json();
                 setEvents(data);
@@ -33,7 +35,7 @@ const Dashboard = () => {
         fetchEvents();
 
         const fetchUserName = async () => {
-            const response = await authFetch('http://localhost:5000/me');
+            const response = await authFetch('${API_BASE_URL}/me');
             if (response.ok) {
                 const data = await response.json();
                 setUserName(data.name);

@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const EventDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/event/${id}`)
+        fetch(`${API_BASE_URL}/event/${id}`)
             .then(res => {return res.json();})
             .then(data => {setEvent(data);});
     }, [id]);
@@ -28,7 +30,7 @@ const EventDetail = () => {
             <div className={styles['event-detail-container']}>
                 <div className={styles['poster-container']}>
                     <img
-                        src={event.image_url?.startsWith('/images/events/') ? event.image_url : `http://localhost:5000${event.image_url}`}
+                        src={event.image_url?.startsWith('/images/events/') ? event.image_url : `${API_BASE_URL}${event.image_url}`}
                         alt="Event Poster"
                         className={styles['event-poster']}
                     />
@@ -64,7 +66,7 @@ const EventDetail = () => {
                                                 state: {
                                                     image: event.image_url?.startsWith('http')
                                                         ? event.image_url
-                                                        : `http://localhost:5000${event.image_url}`,
+                                                        : `${API_BASE_URL}${event.image_url}`,
                                                     title: event.title,
                                                     date: event.date,
                                                 }

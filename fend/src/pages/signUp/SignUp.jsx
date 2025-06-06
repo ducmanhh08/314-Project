@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const SignUpPage = () => {
   const [role, setRole] = useState('guest');
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ const SignUpPage = () => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5000/register', {
+      const res = await fetch('${API_BASE_URL}/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

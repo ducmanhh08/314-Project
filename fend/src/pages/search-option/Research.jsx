@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Research.module.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const EventPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const EventPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    let url = `http://localhost:5000/search?`;
+    let url = `${API_BASE_URL}/search?`;
     if (query) url += `query=${encodeURIComponent(query)}&`;
     if (category) url += `category=${encodeURIComponent(category)}`;
 
@@ -31,7 +33,7 @@ const EventPage = () => {
           image: event.image_url
             ? (event.image_url.startsWith("http")
               ? event.image_url
-              : `http://localhost:5000${event.image_url}`)
+              : `${API_BASE_URL}${event.image_url}`)
             : "/images/events/default.jpg",
           isBackend: true
         }));
@@ -141,7 +143,7 @@ const EventPage = () => {
                 onClick={event.isBackend ? handleClick : undefined}
               >
                 <img
-                  src={event.image_url?.startsWith('/images/events/') ? event.image_url : `http://localhost:5000${event.image_url}`}
+                  src={event.image_url?.startsWith('/images/events/') ? event.image_url : `${API_BASE_URL}${event.image_url}`}
                   alt={event.title}
                   className={styles['event-image']}
                 />

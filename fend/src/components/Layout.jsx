@@ -4,11 +4,13 @@ import Navbar from './Navbar/Navbar';
 import { authFetch } from './authFetch';
 import { Outlet } from 'react-router-dom';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Layout = ({ children }) => {
   const [ticketCount, setTicketCount] = useState(0);
 
   const fetchTicketCount = useCallback(() => {
-    authFetch('http://localhost:5000/my_tickets')
+      authFetch(`${API_BASE_URL}/my_tickets`)
       .then(res => res.json())
       .then(data => setTicketCount(Array.isArray(data) ? data.length : 0))
       .catch(() => setTicketCount(0));

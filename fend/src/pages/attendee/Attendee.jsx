@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import styles from './Attendee.module.css';
 import NavbarUser from '../../components/Navbar/NavbarUser';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const attendees = [
   { id: '982543', name: 'John Doe', email: 'john@example.com', phone: '1234567890', date: 'March 15, 2025', ticket: 'General', status: 'Paid' },
   { id: '991235', name: 'Jane Smith', email: 'jane@example.com', phone: '0987654321', date: 'March 15, 2025', ticket: 'VIP', status: 'Pending' },
@@ -27,7 +29,7 @@ const Attendee = () => {
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    fetch(`http://localhost:5000/event/${id}`, {
+    fetch(`${API_BASE_URL}/event/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }

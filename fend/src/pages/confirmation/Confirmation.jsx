@@ -1,6 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Confirmation.module.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
 const deliveryFees = {
     'Mobile Ticket': 1.5,
     'PDF': 1.0,
@@ -45,7 +48,7 @@ const Confirmation = () => {
                         src={
                             eventImage.startsWith('/images/events/')
                                 ? eventImage
-                                : `http://localhost:5000${eventImage}`
+                                : `${API_BASE_URL}${eventImage}`
                         } alt="Event Poster" className={styles['event-image']} />
                     <h3 className={styles['event-title']}>{eventTitle}</h3>
                     <p className={styles['event-date']}>

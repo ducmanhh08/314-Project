@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './CancelEvents.module.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const CancelEvents = () => {
   const [reason, setReason] = useState('');
   const [explanation, setExplanation] = useState('');
@@ -19,7 +21,7 @@ const CancelEvents = () => {
     }
     const token = sessionStorage.getItem('token') || localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:5000/event/${eventId}`, {
+      const response = await fetch(`${API_BASE_URL}/event/${eventId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -40,7 +42,7 @@ const CancelEvents = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/event/${eventId}`, {
+      const response = await fetch(`${API_BASE_URL}/event/${eventId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();

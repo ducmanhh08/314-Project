@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EventSlider.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const EventSlider = () => {
     const [sliderEvents, setSliderEvents] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/events')
+        fetch('${API_BASE_URL}/events')
             .then(res => res.json())
             .then(data => {
                 if (!Array.isArray(data)) {
@@ -58,7 +60,7 @@ return (
                         <img
                             src={event.image_url?.startsWith('/images/events/')
                                 ? event.image_url
-                                : `http://localhost:5000${event.image_url}`}
+                                : `${API_BASE_URL}${event.image_url}`}
                             alt={event.title}
                         />
                     </div>

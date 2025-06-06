@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './NewPassword.module.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+
 function NewPassword() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,7 +36,7 @@ function NewPassword() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/reset_password', {
+      const response = await fetch('${API_BASE_URL}/reset_password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, new_password: password }),

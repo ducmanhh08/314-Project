@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './MyTicket.module.css';
 import { authFetch } from '../../components/authFetch';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const MyTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const MyTickets = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
-      const response = await authFetch('http://localhost:5000/my_tickets');
+      const response = await authFetch('${API_BASE_URL}/my_tickets');
       const data = await response.json();
       setTickets(data);
       setLoading(false);
@@ -43,7 +45,7 @@ const MyTickets = () => {
         {sortedTickets.map(ticket => (
           <div className={styles['ticket-card']} key={ticket.id}>
             <img
-              src={ticket.event_image?.startsWith('/images/events/') ? ticket.event_image : `http://localhost:5000${ticket.event_image}`}
+              src={ticket.event_image?.startsWith('/images/events/') ? ticket.event_image : `${API_BASE_URL}${ticket.event_image}`}
               alt={ticket.event_title}
               className={styles['ticket-image']}
             />
