@@ -12,7 +12,7 @@ const MyTickets = () => {
     const fetchTickets = async () => {
       const response = await authFetch('http://localhost:5000/my_tickets');
       const data = await response.json();
-      setTickets(data);
+      setTickets(Array.isArray(data) ? data : []);
       setLoading(false);
     };
     fetchTickets();
