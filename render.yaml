@@ -8,4 +8,15 @@ services:
     envVars:
       - key: FLASK_ENV
         value: production
-      
+    buildFilter:
+      paths:
+        - backend/**
+
+  - type: static
+    name: ticket-please
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    buildFilter:
+      paths:
+        - frontend/**
+    rootDir: frontend
