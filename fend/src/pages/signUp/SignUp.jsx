@@ -34,7 +34,7 @@ const SignUpPage = () => {
       return;
     }
     try {
-      const res = await fetch('${API_BASE_URL}/register', {
+      const res = await fetch(`${API_BASE_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

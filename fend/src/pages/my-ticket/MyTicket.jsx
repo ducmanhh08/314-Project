@@ -12,7 +12,7 @@ const MyTickets = () => {
 
   useEffect(() => {
     const fetchTickets = async () => {
-      const response = await authFetch('${API_BASE_URL}/my_tickets');
+      const response = await authFetch(`${API_BASE_URL}/my_tickets`);
       const data = await response.json();
       setTickets(data);
       setLoading(false);

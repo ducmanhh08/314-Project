@@ -10,7 +10,7 @@ const EventSlider = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('${API_BASE_URL}/events')
+        fetch(`${API_BASE_URL}/events`)
             .then(res => res.json())
             .then(data => {
                 if (!Array.isArray(data)) {

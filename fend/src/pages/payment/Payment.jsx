@@ -54,7 +54,7 @@ const Payment = () => {
             quantity: ticketQuantities[t.key],
         }));
 
-        authFetch('${API_BASE_URL}/api/tickets', {
+        authFetch(`${API_BASE_URL}/api/tickets`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ tickets: ticketsToCreate }),

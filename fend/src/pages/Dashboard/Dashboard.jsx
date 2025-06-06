@@ -26,7 +26,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const response = await authFetch('${API_BASE_URL}/my_events')
+            const response = await authFetch(`${API_BASE_URL}/my_events`)
             if (response.ok) {
                 const data = await response.json();
                 setEvents(data);
@@ -35,7 +35,7 @@ const Dashboard = () => {
         fetchEvents();
 
         const fetchUserName = async () => {
-            const response = await authFetch('${API_BASE_URL}/me');
+            const response = await authFetch(`${API_BASE_URL}/me`);
             if (response.ok) {
                 const data = await response.json();
                 setUserName(data.name);

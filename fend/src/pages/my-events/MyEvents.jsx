@@ -13,7 +13,7 @@ const MyEvents = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-            const response = await fetch('${API_BASE_URL}/my_events', {
+            const response = await fetch(`${API_BASE_URL}/my_events`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
